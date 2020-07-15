@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback, SyntheticEvent } from 'react';
 
 import { debounce } from 'lodash';
 
+import { generateUpdatedFilters } from '../../utils';
+
 import { TextField, FormControlLabel, Checkbox } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import OptionIconGenerator from '../OptionIconGenerator';
@@ -32,11 +34,8 @@ const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoadi
         }
     };
 
-    const handleOnCheckboxChange = (type: string) => () => {
-        const updatedFilters = filters.includes(type)
-            ? filters.filter(filterType => filterType !== type)
-            : [ ...filters, type ]
-        ;
+    const handleOnCheckboxChange = (type: 'users' | 'repos') => () => {
+        const updatedFilters = generateUpdatedFilters(filters, type);
         
         setFilters(updatedFilters);
     };

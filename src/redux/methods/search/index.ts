@@ -7,7 +7,6 @@ import { setResultByTarget, setIsLoading, setErrorByTarget } from '../../../feat
 const gAPI = githubAPI();
 
 export const getSearchResults = (searchPhrase: string, activeFilters: Array<string>) => async (dispatch: Dispatch) => {
-    console.log(activeFilters);
     dispatch(setIsLoading({ isLoading: true }));
 
     const establishGAPIMethodToUse = (type: string) => {
