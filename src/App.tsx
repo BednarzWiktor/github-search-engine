@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+
+import SearchForm from './features/search/SearchForm';
+
+import styles from './index.module.css';
+
+const App = () =>
+    <Provider store={store}>
+      <section className={styles.container}>
+        <header className={styles.header}>
+          <h1 className={styles.headerMain}>
+            Traverse GitHub
+          </h1>
+          <span className={styles.headerSub}>
+            to find a <strong>user</strong> or a <strong>repository</strong>
+          </span>
+        </header>
+        <main className={styles.search}>
+          <SearchForm />
+        </main>
+      </section>
+    </Provider>
+;
 
 export default App;
