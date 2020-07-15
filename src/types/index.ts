@@ -4,9 +4,14 @@ interface Result {
     [key: string]: SearchUsersResponseData['items'] | SearchReposResponseData['items'];
 }
 
+interface Error {
+    [key: string]: string | null;
+}
+
 export type SliceState = {
     result: Result;
     isLoading: Boolean;
+    error: Error;
 };
 
 export interface ResultAction {
@@ -16,4 +21,9 @@ export interface ResultAction {
 
 export interface IsLoadingAction {
     isLoading: Boolean
+}
+
+export interface ErrorAction {
+    target: 'users' | 'repositiories';
+    result: string | null
 }

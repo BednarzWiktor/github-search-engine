@@ -10,5 +10,7 @@ export type OptionIconGeneratorProps = {
 
 export interface SearchProps {
     combinedResults: Array<SearchResultItem>,
-    getSearchResults: Function
+    isLoading: Boolean,
+    getSearchResults: Function,
+    clearSearchResults: Function
 }

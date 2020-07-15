@@ -1,8 +1,8 @@
-import React, { useState, useEffect, SyntheticEvent } from 'react';
+import React, { useState, useEffect, useCallback, SyntheticEvent } from 'react';
 
 import { debounce } from 'lodash';
 
-import { TextField } from '@material-ui/core';
+import { TextField, FormControlLabel, Checkbox } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import OptionIconGenerator from '../OptionIconGenerator';
 
@@ -10,23 +10,35 @@ import { SearchProps as Props, SearchResultItem } from '../../types/propTypes';
 
 import styles from './index.module.css';
 
-const Search = ({ combinedResults, getSearchResults }: Props) => {
+const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoading }: Props) => {
     const [ value, setValue ] = useState<SearchResultItem | null>(null);
     const [ inputValue, setInputValue ] = useState<string>('');
+    const [ filters, setFilters] = useState<Array<string>>(['users', 'repos']);
+    const delayedQuery = useCallback(debounce((inputValue: string, filters: Array<string>) => getSearchResults(inputValue, filters), 500), []);
 
-    const handleOnChangeValue = (event: SyntheticEvent<EventTarget>, newValue: any) => {
+    const handleOnChangeValue = (event: SyntheticEvent<EventTarget>, newValue: any, reason: string) => {
         setValue(newValue);
-    };
-
-    const handleSearchWithDebounce = debounce((searchValue) => {
-        if (searchValue && searchValue.length >= 3) {
-            getSearchResults(searchValue);
+        if (reason === 'clear') {
+            clearSearchResults();
         }
-    }, 300);
+    };
 
     const handleOnChangeInputValue = (event: SyntheticEvent<EventTarget>, newInputValue: string) => {
         setInputValue(newInputValue);
-        handleSearchWithDebounce(newInputValue)
+
+        const canMakeCall = newInputValue && newInputValue.length >= 3 && filters && filters.length > 0;
+        if (canMakeCall) {
+            delayedQuery(newInputValue, filters);
+        }
+    };
+
+    const handleOnCheckboxChange = (type: string) => () => {
+        const updatedFilters = filters.includes(type)
+            ? filters.filter(filterType => filterType !== type)
+            : [ ...filters, type ]
+        ;
+        
+        setFilters(updatedFilters);
     };
 
     useEffect(() => {
@@ -37,7 +49,34 @@ const Search = ({ combinedResults, getSearchResults }: Props) => {
 
     return (
         <div className={styles.container}>
-            <span className={styles.input}>
+            <aside className={styles.filters}>
+                <span className={styles.filtersLabel}>Search within:</span>
+                <span className={styles.filtersControls}>
+                    <FormControlLabel
+                        label="Users"
+                        control={
+                            <Checkbox
+                                checked={filters.includes('users')}
+                                onChange={handleOnCheckboxChange('users')}
+                                name="Users"
+                                color="primary"
+                            />
+                        }
+                    />
+                    <FormControlLabel
+                        label="Repos"
+                        control={
+                            <Checkbox
+                                checked={filters.includes('repos')}
+                                onChange={handleOnCheckboxChange('repos')}
+                                name="Repos"
+                                color="primary"
+                            />
+                        }
+                    />
+                </span>
+            </aside>
+            <main className={styles.input}>
                 <Autocomplete
                     value={value}
                     onChange={handleOnChangeValue}
@@ -45,7 +84,11 @@ const Search = ({ combinedResults, getSearchResults }: Props) => {
                     onInputChange={handleOnChangeInputValue}
                     options={combinedResults}
                     getOptionLabel={item => item.name}
+                    getOptionSelected={item => item.url === (value && value.url)}
                     clearOnBlur={false}
+                    loading={isLoading ? true : false}
+                    loadingText="Fetching data..."
+                    disabled={filters.length === 0}
                     renderInput={
                         props =>
                             <TextField
@@ -61,9 +104,8 @@ const Search = ({ combinedResults, getSearchResults }: Props) => {
                                 <OptionIconGenerator origin={option.origin}/>
                             </span>
                     }
-                    onClose={(event, reason) => console.log(reason)}
                 />
-            </span>
+            </main>
         </div>
     );
 };

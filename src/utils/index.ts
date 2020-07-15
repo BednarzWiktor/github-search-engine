@@ -1,11 +1,9 @@
 import { SearchUsersResponseData, SearchReposResponseData } from '@octokit/types';
 import { SearchResultItem } from '../types/propTypes';
 
-export const processResponseStatus = (status: number) => {
-    if (status !== 200) {
-        throw new Error(`request to GithubAPI returned with ${status} http error`);
-    }
-};
+export const processResponseStatus = (status: number): string | null =>
+    status !== 200 ? `request to GithubAPI returned with ${status} http error` : null
+;
 
 export const translateUsersResult = (result: SearchUsersResponseData['items']): Array<SearchResultItem> =>
     result.map(resultItem => ({

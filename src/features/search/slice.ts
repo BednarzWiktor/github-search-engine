@@ -5,9 +5,13 @@ import { createSlice } from '@reduxjs/toolkit';
 export const initialState: SliceState = {
     result: {
         users: [],
-        repositories: []
+        repos: []
     },
-    isLoading: false
+    isLoading: false,
+    error: {
+        users: null,
+        repos: null
+    }
 };
 
 const users = createSlice({
@@ -23,10 +27,15 @@ const users = createSlice({
             const { isLoading }: IsLoadingAction = action.payload;
 
             state.isLoading = isLoading;
+        },
+        setErrorByTarget(state, action) {
+            const { target, error } = action.payload;
+
+            state.error[target] = error;
         }
     }
 });
 
-export const { setResultByTarget, setIsLoading } = users.actions;
+export const { setResultByTarget, setIsLoading, setErrorByTarget } = users.actions;
 
 export default users.reducer;

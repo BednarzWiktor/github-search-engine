@@ -8,23 +8,33 @@ export const githubAPI = () => {
     });
 
     const getUsersByQuery = async (query: string, limit: number = 50) => {
-        const { data, status } = await octokit.search.users({
-            q: query,
-            per_page: 50
-        });
-        processResponseStatus(status);
-
-        return data;
+        try {
+            const response = await octokit.search.users({
+                q: `${query}+in:login`,
+                per_page: limit
+            });
+            const { data, status } = response;
+            const statusError = processResponseStatus(status);
+    
+            return { payload: data, error: statusError };
+        } catch (error) {
+            return { payload: null, error: error.message };
+        }
     };
 
-    const getReposByQuery = async (query: string) => {
-        const { data, status } = await octokit.search.repos({
-            q: query,
-            per_page: 50
-        });
-        processResponseStatus(status);
-
-        return data;
+    const getReposByQuery = async (query: string, limit: number = 50) => {
+        try {
+            const response = await octokit.search.repos({
+                q: `${query}+in:name`,
+                per_page: limit
+            });
+            const { data, status } = response
+            const statusError = processResponseStatus(status);
+    
+            return { payload: data, error: statusError };
+        } catch (error) {
+            return { payload: null, error: error.message };
+        }
     };
 
     return {

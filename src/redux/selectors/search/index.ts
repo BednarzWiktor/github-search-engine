@@ -1,20 +1,21 @@
 import { createSelector } from '@reduxjs/toolkit';
 
+import { sortBy } from 'lodash';
+
 import { translateUsersResult, translateReposResult } from '../../../utils';
 
 const selectResultUsers = (state: any) => state.search.result.users;
-const selectResultRepositories = (state: any) => state.search.result.repositories;
+const selectResultRepos = (state: any) => state.search.result.repos;
+const selectIsLoading = (state: any) => state.search.isLoading;
 
 export const selectTranslatedAndSortedSearchResult = createSelector(
     selectResultUsers,
-    selectResultRepositories,
-    (resultUsers, resultRepositories) => {
+    selectResultRepos,
+    selectIsLoading,
+    (resultUsers, resultRepos, isLoading) => {
         const translatedUsers = translateUsersResult(resultUsers);
-        const translatedRepositories = translateReposResult(resultRepositories);
+        const translatedRepos = translateReposResult(resultRepos);
 
-        return [ ...translatedUsers, ...translatedRepositories ]
-            .sort((a, b) => a > b ? -1 : 1)
-            .slice(0, 50)
-        ;
+        return !isLoading ? sortBy([ ...translatedUsers, ...translatedRepos ], item => item.name.toLowerCase()).slice(0, 50) : [];
     }
 )
