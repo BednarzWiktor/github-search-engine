@@ -5,6 +5,8 @@ import { store } from '../../redux/store';
 
 import SearchForm from '../search/SearchForm';
 
+import 'fontsource-roboto';
+
 const FeatureWrapper = () =>
     <Provider store={store}>
         <SearchForm />

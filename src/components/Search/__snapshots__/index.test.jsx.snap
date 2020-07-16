@@ -35,11 +35,55 @@ exports[`Search renders without crashing 1`] = `
     <aside
       className="filters"
     >
-      <span
-        className="filtersLabel"
+      <WithStyles(ForwardRef(Typography))
+        component="span"
+        variant="body1"
       >
-        Search within:
-      </span>
+        <ForwardRef(Typography)
+          classes={
+            Object {
+              "alignCenter": "MuiTypography-alignCenter",
+              "alignJustify": "MuiTypography-alignJustify",
+              "alignLeft": "MuiTypography-alignLeft",
+              "alignRight": "MuiTypography-alignRight",
+              "body1": "MuiTypography-body1",
+              "body2": "MuiTypography-body2",
+              "button": "MuiTypography-button",
+              "caption": "MuiTypography-caption",
+              "colorError": "MuiTypography-colorError",
+              "colorInherit": "MuiTypography-colorInherit",
+              "colorPrimary": "MuiTypography-colorPrimary",
+              "colorSecondary": "MuiTypography-colorSecondary",
+              "colorTextPrimary": "MuiTypography-colorTextPrimary",
+              "colorTextSecondary": "MuiTypography-colorTextSecondary",
+              "displayBlock": "MuiTypography-displayBlock",
+              "displayInline": "MuiTypography-displayInline",
+              "gutterBottom": "MuiTypography-gutterBottom",
+              "h1": "MuiTypography-h1",
+              "h2": "MuiTypography-h2",
+              "h3": "MuiTypography-h3",
+              "h4": "MuiTypography-h4",
+              "h5": "MuiTypography-h5",
+              "h6": "MuiTypography-h6",
+              "noWrap": "MuiTypography-noWrap",
+              "overline": "MuiTypography-overline",
+              "paragraph": "MuiTypography-paragraph",
+              "root": "MuiTypography-root",
+              "srOnly": "MuiTypography-srOnly",
+              "subtitle1": "MuiTypography-subtitle1",
+              "subtitle2": "MuiTypography-subtitle2",
+            }
+          }
+          component="span"
+          variant="body1"
+        >
+          <span
+            className="MuiTypography-root MuiTypography-body1"
+          >
+            Search within:
+          </span>
+        </ForwardRef(Typography)>
+      </WithStyles(ForwardRef(Typography))>
       <span
         className="filtersControls"
       >
@@ -770,8 +814,8 @@ exports[`Search renders without crashing 1`] = `
             <WithStyles(ForwardRef(TextField))
               InputLabelProps={
                 Object {
-                  "htmlFor": "mui-77112",
-                  "id": "mui-77112-label",
+                  "htmlFor": "mui-13971",
+                  "id": "mui-13971-label",
                 }
               }
               InputProps={
@@ -807,8 +851,9 @@ exports[`Search renders without crashing 1`] = `
                 }
               }
               disabled={false}
+              error={false}
               fullWidth={true}
-              id="mui-77112"
+              id="mui-13971"
               inputProps={
                 Object {
                   "aria-activedescendant": null,
@@ -818,7 +863,7 @@ exports[`Search renders without crashing 1`] = `
                   "autoComplete": "off",
                   "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                   "disabled": false,
-                  "id": "mui-77112",
+                  "id": "mui-13971",
                   "onBlur": [Function],
                   "onChange": [Function],
                   "onFocus": [Function],
@@ -830,7 +875,7 @@ exports[`Search renders without crashing 1`] = `
                       autocapitalize="none"
                       autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                      id="mui-77112"
+                      id="mui-13971"
                       spellcheck="false"
                       type="text"
                       value=""
@@ -846,8 +891,8 @@ exports[`Search renders without crashing 1`] = `
               <ForwardRef(TextField)
                 InputLabelProps={
                   Object {
-                    "htmlFor": "mui-77112",
-                    "id": "mui-77112-label",
+                    "htmlFor": "mui-13971",
+                    "id": "mui-13971-label",
                   }
                 }
                 InputProps={
@@ -888,8 +933,9 @@ exports[`Search renders without crashing 1`] = `
                   }
                 }
                 disabled={false}
+                error={false}
                 fullWidth={true}
-                id="mui-77112"
+                id="mui-13971"
                 inputProps={
                   Object {
                     "aria-activedescendant": null,
@@ -899,7 +945,7 @@ exports[`Search renders without crashing 1`] = `
                     "autoComplete": "off",
                     "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                     "disabled": false,
-                    "id": "mui-77112",
+                    "id": "mui-13971",
                     "onBlur": [Function],
                     "onChange": [Function],
                     "onFocus": [Function],
@@ -911,7 +957,7 @@ exports[`Search renders without crashing 1`] = `
                         autocapitalize="none"
                         autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                        id="mui-77112"
+                        id="mui-13971"
                         spellcheck="false"
                         type="text"
                         value=""
@@ -954,8 +1000,8 @@ exports[`Search renders without crashing 1`] = `
                       className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
                     >
                       <WithStyles(ForwardRef(InputLabel))
-                        htmlFor="mui-77112"
-                        id="mui-77112-label"
+                        htmlFor="mui-13971"
+                        id="mui-13971-label"
                       >
                         <ForwardRef(InputLabel)
                           classes={
@@ -974,8 +1020,8 @@ exports[`Search renders without crashing 1`] = `
                               "shrink": "MuiInputLabel-shrink",
                             }
                           }
-                          htmlFor="mui-77112"
-                          id="mui-77112-label"
+                          htmlFor="mui-13971"
+                          id="mui-13971-label"
                         >
                           <WithStyles(ForwardRef(FormLabel))
                             className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
@@ -989,8 +1035,8 @@ exports[`Search renders without crashing 1`] = `
                               }
                             }
                             data-shrink={false}
-                            htmlFor="mui-77112"
-                            id="mui-77112-label"
+                            htmlFor="mui-13971"
+                            id="mui-13971-label"
                           >
                             <ForwardRef(FormLabel)
                               className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
@@ -1007,14 +1053,14 @@ exports[`Search renders without crashing 1`] = `
                                 }
                               }
                               data-shrink={false}
-                              htmlFor="mui-77112"
-                              id="mui-77112-label"
+                              htmlFor="mui-13971"
+                              id="mui-13971-label"
                             >
                               <label
                                 className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
                                 data-shrink={false}
-                                htmlFor="mui-77112"
-                                id="mui-77112-label"
+                                htmlFor="mui-13971"
+                                id="mui-13971-label"
                               >
                                 Search GitHub
                               </label>
@@ -1053,7 +1099,7 @@ exports[`Search renders without crashing 1`] = `
                           </div>
                         }
                         fullWidth={true}
-                        id="mui-77112"
+                        id="mui-13971"
                         inputProps={
                           Object {
                             "aria-activedescendant": null,
@@ -1063,7 +1109,7 @@ exports[`Search renders without crashing 1`] = `
                             "autoComplete": "off",
                             "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                             "disabled": false,
-                            "id": "mui-77112",
+                            "id": "mui-13971",
                             "onBlur": [Function],
                             "onChange": [Function],
                             "onFocus": [Function],
@@ -1075,7 +1121,7 @@ exports[`Search renders without crashing 1`] = `
                                 autocapitalize="none"
                                 autocomplete="off"
                                 class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                id="mui-77112"
+                                id="mui-13971"
                                 spellcheck="false"
                                 type="text"
                                 value=""
@@ -1142,7 +1188,7 @@ exports[`Search renders without crashing 1`] = `
                             </div>
                           }
                           fullWidth={true}
-                          id="mui-77112"
+                          id="mui-13971"
                           inputProps={
                             Object {
                               "aria-activedescendant": null,
@@ -1152,7 +1198,7 @@ exports[`Search renders without crashing 1`] = `
                               "autoComplete": "off",
                               "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                               "disabled": false,
-                              "id": "mui-77112",
+                              "id": "mui-13971",
                               "onBlur": [Function],
                               "onChange": [Function],
                               "onFocus": [Function],
@@ -1164,7 +1210,7 @@ exports[`Search renders without crashing 1`] = `
                                   autocapitalize="none"
                                   autocomplete="off"
                                   class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                  id="mui-77112"
+                                  id="mui-13971"
                                   spellcheck="false"
                                   type="text"
                                   value=""
@@ -1231,7 +1277,7 @@ exports[`Search renders without crashing 1`] = `
                               </div>
                             }
                             fullWidth={true}
-                            id="mui-77112"
+                            id="mui-13971"
                             inputComponent="input"
                             inputProps={
                               Object {
@@ -1242,7 +1288,7 @@ exports[`Search renders without crashing 1`] = `
                                 "autoComplete": "off",
                                 "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                                 "disabled": false,
-                                "id": "mui-77112",
+                                "id": "mui-13971",
                                 "onBlur": [Function],
                                 "onChange": [Function],
                                 "onFocus": [Function],
@@ -1254,7 +1300,7 @@ exports[`Search renders without crashing 1`] = `
                                     autocapitalize="none"
                                     autocomplete="off"
                                     class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                    id="mui-77112"
+                                    id="mui-13971"
                                     spellcheck="false"
                                     type="text"
                                     value=""
@@ -1321,7 +1367,7 @@ exports[`Search renders without crashing 1`] = `
                                 </div>
                               }
                               fullWidth={true}
-                              id="mui-77112"
+                              id="mui-13971"
                               inputComponent="input"
                               inputProps={
                                 Object {
@@ -1332,7 +1378,7 @@ exports[`Search renders without crashing 1`] = `
                                   "autoComplete": "off",
                                   "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                                   "disabled": false,
-                                  "id": "mui-77112",
+                                  "id": "mui-13971",
                                   "onBlur": [Function],
                                   "onChange": [Function],
                                   "onFocus": [Function],
@@ -1344,7 +1390,7 @@ exports[`Search renders without crashing 1`] = `
                                       autocapitalize="none"
                                       autocomplete="off"
                                       class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                      id="mui-77112"
+                                      id="mui-13971"
                                       spellcheck="false"
                                       type="text"
                                       value=""
@@ -1372,7 +1418,7 @@ exports[`Search renders without crashing 1`] = `
                                   autoFocus={false}
                                   className="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
                                   disabled={false}
-                                  id="mui-77112"
+                                  id="mui-13971"
                                   onAnimationStart={[Function]}
                                   onBlur={[Function]}
                                   onChange={[Function]}
@@ -1732,6 +1778,26 @@ exports[`Search renders without crashing 1`] = `
         </ForwardRef(Autocomplete)>
       </WithStyles(ForwardRef(Autocomplete))>
     </main>
+    <WithStyles(ForwardRef(Snackbar))
+      onClose={[Function]}
+      open={false}
+    >
+      <ForwardRef(Snackbar)
+        classes={
+          Object {
+            "anchorOriginBottomCenter": "MuiSnackbar-anchorOriginBottomCenter",
+            "anchorOriginBottomLeft": "MuiSnackbar-anchorOriginBottomLeft",
+            "anchorOriginBottomRight": "MuiSnackbar-anchorOriginBottomRight",
+            "anchorOriginTopCenter": "MuiSnackbar-anchorOriginTopCenter",
+            "anchorOriginTopLeft": "MuiSnackbar-anchorOriginTopLeft",
+            "anchorOriginTopRight": "MuiSnackbar-anchorOriginTopRight",
+            "root": "MuiSnackbar-root",
+          }
+        }
+        onClose={[Function]}
+        open={false}
+      />
+    </WithStyles(ForwardRef(Snackbar))>
   </div>
 </Search>
 `;
@@ -1772,11 +1838,55 @@ exports[`Search renders without crashing 2`] = `
     <aside
       className="filters"
     >
-      <span
-        className="filtersLabel"
+      <WithStyles(ForwardRef(Typography))
+        component="span"
+        variant="body1"
       >
-        Search within:
-      </span>
+        <ForwardRef(Typography)
+          classes={
+            Object {
+              "alignCenter": "MuiTypography-alignCenter",
+              "alignJustify": "MuiTypography-alignJustify",
+              "alignLeft": "MuiTypography-alignLeft",
+              "alignRight": "MuiTypography-alignRight",
+              "body1": "MuiTypography-body1",
+              "body2": "MuiTypography-body2",
+              "button": "MuiTypography-button",
+              "caption": "MuiTypography-caption",
+              "colorError": "MuiTypography-colorError",
+              "colorInherit": "MuiTypography-colorInherit",
+              "colorPrimary": "MuiTypography-colorPrimary",
+              "colorSecondary": "MuiTypography-colorSecondary",
+              "colorTextPrimary": "MuiTypography-colorTextPrimary",
+              "colorTextSecondary": "MuiTypography-colorTextSecondary",
+              "displayBlock": "MuiTypography-displayBlock",
+              "displayInline": "MuiTypography-displayInline",
+              "gutterBottom": "MuiTypography-gutterBottom",
+              "h1": "MuiTypography-h1",
+              "h2": "MuiTypography-h2",
+              "h3": "MuiTypography-h3",
+              "h4": "MuiTypography-h4",
+              "h5": "MuiTypography-h5",
+              "h6": "MuiTypography-h6",
+              "noWrap": "MuiTypography-noWrap",
+              "overline": "MuiTypography-overline",
+              "paragraph": "MuiTypography-paragraph",
+              "root": "MuiTypography-root",
+              "srOnly": "MuiTypography-srOnly",
+              "subtitle1": "MuiTypography-subtitle1",
+              "subtitle2": "MuiTypography-subtitle2",
+            }
+          }
+          component="span"
+          variant="body1"
+        >
+          <span
+            className="MuiTypography-root MuiTypography-body1"
+          >
+            Search within:
+          </span>
+        </ForwardRef(Typography)>
+      </WithStyles(ForwardRef(Typography))>
       <span
         className="filtersControls"
       >
@@ -2507,8 +2617,8 @@ exports[`Search renders without crashing 2`] = `
             <WithStyles(ForwardRef(TextField))
               InputLabelProps={
                 Object {
-                  "htmlFor": "mui-32444",
-                  "id": "mui-32444-label",
+                  "htmlFor": "mui-75662",
+                  "id": "mui-75662-label",
                 }
               }
               InputProps={
@@ -2544,8 +2654,9 @@ exports[`Search renders without crashing 2`] = `
                 }
               }
               disabled={false}
+              error={false}
               fullWidth={true}
-              id="mui-32444"
+              id="mui-75662"
               inputProps={
                 Object {
                   "aria-activedescendant": null,
@@ -2555,7 +2666,7 @@ exports[`Search renders without crashing 2`] = `
                   "autoComplete": "off",
                   "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                   "disabled": false,
-                  "id": "mui-32444",
+                  "id": "mui-75662",
                   "onBlur": [Function],
                   "onChange": [Function],
                   "onFocus": [Function],
@@ -2567,7 +2678,7 @@ exports[`Search renders without crashing 2`] = `
                       autocapitalize="none"
                       autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                      id="mui-32444"
+                      id="mui-75662"
                       spellcheck="false"
                       type="text"
                       value=""
@@ -2583,8 +2694,8 @@ exports[`Search renders without crashing 2`] = `
               <ForwardRef(TextField)
                 InputLabelProps={
                   Object {
-                    "htmlFor": "mui-32444",
-                    "id": "mui-32444-label",
+                    "htmlFor": "mui-75662",
+                    "id": "mui-75662-label",
                   }
                 }
                 InputProps={
@@ -2625,8 +2736,9 @@ exports[`Search renders without crashing 2`] = `
                   }
                 }
                 disabled={false}
+                error={false}
                 fullWidth={true}
-                id="mui-32444"
+                id="mui-75662"
                 inputProps={
                   Object {
                     "aria-activedescendant": null,
@@ -2636,7 +2748,7 @@ exports[`Search renders without crashing 2`] = `
                     "autoComplete": "off",
                     "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                     "disabled": false,
-                    "id": "mui-32444",
+                    "id": "mui-75662",
                     "onBlur": [Function],
                     "onChange": [Function],
                     "onFocus": [Function],
@@ -2648,7 +2760,7 @@ exports[`Search renders without crashing 2`] = `
                         autocapitalize="none"
                         autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                        id="mui-32444"
+                        id="mui-75662"
                         spellcheck="false"
                         type="text"
                         value=""
@@ -2691,8 +2803,8 @@ exports[`Search renders without crashing 2`] = `
                       className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
                     >
                       <WithStyles(ForwardRef(InputLabel))
-                        htmlFor="mui-32444"
-                        id="mui-32444-label"
+                        htmlFor="mui-75662"
+                        id="mui-75662-label"
                       >
                         <ForwardRef(InputLabel)
                           classes={
@@ -2711,8 +2823,8 @@ exports[`Search renders without crashing 2`] = `
                               "shrink": "MuiInputLabel-shrink",
                             }
                           }
-                          htmlFor="mui-32444"
-                          id="mui-32444-label"
+                          htmlFor="mui-75662"
+                          id="mui-75662-label"
                         >
                           <WithStyles(ForwardRef(FormLabel))
                             className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
@@ -2726,8 +2838,8 @@ exports[`Search renders without crashing 2`] = `
                               }
                             }
                             data-shrink={false}
-                            htmlFor="mui-32444"
-                            id="mui-32444-label"
+                            htmlFor="mui-75662"
+                            id="mui-75662-label"
                           >
                             <ForwardRef(FormLabel)
                               className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
@@ -2744,14 +2856,14 @@ exports[`Search renders without crashing 2`] = `
                                 }
                               }
                               data-shrink={false}
-                              htmlFor="mui-32444"
-                              id="mui-32444-label"
+                              htmlFor="mui-75662"
+                              id="mui-75662-label"
                             >
                               <label
                                 className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
                                 data-shrink={false}
-                                htmlFor="mui-32444"
-                                id="mui-32444-label"
+                                htmlFor="mui-75662"
+                                id="mui-75662-label"
                               >
                                 Search GitHub
                               </label>
@@ -2790,7 +2902,7 @@ exports[`Search renders without crashing 2`] = `
                           </div>
                         }
                         fullWidth={true}
-                        id="mui-32444"
+                        id="mui-75662"
                         inputProps={
                           Object {
                             "aria-activedescendant": null,
@@ -2800,7 +2912,7 @@ exports[`Search renders without crashing 2`] = `
                             "autoComplete": "off",
                             "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                             "disabled": false,
-                            "id": "mui-32444",
+                            "id": "mui-75662",
                             "onBlur": [Function],
                             "onChange": [Function],
                             "onFocus": [Function],
@@ -2812,7 +2924,7 @@ exports[`Search renders without crashing 2`] = `
                                 autocapitalize="none"
                                 autocomplete="off"
                                 class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                id="mui-32444"
+                                id="mui-75662"
                                 spellcheck="false"
                                 type="text"
                                 value=""
@@ -2879,7 +2991,7 @@ exports[`Search renders without crashing 2`] = `
                             </div>
                           }
                           fullWidth={true}
-                          id="mui-32444"
+                          id="mui-75662"
                           inputProps={
                             Object {
                               "aria-activedescendant": null,
@@ -2889,7 +3001,7 @@ exports[`Search renders without crashing 2`] = `
                               "autoComplete": "off",
                               "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                               "disabled": false,
-                              "id": "mui-32444",
+                              "id": "mui-75662",
                               "onBlur": [Function],
                               "onChange": [Function],
                               "onFocus": [Function],
@@ -2901,7 +3013,7 @@ exports[`Search renders without crashing 2`] = `
                                   autocapitalize="none"
                                   autocomplete="off"
                                   class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                  id="mui-32444"
+                                  id="mui-75662"
                                   spellcheck="false"
                                   type="text"
                                   value=""
@@ -2968,7 +3080,7 @@ exports[`Search renders without crashing 2`] = `
                               </div>
                             }
                             fullWidth={true}
-                            id="mui-32444"
+                            id="mui-75662"
                             inputComponent="input"
                             inputProps={
                               Object {
@@ -2979,7 +3091,7 @@ exports[`Search renders without crashing 2`] = `
                                 "autoComplete": "off",
                                 "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                                 "disabled": false,
-                                "id": "mui-32444",
+                                "id": "mui-75662",
                                 "onBlur": [Function],
                                 "onChange": [Function],
                                 "onFocus": [Function],
@@ -2991,7 +3103,7 @@ exports[`Search renders without crashing 2`] = `
                                     autocapitalize="none"
                                     autocomplete="off"
                                     class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                    id="mui-32444"
+                                    id="mui-75662"
                                     spellcheck="false"
                                     type="text"
                                     value=""
@@ -3058,7 +3170,7 @@ exports[`Search renders without crashing 2`] = `
                                 </div>
                               }
                               fullWidth={true}
-                              id="mui-32444"
+                              id="mui-75662"
                               inputComponent="input"
                               inputProps={
                                 Object {
@@ -3069,7 +3181,7 @@ exports[`Search renders without crashing 2`] = `
                                   "autoComplete": "off",
                                   "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                                   "disabled": false,
-                                  "id": "mui-32444",
+                                  "id": "mui-75662",
                                   "onBlur": [Function],
                                   "onChange": [Function],
                                   "onFocus": [Function],
@@ -3081,7 +3193,7 @@ exports[`Search renders without crashing 2`] = `
                                       autocapitalize="none"
                                       autocomplete="off"
                                       class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                      id="mui-32444"
+                                      id="mui-75662"
                                       spellcheck="false"
                                       type="text"
                                       value=""
@@ -3109,7 +3221,7 @@ exports[`Search renders without crashing 2`] = `
                                   autoFocus={false}
                                   className="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
                                   disabled={false}
-                                  id="mui-32444"
+                                  id="mui-75662"
                                   onAnimationStart={[Function]}
                                   onBlur={[Function]}
                                   onChange={[Function]}
@@ -3469,6 +3581,26 @@ exports[`Search renders without crashing 2`] = `
         </ForwardRef(Autocomplete)>
       </WithStyles(ForwardRef(Autocomplete))>
     </main>
+    <WithStyles(ForwardRef(Snackbar))
+      onClose={[Function]}
+      open={false}
+    >
+      <ForwardRef(Snackbar)
+        classes={
+          Object {
+            "anchorOriginBottomCenter": "MuiSnackbar-anchorOriginBottomCenter",
+            "anchorOriginBottomLeft": "MuiSnackbar-anchorOriginBottomLeft",
+            "anchorOriginBottomRight": "MuiSnackbar-anchorOriginBottomRight",
+            "anchorOriginTopCenter": "MuiSnackbar-anchorOriginTopCenter",
+            "anchorOriginTopLeft": "MuiSnackbar-anchorOriginTopLeft",
+            "anchorOriginTopRight": "MuiSnackbar-anchorOriginTopRight",
+            "root": "MuiSnackbar-root",
+          }
+        }
+        onClose={[Function]}
+        open={false}
+      />
+    </WithStyles(ForwardRef(Snackbar))>
   </div>
 </Search>
 `;
@@ -3485,11 +3617,55 @@ exports[`Search renders without crashing 3`] = `
     <aside
       className="filters"
     >
-      <span
-        className="filtersLabel"
+      <WithStyles(ForwardRef(Typography))
+        component="span"
+        variant="body1"
       >
-        Search within:
-      </span>
+        <ForwardRef(Typography)
+          classes={
+            Object {
+              "alignCenter": "MuiTypography-alignCenter",
+              "alignJustify": "MuiTypography-alignJustify",
+              "alignLeft": "MuiTypography-alignLeft",
+              "alignRight": "MuiTypography-alignRight",
+              "body1": "MuiTypography-body1",
+              "body2": "MuiTypography-body2",
+              "button": "MuiTypography-button",
+              "caption": "MuiTypography-caption",
+              "colorError": "MuiTypography-colorError",
+              "colorInherit": "MuiTypography-colorInherit",
+              "colorPrimary": "MuiTypography-colorPrimary",
+              "colorSecondary": "MuiTypography-colorSecondary",
+              "colorTextPrimary": "MuiTypography-colorTextPrimary",
+              "colorTextSecondary": "MuiTypography-colorTextSecondary",
+              "displayBlock": "MuiTypography-displayBlock",
+              "displayInline": "MuiTypography-displayInline",
+              "gutterBottom": "MuiTypography-gutterBottom",
+              "h1": "MuiTypography-h1",
+              "h2": "MuiTypography-h2",
+              "h3": "MuiTypography-h3",
+              "h4": "MuiTypography-h4",
+              "h5": "MuiTypography-h5",
+              "h6": "MuiTypography-h6",
+              "noWrap": "MuiTypography-noWrap",
+              "overline": "MuiTypography-overline",
+              "paragraph": "MuiTypography-paragraph",
+              "root": "MuiTypography-root",
+              "srOnly": "MuiTypography-srOnly",
+              "subtitle1": "MuiTypography-subtitle1",
+              "subtitle2": "MuiTypography-subtitle2",
+            }
+          }
+          component="span"
+          variant="body1"
+        >
+          <span
+            className="MuiTypography-root MuiTypography-body1"
+          >
+            Search within:
+          </span>
+        </ForwardRef(Typography)>
+      </WithStyles(ForwardRef(Typography))>
       <span
         className="filtersControls"
       >
@@ -4174,8 +4350,8 @@ exports[`Search renders without crashing 3`] = `
             <WithStyles(ForwardRef(TextField))
               InputLabelProps={
                 Object {
-                  "htmlFor": "mui-60608",
-                  "id": "mui-60608-label",
+                  "htmlFor": "mui-60837",
+                  "id": "mui-60837-label",
                 }
               }
               InputProps={
@@ -4211,8 +4387,9 @@ exports[`Search renders without crashing 3`] = `
                 }
               }
               disabled={false}
+              error={false}
               fullWidth={true}
-              id="mui-60608"
+              id="mui-60837"
               inputProps={
                 Object {
                   "aria-activedescendant": null,
@@ -4222,7 +4399,7 @@ exports[`Search renders without crashing 3`] = `
                   "autoComplete": "off",
                   "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                   "disabled": false,
-                  "id": "mui-60608",
+                  "id": "mui-60837",
                   "onBlur": [Function],
                   "onChange": [Function],
                   "onFocus": [Function],
@@ -4234,7 +4411,7 @@ exports[`Search renders without crashing 3`] = `
                       autocapitalize="none"
                       autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                      id="mui-60608"
+                      id="mui-60837"
                       spellcheck="false"
                       type="text"
                       value=""
@@ -4250,8 +4427,8 @@ exports[`Search renders without crashing 3`] = `
               <ForwardRef(TextField)
                 InputLabelProps={
                   Object {
-                    "htmlFor": "mui-60608",
-                    "id": "mui-60608-label",
+                    "htmlFor": "mui-60837",
+                    "id": "mui-60837-label",
                   }
                 }
                 InputProps={
@@ -4292,8 +4469,9 @@ exports[`Search renders without crashing 3`] = `
                   }
                 }
                 disabled={false}
+                error={false}
                 fullWidth={true}
-                id="mui-60608"
+                id="mui-60837"
                 inputProps={
                   Object {
                     "aria-activedescendant": null,
@@ -4303,7 +4481,7 @@ exports[`Search renders without crashing 3`] = `
                     "autoComplete": "off",
                     "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                     "disabled": false,
-                    "id": "mui-60608",
+                    "id": "mui-60837",
                     "onBlur": [Function],
                     "onChange": [Function],
                     "onFocus": [Function],
@@ -4315,7 +4493,7 @@ exports[`Search renders without crashing 3`] = `
                         autocapitalize="none"
                         autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                        id="mui-60608"
+                        id="mui-60837"
                         spellcheck="false"
                         type="text"
                         value=""
@@ -4358,8 +4536,8 @@ exports[`Search renders without crashing 3`] = `
                       className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
                     >
                       <WithStyles(ForwardRef(InputLabel))
-                        htmlFor="mui-60608"
-                        id="mui-60608-label"
+                        htmlFor="mui-60837"
+                        id="mui-60837-label"
                       >
                         <ForwardRef(InputLabel)
                           classes={
@@ -4378,8 +4556,8 @@ exports[`Search renders without crashing 3`] = `
                               "shrink": "MuiInputLabel-shrink",
                             }
                           }
-                          htmlFor="mui-60608"
-                          id="mui-60608-label"
+                          htmlFor="mui-60837"
+                          id="mui-60837-label"
                         >
                           <WithStyles(ForwardRef(FormLabel))
                             className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
@@ -4393,8 +4571,8 @@ exports[`Search renders without crashing 3`] = `
                               }
                             }
                             data-shrink={false}
-                            htmlFor="mui-60608"
-                            id="mui-60608-label"
+                            htmlFor="mui-60837"
+                            id="mui-60837-label"
                           >
                             <ForwardRef(FormLabel)
                               className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
@@ -4411,14 +4589,14 @@ exports[`Search renders without crashing 3`] = `
                                 }
                               }
                               data-shrink={false}
-                              htmlFor="mui-60608"
-                              id="mui-60608-label"
+                              htmlFor="mui-60837"
+                              id="mui-60837-label"
                             >
                               <label
                                 className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
                                 data-shrink={false}
-                                htmlFor="mui-60608"
-                                id="mui-60608-label"
+                                htmlFor="mui-60837"
+                                id="mui-60837-label"
                               >
                                 Search GitHub
                               </label>
@@ -4457,7 +4635,7 @@ exports[`Search renders without crashing 3`] = `
                           </div>
                         }
                         fullWidth={true}
-                        id="mui-60608"
+                        id="mui-60837"
                         inputProps={
                           Object {
                             "aria-activedescendant": null,
@@ -4467,7 +4645,7 @@ exports[`Search renders without crashing 3`] = `
                             "autoComplete": "off",
                             "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                             "disabled": false,
-                            "id": "mui-60608",
+                            "id": "mui-60837",
                             "onBlur": [Function],
                             "onChange": [Function],
                             "onFocus": [Function],
@@ -4479,7 +4657,7 @@ exports[`Search renders without crashing 3`] = `
                                 autocapitalize="none"
                                 autocomplete="off"
                                 class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                id="mui-60608"
+                                id="mui-60837"
                                 spellcheck="false"
                                 type="text"
                                 value=""
@@ -4546,7 +4724,7 @@ exports[`Search renders without crashing 3`] = `
                             </div>
                           }
                           fullWidth={true}
-                          id="mui-60608"
+                          id="mui-60837"
                           inputProps={
                             Object {
                               "aria-activedescendant": null,
@@ -4556,7 +4734,7 @@ exports[`Search renders without crashing 3`] = `
                               "autoComplete": "off",
                               "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                               "disabled": false,
-                              "id": "mui-60608",
+                              "id": "mui-60837",
                               "onBlur": [Function],
                               "onChange": [Function],
                               "onFocus": [Function],
@@ -4568,7 +4746,7 @@ exports[`Search renders without crashing 3`] = `
                                   autocapitalize="none"
                                   autocomplete="off"
                                   class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                  id="mui-60608"
+                                  id="mui-60837"
                                   spellcheck="false"
                                   type="text"
                                   value=""
@@ -4635,7 +4813,7 @@ exports[`Search renders without crashing 3`] = `
                               </div>
                             }
                             fullWidth={true}
-                            id="mui-60608"
+                            id="mui-60837"
                             inputComponent="input"
                             inputProps={
                               Object {
@@ -4646,7 +4824,7 @@ exports[`Search renders without crashing 3`] = `
                                 "autoComplete": "off",
                                 "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                                 "disabled": false,
-                                "id": "mui-60608",
+                                "id": "mui-60837",
                                 "onBlur": [Function],
                                 "onChange": [Function],
                                 "onFocus": [Function],
@@ -4658,7 +4836,7 @@ exports[`Search renders without crashing 3`] = `
                                     autocapitalize="none"
                                     autocomplete="off"
                                     class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                    id="mui-60608"
+                                    id="mui-60837"
                                     spellcheck="false"
                                     type="text"
                                     value=""
@@ -4725,7 +4903,7 @@ exports[`Search renders without crashing 3`] = `
                                 </div>
                               }
                               fullWidth={true}
-                              id="mui-60608"
+                              id="mui-60837"
                               inputComponent="input"
                               inputProps={
                                 Object {
@@ -4736,7 +4914,7 @@ exports[`Search renders without crashing 3`] = `
                                   "autoComplete": "off",
                                   "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                                   "disabled": false,
-                                  "id": "mui-60608",
+                                  "id": "mui-60837",
                                   "onBlur": [Function],
                                   "onChange": [Function],
                                   "onFocus": [Function],
@@ -4748,7 +4926,7 @@ exports[`Search renders without crashing 3`] = `
                                       autocapitalize="none"
                                       autocomplete="off"
                                       class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                      id="mui-60608"
+                                      id="mui-60837"
                                       spellcheck="false"
                                       type="text"
                                       value=""
@@ -4776,7 +4954,7 @@ exports[`Search renders without crashing 3`] = `
                                   autoFocus={false}
                                   className="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
                                   disabled={false}
-                                  id="mui-60608"
+                                  id="mui-60837"
                                   onAnimationStart={[Function]}
                                   onBlur={[Function]}
                                   onChange={[Function]}
@@ -5136,6 +5314,26 @@ exports[`Search renders without crashing 3`] = `
         </ForwardRef(Autocomplete)>
       </WithStyles(ForwardRef(Autocomplete))>
     </main>
+    <WithStyles(ForwardRef(Snackbar))
+      onClose={[Function]}
+      open={false}
+    >
+      <ForwardRef(Snackbar)
+        classes={
+          Object {
+            "anchorOriginBottomCenter": "MuiSnackbar-anchorOriginBottomCenter",
+            "anchorOriginBottomLeft": "MuiSnackbar-anchorOriginBottomLeft",
+            "anchorOriginBottomRight": "MuiSnackbar-anchorOriginBottomRight",
+            "anchorOriginTopCenter": "MuiSnackbar-anchorOriginTopCenter",
+            "anchorOriginTopLeft": "MuiSnackbar-anchorOriginTopLeft",
+            "anchorOriginTopRight": "MuiSnackbar-anchorOriginTopRight",
+            "root": "MuiSnackbar-root",
+          }
+        }
+        onClose={[Function]}
+        open={false}
+      />
+    </WithStyles(ForwardRef(Snackbar))>
   </div>
 </Search>
 `;
@@ -5153,11 +5351,55 @@ exports[`Search renders without crashing 4`] = `
     <aside
       className="filters"
     >
-      <span
-        className="filtersLabel"
+      <WithStyles(ForwardRef(Typography))
+        component="span"
+        variant="body1"
       >
-        Search within:
-      </span>
+        <ForwardRef(Typography)
+          classes={
+            Object {
+              "alignCenter": "MuiTypography-alignCenter",
+              "alignJustify": "MuiTypography-alignJustify",
+              "alignLeft": "MuiTypography-alignLeft",
+              "alignRight": "MuiTypography-alignRight",
+              "body1": "MuiTypography-body1",
+              "body2": "MuiTypography-body2",
+              "button": "MuiTypography-button",
+              "caption": "MuiTypography-caption",
+              "colorError": "MuiTypography-colorError",
+              "colorInherit": "MuiTypography-colorInherit",
+              "colorPrimary": "MuiTypography-colorPrimary",
+              "colorSecondary": "MuiTypography-colorSecondary",
+              "colorTextPrimary": "MuiTypography-colorTextPrimary",
+              "colorTextSecondary": "MuiTypography-colorTextSecondary",
+              "displayBlock": "MuiTypography-displayBlock",
+              "displayInline": "MuiTypography-displayInline",
+              "gutterBottom": "MuiTypography-gutterBottom",
+              "h1": "MuiTypography-h1",
+              "h2": "MuiTypography-h2",
+              "h3": "MuiTypography-h3",
+              "h4": "MuiTypography-h4",
+              "h5": "MuiTypography-h5",
+              "h6": "MuiTypography-h6",
+              "noWrap": "MuiTypography-noWrap",
+              "overline": "MuiTypography-overline",
+              "paragraph": "MuiTypography-paragraph",
+              "root": "MuiTypography-root",
+              "srOnly": "MuiTypography-srOnly",
+              "subtitle1": "MuiTypography-subtitle1",
+              "subtitle2": "MuiTypography-subtitle2",
+            }
+          }
+          component="span"
+          variant="body1"
+        >
+          <span
+            className="MuiTypography-root MuiTypography-body1"
+          >
+            Search within:
+          </span>
+        </ForwardRef(Typography)>
+      </WithStyles(ForwardRef(Typography))>
       <span
         className="filtersControls"
       >
@@ -5842,8 +6084,8 @@ exports[`Search renders without crashing 4`] = `
             <WithStyles(ForwardRef(TextField))
               InputLabelProps={
                 Object {
-                  "htmlFor": "mui-429",
-                  "id": "mui-429-label",
+                  "htmlFor": "mui-4414",
+                  "id": "mui-4414-label",
                 }
               }
               InputProps={
@@ -5879,8 +6121,9 @@ exports[`Search renders without crashing 4`] = `
                 }
               }
               disabled={false}
+              error={false}
               fullWidth={true}
-              id="mui-429"
+              id="mui-4414"
               inputProps={
                 Object {
                   "aria-activedescendant": null,
@@ -5890,7 +6133,7 @@ exports[`Search renders without crashing 4`] = `
                   "autoComplete": "off",
                   "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                   "disabled": false,
-                  "id": "mui-429",
+                  "id": "mui-4414",
                   "onBlur": [Function],
                   "onChange": [Function],
                   "onFocus": [Function],
@@ -5902,7 +6145,7 @@ exports[`Search renders without crashing 4`] = `
                       autocapitalize="none"
                       autocomplete="off"
                       class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                      id="mui-429"
+                      id="mui-4414"
                       spellcheck="false"
                       type="text"
                       value=""
@@ -5918,8 +6161,8 @@ exports[`Search renders without crashing 4`] = `
               <ForwardRef(TextField)
                 InputLabelProps={
                   Object {
-                    "htmlFor": "mui-429",
-                    "id": "mui-429-label",
+                    "htmlFor": "mui-4414",
+                    "id": "mui-4414-label",
                   }
                 }
                 InputProps={
@@ -5960,8 +6203,9 @@ exports[`Search renders without crashing 4`] = `
                   }
                 }
                 disabled={false}
+                error={false}
                 fullWidth={true}
-                id="mui-429"
+                id="mui-4414"
                 inputProps={
                   Object {
                     "aria-activedescendant": null,
@@ -5971,7 +6215,7 @@ exports[`Search renders without crashing 4`] = `
                     "autoComplete": "off",
                     "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                     "disabled": false,
-                    "id": "mui-429",
+                    "id": "mui-4414",
                     "onBlur": [Function],
                     "onChange": [Function],
                     "onFocus": [Function],
@@ -5983,7 +6227,7 @@ exports[`Search renders without crashing 4`] = `
                         autocapitalize="none"
                         autocomplete="off"
                         class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                        id="mui-429"
+                        id="mui-4414"
                         spellcheck="false"
                         type="text"
                         value=""
@@ -6026,8 +6270,8 @@ exports[`Search renders without crashing 4`] = `
                       className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
                     >
                       <WithStyles(ForwardRef(InputLabel))
-                        htmlFor="mui-429"
-                        id="mui-429-label"
+                        htmlFor="mui-4414"
+                        id="mui-4414-label"
                       >
                         <ForwardRef(InputLabel)
                           classes={
@@ -6046,8 +6290,8 @@ exports[`Search renders without crashing 4`] = `
                               "shrink": "MuiInputLabel-shrink",
                             }
                           }
-                          htmlFor="mui-429"
-                          id="mui-429-label"
+                          htmlFor="mui-4414"
+                          id="mui-4414-label"
                         >
                           <WithStyles(ForwardRef(FormLabel))
                             className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
@@ -6061,8 +6305,8 @@ exports[`Search renders without crashing 4`] = `
                               }
                             }
                             data-shrink={false}
-                            htmlFor="mui-429"
-                            id="mui-429-label"
+                            htmlFor="mui-4414"
+                            id="mui-4414-label"
                           >
                             <ForwardRef(FormLabel)
                               className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
@@ -6079,14 +6323,14 @@ exports[`Search renders without crashing 4`] = `
                                 }
                               }
                               data-shrink={false}
-                              htmlFor="mui-429"
-                              id="mui-429-label"
+                              htmlFor="mui-4414"
+                              id="mui-4414-label"
                             >
                               <label
                                 className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
                                 data-shrink={false}
-                                htmlFor="mui-429"
-                                id="mui-429-label"
+                                htmlFor="mui-4414"
+                                id="mui-4414-label"
                               >
                                 Search GitHub
                               </label>
@@ -6125,7 +6369,7 @@ exports[`Search renders without crashing 4`] = `
                           </div>
                         }
                         fullWidth={true}
-                        id="mui-429"
+                        id="mui-4414"
                         inputProps={
                           Object {
                             "aria-activedescendant": null,
@@ -6135,7 +6379,7 @@ exports[`Search renders without crashing 4`] = `
                             "autoComplete": "off",
                             "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                             "disabled": false,
-                            "id": "mui-429",
+                            "id": "mui-4414",
                             "onBlur": [Function],
                             "onChange": [Function],
                             "onFocus": [Function],
@@ -6147,7 +6391,7 @@ exports[`Search renders without crashing 4`] = `
                                 autocapitalize="none"
                                 autocomplete="off"
                                 class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                id="mui-429"
+                                id="mui-4414"
                                 spellcheck="false"
                                 type="text"
                                 value=""
@@ -6214,7 +6458,7 @@ exports[`Search renders without crashing 4`] = `
                             </div>
                           }
                           fullWidth={true}
-                          id="mui-429"
+                          id="mui-4414"
                           inputProps={
                             Object {
                               "aria-activedescendant": null,
@@ -6224,7 +6468,7 @@ exports[`Search renders without crashing 4`] = `
                               "autoComplete": "off",
                               "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                               "disabled": false,
-                              "id": "mui-429",
+                              "id": "mui-4414",
                               "onBlur": [Function],
                               "onChange": [Function],
                               "onFocus": [Function],
@@ -6236,7 +6480,7 @@ exports[`Search renders without crashing 4`] = `
                                   autocapitalize="none"
                                   autocomplete="off"
                                   class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                  id="mui-429"
+                                  id="mui-4414"
                                   spellcheck="false"
                                   type="text"
                                   value=""
@@ -6303,7 +6547,7 @@ exports[`Search renders without crashing 4`] = `
                               </div>
                             }
                             fullWidth={true}
-                            id="mui-429"
+                            id="mui-4414"
                             inputComponent="input"
                             inputProps={
                               Object {
@@ -6314,7 +6558,7 @@ exports[`Search renders without crashing 4`] = `
                                 "autoComplete": "off",
                                 "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                                 "disabled": false,
-                                "id": "mui-429",
+                                "id": "mui-4414",
                                 "onBlur": [Function],
                                 "onChange": [Function],
                                 "onFocus": [Function],
@@ -6326,7 +6570,7 @@ exports[`Search renders without crashing 4`] = `
                                     autocapitalize="none"
                                     autocomplete="off"
                                     class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                    id="mui-429"
+                                    id="mui-4414"
                                     spellcheck="false"
                                     type="text"
                                     value=""
@@ -6393,7 +6637,7 @@ exports[`Search renders without crashing 4`] = `
                                 </div>
                               }
                               fullWidth={true}
-                              id="mui-429"
+                              id="mui-4414"
                               inputComponent="input"
                               inputProps={
                                 Object {
@@ -6404,7 +6648,7 @@ exports[`Search renders without crashing 4`] = `
                                   "autoComplete": "off",
                                   "className": "MuiAutocomplete-input MuiAutocomplete-inputFocused",
                                   "disabled": false,
-                                  "id": "mui-429",
+                                  "id": "mui-4414",
                                   "onBlur": [Function],
                                   "onChange": [Function],
                                   "onFocus": [Function],
@@ -6416,7 +6660,7 @@ exports[`Search renders without crashing 4`] = `
                                       autocapitalize="none"
                                       autocomplete="off"
                                       class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                      id="mui-429"
+                                      id="mui-4414"
                                       spellcheck="false"
                                       type="text"
                                       value=""
@@ -6444,7 +6688,7 @@ exports[`Search renders without crashing 4`] = `
                                   autoFocus={false}
                                   className="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
                                   disabled={false}
-                                  id="mui-429"
+                                  id="mui-4414"
                                   onAnimationStart={[Function]}
                                   onBlur={[Function]}
                                   onChange={[Function]}
@@ -6804,6 +7048,26 @@ exports[`Search renders without crashing 4`] = `
         </ForwardRef(Autocomplete)>
       </WithStyles(ForwardRef(Autocomplete))>
     </main>
+    <WithStyles(ForwardRef(Snackbar))
+      onClose={[Function]}
+      open={false}
+    >
+      <ForwardRef(Snackbar)
+        classes={
+          Object {
+            "anchorOriginBottomCenter": "MuiSnackbar-anchorOriginBottomCenter",
+            "anchorOriginBottomLeft": "MuiSnackbar-anchorOriginBottomLeft",
+            "anchorOriginBottomRight": "MuiSnackbar-anchorOriginBottomRight",
+            "anchorOriginTopCenter": "MuiSnackbar-anchorOriginTopCenter",
+            "anchorOriginTopLeft": "MuiSnackbar-anchorOriginTopLeft",
+            "anchorOriginTopRight": "MuiSnackbar-anchorOriginTopRight",
+            "root": "MuiSnackbar-root",
+          }
+        }
+        onClose={[Function]}
+        open={false}
+      />
+    </WithStyles(ForwardRef(Snackbar))>
   </div>
 </Search>
 `;

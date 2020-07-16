@@ -10,7 +10,6 @@ import OptionIconGenerator from '../OptionIconGenerator';
 
 import { SearchProps as Props, SearchResultItem } from '../../types/propTypes';
 
-import 'fontsource-roboto';
 import styles from './index.module.css';
 
 const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoading, error, clearError }: Props) => {
