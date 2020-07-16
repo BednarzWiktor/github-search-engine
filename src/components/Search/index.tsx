@@ -4,12 +4,13 @@ import { debounce } from 'lodash';
 
 import { generateUpdatedFilters } from '../../utils';
 
-import { TextField, FormControlLabel, Checkbox } from '@material-ui/core';
+import { TextField, FormControlLabel, Checkbox, Typography } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import OptionIconGenerator from '../OptionIconGenerator';
 
 import { SearchProps as Props, SearchResultItem } from '../../types/propTypes';
 
+import 'fontsource-roboto';
 import styles from './index.module.css';
 
 const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoading }: Props) => {
@@ -37,6 +38,8 @@ const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoadi
     const handleOnCheckboxChange = (type: 'users' | 'repos') => () => {
         const updatedFilters = generateUpdatedFilters(filters, type);
         
+        setInputValue('');
+        clearSearchResults();
         setFilters(updatedFilters);
     };
 
@@ -49,7 +52,7 @@ const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoadi
     return (
         <div className={styles.container}>
             <aside className={styles.filters}>
-                <span className={styles.filtersLabel}>Search within:</span>
+                <Typography variant="body1" component="span">Search within:</Typography>
                 <span className={styles.filtersControls}>
                     <FormControlLabel
                         label="Users"

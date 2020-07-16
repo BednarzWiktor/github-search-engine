@@ -18,6 +18,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.9",
     "enzyme-to-json": "^3.5.0",
+    "fontsource-roboto": "^2.1.4",
     "jest-fetch-mock": "^3.0.3",
     "lodash": "^4.17.19",
     "nock": "^13.0.2",
