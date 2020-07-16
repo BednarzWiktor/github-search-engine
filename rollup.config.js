@@ -10,14 +10,14 @@ export default {
     input: "src/features/FeatureWrapper/index.tsx",
     output: [
         {
-        file: packageJson.main,
-        format: "cjs",
-        sourcemap: true
+            file: packageJson.main,
+            format: "cjs",
+            sourcemap: true
         },
         {
-        file: packageJson.module,
-        format: "esm",
-        sourcemap: true
+            file: packageJson.module,
+            format: "esm",
+            sourcemap: true
         }
     ],
     plugins: [
