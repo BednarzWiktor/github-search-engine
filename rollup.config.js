@@ -8,6 +8,7 @@ const packageJson = require("./package.json");
 
 export default {
     input: "src/features/FeatureWrapper/index.tsx",
+    external: [ 'node-fetch' ],
     output: [
         {
             file: packageJson.main,

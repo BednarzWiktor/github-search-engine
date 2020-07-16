@@ -1,12 +1,6 @@
-'use strict';
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var React = require('react');
-var React__default = _interopDefault(React);
-var ReactDOM = require('react-dom');
-var ReactDOM__default = _interopDefault(ReactDOM);
-var nodeFetch = _interopDefault(require('node-fetch'));
+import React__default, { useMemo, useEffect, useLayoutEffect, useContext, useReducer, useRef, forwardRef, createElement, isValidElement, useState, useCallback, useDebugValue, Children, cloneElement, memo, useImperativeHandle, createContext, Fragment as Fragment$1, Component } from 'react';
+import ReactDOM__default, { unstable_batchedUpdates, findDOMNode, createPortal } from 'react-dom';
+import nodeFetch from 'node-fetch';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -1246,7 +1240,7 @@ function Provider(_ref) {
   var store = _ref.store,
       context = _ref.context,
       children = _ref.children;
-  var contextValue = React.useMemo(function () {
+  var contextValue = useMemo(function () {
     var subscription = new Subscription(store);
     subscription.onStateChange = subscription.notifyNestedSubs;
     return {
@@ -1254,10 +1248,10 @@ function Provider(_ref) {
       subscription: subscription
     };
   }, [store]);
-  var previousState = React.useMemo(function () {
+  var previousState = useMemo(function () {
     return store.getState();
   }, [store]);
-  React.useEffect(function () {
+  useEffect(function () {
     var subscription = contextValue.subscription;
     subscription.trySubscribe();
 
@@ -1429,7 +1423,7 @@ var hoistNonReactStatics_cjs = hoistNonReactStatics;
 // is created synchronously, otherwise a store update may occur before the
 // subscription is created and an inconsistent state may be observed
 
-var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? useLayoutEffect : useEffect;
 
 var EMPTY_ARRAY = [];
 var NO_SUBSCRIPTION_ARRAY = [null, null];
@@ -1634,12 +1628,12 @@ _ref) {
     // that just executes the given callback immediately.
 
 
-    var usePureOnlyMemo = pure ? React.useMemo : function (callback) {
+    var usePureOnlyMemo = pure ? useMemo : function (callback) {
       return callback();
     };
 
     function ConnectFunction(props) {
-      var _useMemo = React.useMemo(function () {
+      var _useMemo = useMemo(function () {
         // Distinguish between actual "data" props that were passed to the wrapper component,
         // and values needed to control behavior (forwarded refs, alternate context instances).
         // To maintain the wrapperProps object reference, memoize this destructuring.
@@ -1652,13 +1646,13 @@ _ref) {
           forwardedRef = _useMemo[1],
           wrapperProps = _useMemo[2];
 
-      var ContextToUse = React.useMemo(function () {
+      var ContextToUse = useMemo(function () {
         // Users may optionally pass in a custom context instance to use instead of our ReactReduxContext.
         // Memoize the check that determines which context instance we should use.
         return propsContext && propsContext.Consumer && reactIs.isContextConsumer(React__default.createElement(propsContext.Consumer, null)) ? propsContext : Context;
       }, [propsContext, Context]); // Retrieve the store and ancestor subscription via context, if available
 
-      var contextValue = React.useContext(ContextToUse); // The store _must_ exist as either a prop or in context.
+      var contextValue = useContext(ContextToUse); // The store _must_ exist as either a prop or in context.
       // We'll check to see if it _looks_ like a Redux store first.
       // This allows us to pass through a `store` prop that is just a plain value.
 
@@ -1671,13 +1665,13 @@ _ref) {
 
 
       var store = didStoreComeFromProps ? props.store : contextValue.store;
-      var childPropsSelector = React.useMemo(function () {
+      var childPropsSelector = useMemo(function () {
         // The child props selector needs the store reference as an input.
         // Re-create this selector whenever the store changes.
         return createChildSelector(store);
       }, [store]);
 
-      var _useMemo2 = React.useMemo(function () {
+      var _useMemo2 = useMemo(function () {
         if (!shouldHandleStateChanges) return NO_SUBSCRIPTION_ARRAY; // This Subscription's source should match where store came from: props vs. context. A component
         // connected to the store via props shouldn't use subscription from context, or vice versa.
 
@@ -1694,7 +1688,7 @@ _ref) {
       // and memoize that value to avoid unnecessary context updates.
 
 
-      var overriddenContextValue = React.useMemo(function () {
+      var overriddenContextValue = useMemo(function () {
         if (didStoreComeFromProps) {
           // This component is directly subscribed to a store from props.
           // We don't want descendants reading from this store - pass down whatever
@@ -1710,7 +1704,7 @@ _ref) {
       }, [didStoreComeFromProps, contextValue, subscription]); // We need to force this wrapper component to re-render whenever a Redux store update
       // causes a change to the calculated child component props (or we caught an error in mapState)
 
-      var _useReducer = React.useReducer(storeStateUpdatesReducer, EMPTY_ARRAY, initStateUpdates),
+      var _useReducer = useReducer(storeStateUpdatesReducer, EMPTY_ARRAY, initStateUpdates),
           _useReducer$ = _useReducer[0],
           previousStateUpdateResult = _useReducer$[0],
           forceComponentUpdateDispatch = _useReducer[1]; // Propagate any mapState/mapDispatch errors upwards
@@ -1721,10 +1715,10 @@ _ref) {
       } // Set up refs to coordinate values between the subscription effect and the render logic
 
 
-      var lastChildProps = React.useRef();
-      var lastWrapperProps = React.useRef(wrapperProps);
-      var childPropsFromStoreUpdate = React.useRef();
-      var renderIsScheduled = React.useRef(false);
+      var lastChildProps = useRef();
+      var lastWrapperProps = useRef(wrapperProps);
+      var childPropsFromStoreUpdate = useRef();
+      var renderIsScheduled = useRef(false);
       var actualChildProps = usePureOnlyMemo(function () {
         // Tricky logic here:
         // - This render may have been triggered by a Redux store update that produced new child props
@@ -1750,14 +1744,14 @@ _ref) {
       useIsomorphicLayoutEffectWithArgs(subscribeUpdates, [shouldHandleStateChanges, store, subscription, childPropsSelector, lastWrapperProps, lastChildProps, renderIsScheduled, childPropsFromStoreUpdate, notifyNestedSubs, forceComponentUpdateDispatch], [store, subscription, childPropsSelector]); // Now that all that's done, we can finally try to actually render the child component.
       // We memoize the elements for the rendered child component as an optimization.
 
-      var renderedWrappedComponent = React.useMemo(function () {
+      var renderedWrappedComponent = useMemo(function () {
         return React__default.createElement(WrappedComponent, _extends({}, actualChildProps, {
           ref: forwardedRef
         }));
       }, [forwardedRef, WrappedComponent, actualChildProps]); // If React sees the exact same element reference as last time, it bails out of re-rendering
       // that child, same as if it was wrapped in React.memo() or returned false from shouldComponentUpdate.
 
-      var renderedChild = React.useMemo(function () {
+      var renderedChild = useMemo(function () {
         if (shouldHandleStateChanges) {
           // If this component is subscribed to store updates, we need to pass its own
           // subscription instance down to our descendants. That means rendering the same
@@ -2884,7 +2878,7 @@ function createConnect(_temp) {
 var connect = /*#__PURE__*/
 createConnect();
 
-setBatch(ReactDOM.unstable_batchedUpdates);
+setBatch(unstable_batchedUpdates);
 
 function n$1(n){for(var t=arguments.length,r=Array(t>1?t-1:0),e=1;e<t;e++)r[e-1]=arguments[e];if("production"!==process.env.NODE_ENV){var i=V[n],o=i?"function"==typeof i?i.apply(null,r):i:"unknown error nr: "+n;throw Error("[Immer] "+o)}throw Error("[Immer] minified error nr: "+n+(r.length?" "+r.join(","):"")+". Find the full error at: https://bit.ly/3cXEKWf")}function t$1(n){return !!n&&!!n[L]}function r$1(n){return !!n&&(function(n){if(!n||"object"!=typeof n)return !1;var t=Object.getPrototypeOf(n);return !t||t===Object.prototype}(n)||Array.isArray(n)||!!n[H]||!!n.constructor[H]||s(n)||v$1(n))}function i(n,t,r){void 0===r&&(r=!1),0===o(n)?(r?Object.keys:Y)(n).forEach((function(e){r&&"symbol"==typeof e||t(e,n[e],n);})):n.forEach((function(r,e){return t(e,r,n)}));}function o(n){var t=n[L];return t?t.i>3?t.i-4:t.i:Array.isArray(n)?1:s(n)?2:v$1(n)?3:0}function u(n,t){return 2===o(n)?n.has(t):Object.prototype.hasOwnProperty.call(n,t)}function a(n,t){return 2===o(n)?n.get(t):n[t]}function f$1(n,t,r){var e=o(n);2===e?n.set(t,r):3===e?(n.delete(t),n.add(r)):n[t]=r;}function c$1(n,t){return n===t?0!==n||1/n==1/t:n!=n&&t!=t}function s(n){return W&&n instanceof Map}function v$1(n){return X&&n instanceof Set}function p$1(n){return n.o||n.t}function l$1(n){if(Array.isArray(n))return n.slice();var t=Z(n);delete t[L];for(var r=Y(t),e=0;e<r.length;e++){var i=r[e],o=t[i];!1===o.writable&&(o.writable=!0,o.configurable=!0),(o.get||o.set)&&(t[i]={configurable:!0,writable:!0,enumerable:o.enumerable,value:n[i]});}return Object.create(Object.getPrototypeOf(n),t)}function d$1(n,e){b$1(n)||t$1(n)||!r$1(n)||(o(n)>1&&(n.set=n.add=n.clear=n.delete=h$1),Object.freeze(n),e&&i(n,(function(n,t){return d$1(t,!0)}),!0));}function h$1(){n$1(2);}function b$1(n){return null==n||"object"!=typeof n||Object.isFrozen(n)}function y$1(t){var r=nn[t];return r||n$1("production"!==process.env.NODE_ENV?18:19,t),r}function m$1(n,t){nn[n]=t;}function _(){return "production"===process.env.NODE_ENV||G||n$1(0),G}function j(n,t){t&&(y$1("Patches"),n.u=[],n.s=[],n.v=t);}function g$1(n){O(n),n.p.forEach(S),n.p=null;}function O(n){n===G&&(G=n.l);}function w$1(n){return G={p:[],l:G,h:n,m:!0,_:0}}function S(n){var t=n[L];0===t.i||1===t.i?t.j():t.g=!0;}function P(t,e){e._=e.p.length;var i=e.p[0],o=void 0!==t&&t!==i;return e.h.O||y$1("ES5").S(e,t,o),o?(i[L].P&&(g$1(e),n$1(4)),r$1(t)&&(t=M(e,t),e.l||x$1(e,t)),e.u&&y$1("Patches").M(i[L],t,e.u,e.s)):t=M(e,i,[]),g$1(e),e.u&&e.v(e.u,e.s),t!==B?t:void 0}function M(n,t,r){if(b$1(t))return t;var e=t[L];if(!e)return i(t,(function(i,o){return A$1(n,e,t,i,o,r)}),!0),t;if(e.A!==n)return t;if(!e.P)return x$1(n,e.t,!0),e.t;if(!e.I){e.I=!0,e.A._--;var o=4===e.i||5===e.i?e.o=l$1(e.k):e.o;i(o,(function(t,i){return A$1(n,e,o,t,i,r)})),x$1(n,o,!1),r&&n.u&&y$1("Patches").R(e,r,n.u,n.s);}return e.o}function A$1(e,i,o,a,c,s){if("production"!==process.env.NODE_ENV&&c===o&&n$1(5),t$1(c)){var v=M(e,c,s&&i&&3!==i.i&&!u(i.D,a)?s.concat(a):void 0);if(f$1(o,a,v),!t$1(v))return;e.m=!1;}if(r$1(c)&&!b$1(c)){if(!e.h.N&&e._<1)return;M(e,c),i&&i.A.l||x$1(e,c);}}function x$1(n,t,r){void 0===r&&(r=!1),n.h.N&&n.m&&d$1(t,r);}function z$1(n,t){var r=n[L];return (r?p$1(r):n)[t]}function I(n){n.P||(n.P=!0,n.l&&I(n.l));}function E(n){n.o||(n.o=l$1(n.t));}function k$1(n,t,r){var e=s(t)?y$1("MapSet").T(t,r):v$1(t)?y$1("MapSet").F(t,r):n.O?function(n,t){var r=Array.isArray(n),e={i:r?1:0,A:t?t.A:_(),P:!1,I:!1,D:{},l:t,t:n,k:null,o:null,j:null,C:!1},i=e,o=tn;r&&(i=[e],o=rn);var u=Proxy.revocable(i,o),a=u.revoke,f=u.proxy;return e.k=f,e.j=a,f}(t,r):y$1("ES5").J(t,r);return (r?r.A:_()).p.push(e),e}function R(e){return t$1(e)||n$1(22,e),function n(t){if(!r$1(t))return t;var e,u=t[L],c=o(t);if(u){if(!u.P&&(u.i<4||!y$1("ES5").K(u)))return u.t;u.I=!0,e=D(t,c),u.I=!1;}else e=D(t,c);return i(e,(function(t,r){u&&a(u.t,t)===r||f$1(e,t,n(r));})),3===c?new Set(e):e}(e)}function D(n,t){switch(t){case 2:return new Map(n);case 3:return Array.from(n)}return l$1(n)}function N(){function r(n,t){var r=s[n];return r?r.enumerable=t:s[n]=r={configurable:!0,enumerable:t,get:function(){var t=this[L];return "production"!==process.env.NODE_ENV&&f(t),tn.get(t,n)},set:function(t){var r=this[L];"production"!==process.env.NODE_ENV&&f(r),tn.set(r,n,t);}},r}function e(n){for(var t=n.length-1;t>=0;t--){var r=n[t][L];if(!r.P)switch(r.i){case 5:a(r)&&I(r);break;case 4:o(r)&&I(r);}}}function o(n){for(var t=n.t,r=n.k,e=Y(r),i=e.length-1;i>=0;i--){var o=e[i];if(o!==L){var a=t[o];if(void 0===a&&!u(t,o))return !0;var f=r[o],s=f&&f[L];if(s?s.t!==a:!c$1(f,a))return !0}}var v=!!t[L];return e.length!==Y(t).length+(v?0:1)}function a(n){var t=n.k;if(t.length!==n.t.length)return !0;var r=Object.getOwnPropertyDescriptor(t,t.length-1);return !(!r||r.get)}function f(t){t.g&&n$1(3,JSON.stringify(p$1(t)));}var s={};m$1("ES5",{J:function(n,t){var e=Array.isArray(n),i=function(n,t){var e=Z(t);n&&delete e.length,delete e[L];for(var i=Y(e),o=0;o<i.length;o++){var u=i[o];e[u]=r(u,n||!!e[u].enumerable);}if(n){var a=Array(t.length);return Object.defineProperties(a,e),a}return Object.create(Object.getPrototypeOf(t),e)}(e,n),o={i:e?5:4,A:t?t.A:_(),P:!1,I:!1,D:{},l:t,t:n,k:i,o:null,g:!1,C:!1};return Object.defineProperty(i,L,{value:o,writable:!0}),i},S:function(n,r,o){o?t$1(r)&&r[L].A===n&&e(n.p):(n.u&&function n(t){if(t&&"object"==typeof t){var r=t[L];if(r){var e=r.t,o=r.k,f=r.D,c=r.i;if(4===c)i(o,(function(t){t!==L&&(void 0!==e[t]||u(e,t)?f[t]||n(o[t]):(f[t]=!0,I(r)));})),i(e,(function(n){void 0!==o[n]||u(o,n)||(f[n]=!1,I(r));}));else if(5===c){if(a(r)&&(I(r),f.length=!0),o.length<e.length)for(var s=o.length;s<e.length;s++)f[s]=!1;else for(var v=e.length;v<o.length;v++)f[v]=!0;for(var p=Math.min(o.length,e.length),l=0;l<p;l++)void 0===f[l]&&n(o[l]);}}}}(n.p[0]),e(n.p));},K:function(n){return 4===n.i?o(n):a(n)}});}var $,G,U="undefined"!=typeof Symbol&&"symbol"==typeof Symbol("x"),W="undefined"!=typeof Map,X="undefined"!=typeof Set,q$1="undefined"!=typeof Proxy&&void 0!==Proxy.revocable&&"undefined"!=typeof Reflect,B=U?Symbol("immer-nothing"):(($={})["immer-nothing"]=!0,$),H=U?Symbol("immer-draftable"):"__$immer_draftable",L=U?Symbol("immer-state"):"__$immer_state",V={0:"Illegal state",1:"Immer drafts cannot have computed properties",2:"This object has been frozen and should not be mutated",3:function(n){return "Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? "+n},4:"An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft.",5:"Immer forbids circular references",6:"The first or second argument to `produce` must be a function",7:"The third argument to `produce` must be a function or undefined",8:"First argument to `createDraft` must be a plain object, an array, or an immerable object",9:"First argument to `finishDraft` must be a draft returned by `createDraft`",10:"The given draft is already finalized",11:"Object.defineProperty() cannot be used on an Immer draft",12:"Object.setPrototypeOf() cannot be used on an Immer draft",13:"Immer only supports deleting array indices",14:"Immer only supports setting array indices and the 'length' property",15:function(n){return "Cannot apply patch, path doesn't resolve: "+n},16:'Sets cannot have "replace" patches.',17:function(n){return "Unsupported patch operation: "+n},18:function(n){return "The plugin for '"+n+"' has not been loaded into Immer. To enable the plugin, import and call `enable"+n+"()` when initializing your application."},19:"plugin not loaded",20:"Cannot use proxies if Proxy, Proxy.revocable or Reflect are not available",21:function(n){return "produce can only be called on things that are draftable: plain objects, arrays, Map, Set or classes that are marked with '[immerable]: true'. Got '"+n+"'"},22:function(n){return "'current' expects a draft, got: "+n},23:function(n){return "'original' expects a draft, got: "+n}},Y="undefined"!=typeof Reflect&&Reflect.ownKeys?Reflect.ownKeys:void 0!==Object.getOwnPropertySymbols?function(n){return Object.getOwnPropertyNames(n).concat(Object.getOwnPropertySymbols(n))}:Object.getOwnPropertyNames,Z=Object.getOwnPropertyDescriptors||function(n){var t={};return Y(n).forEach((function(r){t[r]=Object.getOwnPropertyDescriptor(n,r);})),t},nn={},tn={get:function(n,t){if(t===L)return n;var e=p$1(n);if(!u(e,t))return function(n,t,r){if(r in t)for(var e=Object.getPrototypeOf(t);e;){var i,o=Object.getOwnPropertyDescriptor(e,r);if(o)return "value"in o?o.value:null===(i=o.get)||void 0===i?void 0:i.call(n.k);e=Object.getPrototypeOf(e);}}(n,e,t);var i=e[t];return n.I||!r$1(i)?i:i===z$1(n.t,t)?(E(n),n.o[t]=k$1(n.A.h,i,n)):i},has:function(n,t){return t in p$1(n)},ownKeys:function(n){return Reflect.ownKeys(p$1(n))},set:function(n,t,r){if(n.D[t]=!0,!n.P){if(c$1(r,z$1(p$1(n),t))&&void 0!==r)return !0;E(n),I(n);}return n.o[t]=r,!0},deleteProperty:function(n,t){return void 0!==z$1(n.t,t)||t in n.t?(n.D[t]=!1,E(n),I(n)):delete n.D[t],n.o&&delete n.o[t],!0},getOwnPropertyDescriptor:function(n,t){var r=p$1(n),e=Reflect.getOwnPropertyDescriptor(r,t);return e?{writable:!0,configurable:1!==n.i||"length"!==t,enumerable:e.enumerable,value:r[t]}:e},defineProperty:function(){n$1(11);},getPrototypeOf:function(n){return Object.getPrototypeOf(n.t)},setPrototypeOf:function(){n$1(12);}},rn={};i(tn,(function(n,t){rn[n]=function(){return arguments[0]=arguments[0][0],t.apply(this,arguments)};})),rn.deleteProperty=function(t,r){return "production"!==process.env.NODE_ENV&&isNaN(parseInt(r))&&n$1(13),tn.deleteProperty.call(this,t[0],r)},rn.set=function(t,r,e){return "production"!==process.env.NODE_ENV&&"length"!==r&&isNaN(parseInt(r))&&n$1(14),tn.set.call(this,t[0],r,e,t[0])};var en=function(){function e(n){this.O=q$1,this.N="production"!==process.env.NODE_ENV,"boolean"==typeof(null==n?void 0:n.useProxies)&&this.setUseProxies(n.useProxies),"boolean"==typeof(null==n?void 0:n.autoFreeze)&&this.setAutoFreeze(n.autoFreeze),this.produce=this.produce.bind(this),this.produceWithPatches=this.produceWithPatches.bind(this);}var i=e.prototype;return i.produce=function(t,e,i){if("function"==typeof t&&"function"!=typeof e){var o=e;e=t;var u=this;return function(n){var t=this;void 0===n&&(n=o);for(var r=arguments.length,i=Array(r>1?r-1:0),a=1;a<r;a++)i[a-1]=arguments[a];return u.produce(n,(function(n){var r;return (r=e).call.apply(r,[t,n].concat(i))}))}}var a;if("function"!=typeof e&&n$1(6),void 0!==i&&"function"!=typeof i&&n$1(7),r$1(t)){var f=w$1(this),c=k$1(this,t,void 0),s=!0;try{a=e(c),s=!1;}finally{s?g$1(f):O(f);}return "undefined"!=typeof Promise&&a instanceof Promise?a.then((function(n){return j(f,i),P(n,f)}),(function(n){throw g$1(f),n})):(j(f,i),P(a,f))}if(!t||"object"!=typeof t){if((a=e(t))===B)return;return void 0===a&&(a=t),this.N&&d$1(a,!0),a}n$1(21,t);},i.produceWithPatches=function(n,t){var r,e,i=this;return "function"==typeof n?function(t){for(var r=arguments.length,e=Array(r>1?r-1:0),o=1;o<r;o++)e[o-1]=arguments[o];return i.produceWithPatches(t,(function(t){return n.apply(void 0,[t].concat(e))}))}:[this.produce(n,t,(function(n,t){r=n,e=t;})),r,e]},i.createDraft=function(e){r$1(e)||n$1(8),t$1(e)&&(e=R(e));var i=w$1(this),o=k$1(this,e,void 0);return o[L].C=!0,O(i),o},i.finishDraft=function(t,r){var e=t&&t[L];"production"!==process.env.NODE_ENV&&(e&&e.C||n$1(9),e.I&&n$1(10));var i=e.A;return j(i,r),P(void 0,i)},i.setAutoFreeze=function(n){this.N=n;},i.setUseProxies=function(t){t&&!q$1&&n$1(20),this.O=t;},i.applyPatches=function(n,r){var e;for(e=r.length-1;e>=0;e--){var i=r[e];if(0===i.path.length&&"replace"===i.op){n=i.value;break}}var o=y$1("Patches").$;return t$1(n)?o(n,r):this.produce(n,(function(n){return o(n,r.slice(e+1))}))},e}(),on=new en,un=on.produce,an=on.produceWithPatches.bind(on),fn=on.setAutoFreeze.bind(on),cn=on.setUseProxies.bind(on),sn=on.applyPatches.bind(on),vn=on.createDraft.bind(on),pn=on.finishDraft.bind(on);
 
@@ -29961,7 +29955,7 @@ var styles = function styles(theme) {
     }
   };
 };
-var SvgIcon = /*#__PURE__*/React.forwardRef(function SvgIcon(props, ref) {
+var SvgIcon = /*#__PURE__*/forwardRef(function SvgIcon(props, ref) {
   var children = props.children,
       classes = props.classes,
       className = props.className,
@@ -29977,7 +29971,7 @@ var SvgIcon = /*#__PURE__*/React.forwardRef(function SvgIcon(props, ref) {
       viewBox = _props$viewBox === void 0 ? '0 0 24 24' : _props$viewBox,
       other = _objectWithoutProperties(props, ["children", "classes", "className", "color", "component", "fontSize", "htmlColor", "titleAccess", "viewBox"]);
 
-  return /*#__PURE__*/React.createElement(Component, _extends({
+  return /*#__PURE__*/createElement(Component, _extends({
     className: clsx(classes.root, className, color !== 'inherit' && classes["color".concat(capitalize(color))], fontSize !== 'default' && classes["fontSize".concat(capitalize(fontSize))]),
     focusable: "false",
     viewBox: viewBox,
@@ -29985,7 +29979,7 @@ var SvgIcon = /*#__PURE__*/React.forwardRef(function SvgIcon(props, ref) {
     "aria-hidden": titleAccess ? undefined : true,
     role: titleAccess ? 'img' : undefined,
     ref: ref
-  }, other), children, titleAccess ? /*#__PURE__*/React.createElement("title", null, titleAccess) : null);
+  }, other), children, titleAccess ? /*#__PURE__*/createElement("title", null, titleAccess) : null);
 });
 process.env.NODE_ENV !== "production" ? SvgIcon.propTypes = {
   // ----------------------------- Warning --------------------------------
@@ -30111,7 +30105,7 @@ function debounce(func) {
 }
 
 function isMuiElement(element, muiNames) {
-  return /*#__PURE__*/React.isValidElement(element) && muiNames.indexOf(element.type.muiName) !== -1;
+  return /*#__PURE__*/isValidElement(element) && muiNames.indexOf(element.type.muiName) !== -1;
 }
 
 function ownerDocument(node) {
@@ -30154,33 +30148,33 @@ function useControlled(_ref) {
       _ref$state = _ref.state,
       state = _ref$state === void 0 ? 'value' : _ref$state;
 
-  var _React$useRef = React.useRef(controlled !== undefined),
+  var _React$useRef = useRef(controlled !== undefined),
       isControlled = _React$useRef.current;
 
-  var _React$useState = React.useState(defaultProp),
+  var _React$useState = useState(defaultProp),
       valueState = _React$useState[0],
       setValue = _React$useState[1];
 
   var value = isControlled ? controlled : valueState;
 
   if (process.env.NODE_ENV !== 'production') {
-    React.useEffect(function () {
+    useEffect(function () {
       if (isControlled !== (controlled !== undefined)) {
         console.error(["Material-UI: A component is changing the ".concat(isControlled ? '' : 'un', "controlled ").concat(state, " state of ").concat(name, " to be ").concat(isControlled ? 'un' : '', "controlled."), 'Elements should not switch from uncontrolled to controlled (or vice versa).', "Decide between using a controlled or uncontrolled ".concat(name, " ") + 'element for the lifetime of the component.', "The nature of the state is determined during the first render, it's considered controlled if the value is not `undefined`.", 'More info: https://fb.me/react-controlled-components'].join('\n'));
       }
     }, [controlled]);
 
-    var _React$useRef2 = React.useRef(defaultProp),
+    var _React$useRef2 = useRef(defaultProp),
         defaultValue = _React$useRef2.current;
 
-    React.useEffect(function () {
+    useEffect(function () {
       if (!isControlled && defaultValue !== defaultProp) {
         console.error(["Material-UI: A component is changing the default ".concat(state, " state of an uncontrolled ").concat(name, " after being initialized. ") + "To suppress this warning opt to use a controlled ".concat(name, ".")].join('\n'));
       }
     }, [JSON.stringify(defaultProp)]);
   }
 
-  var setValueIfUncontrolled = React.useCallback(function (newValue) {
+  var setValueIfUncontrolled = useCallback(function (newValue) {
     if (!isControlled) {
       setValue(newValue);
     }
@@ -30188,7 +30182,7 @@ function useControlled(_ref) {
   return [value, setValueIfUncontrolled];
 }
 
-var useEnhancedEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+var useEnhancedEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 /**
  * https://github.com/facebook/react/issues/14099#issuecomment-440013892
  *
@@ -30196,11 +30190,11 @@ var useEnhancedEffect = typeof window !== 'undefined' ? React.useLayoutEffect : 
  */
 
 function useEventCallback(fn) {
-  var ref = React.useRef(fn);
+  var ref = useRef(fn);
   useEnhancedEffect(function () {
     ref.current = fn;
   });
-  return React.useCallback(function () {
+  return useCallback(function () {
     return (ref.current).apply(void 0, arguments);
   }, []);
 }
@@ -30211,7 +30205,7 @@ function useForkRef(refA, refB) {
    * This means react will call the old forkRef with `null` and the new forkRef
    * with the ref. Cleanup naturally emerges from this behavior
    */
-  return React.useMemo(function () {
+  return useMemo(function () {
     if (refA == null && refB == null) {
       return null;
     }
@@ -30228,12 +30222,12 @@ function useForkRef(refA, refB) {
  */
 
 function useId(idOverride) {
-  var _React$useState = React.useState(idOverride),
+  var _React$useState = useState(idOverride),
       defaultId = _React$useState[0],
       setDefaultId = _React$useState[1];
 
   var id = idOverride || defaultId;
-  React.useEffect(function () {
+  useEffect(function () {
     if (defaultId == null) {
       // Fallback to this default id when possible.
       // Use the random value for client-side rendering only.
@@ -30371,8 +30365,8 @@ function handleBlurVisible() {
 }
 
 function useIsFocusVisible() {
-  var ref = React.useCallback(function (instance) {
-    var node = ReactDOM.findDOMNode(instance);
+  var ref = useCallback(function (instance) {
+    var node = findDOMNode(instance);
 
     if (node != null) {
       prepare(node.ownerDocument);
@@ -30381,7 +30375,7 @@ function useIsFocusVisible() {
 
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    React.useDebugValue(isFocusVisible);
+    useDebugValue(isFocusVisible);
   }
 
   return {
@@ -31029,11 +31023,11 @@ Transition.EXITING = EXITING;
 
 function getChildMapping(children, mapFn) {
   var mapper = function mapper(child) {
-    return mapFn && React.isValidElement(child) ? mapFn(child) : child;
+    return mapFn && isValidElement(child) ? mapFn(child) : child;
   };
 
   var result = Object.create(null);
-  if (children) React.Children.map(children, function (c) {
+  if (children) Children.map(children, function (c) {
     return c;
   }).forEach(function (child) {
     // run the map function here instead so that the key is the computed one
@@ -31111,7 +31105,7 @@ function getProp(child, prop, props) {
 
 function getInitialChildMapping(props, onExited) {
   return getChildMapping(props.children, function (child) {
-    return React.cloneElement(child, {
+    return cloneElement(child, {
       onExited: onExited.bind(null, child),
       in: true,
       appear: getProp(child, 'appear', props),
@@ -31125,15 +31119,15 @@ function getNextChildMapping(nextProps, prevChildMapping, onExited) {
   var children = mergeChildMappings(prevChildMapping, nextChildMapping);
   Object.keys(children).forEach(function (key) {
     var child = children[key];
-    if (!React.isValidElement(child)) return;
+    if (!isValidElement(child)) return;
     var hasPrev = (key in prevChildMapping);
     var hasNext = (key in nextChildMapping);
     var prevChild = prevChildMapping[key];
-    var isLeaving = React.isValidElement(prevChild) && !prevChild.props.in; // item is new (entering)
+    var isLeaving = isValidElement(prevChild) && !prevChild.props.in; // item is new (entering)
 
     if (hasNext && (!hasPrev || isLeaving)) {
       // console.log('entering', key)
-      children[key] = React.cloneElement(child, {
+      children[key] = cloneElement(child, {
         onExited: onExited.bind(null, child),
         in: true,
         exit: getProp(child, 'exit', nextProps),
@@ -31142,14 +31136,14 @@ function getNextChildMapping(nextProps, prevChildMapping, onExited) {
     } else if (!hasNext && hasPrev && !isLeaving) {
       // item is old (exiting)
       // console.log('leaving', key)
-      children[key] = React.cloneElement(child, {
+      children[key] = cloneElement(child, {
         in: false
       });
-    } else if (hasNext && hasPrev && React.isValidElement(prevChild)) {
+    } else if (hasNext && hasPrev && isValidElement(prevChild)) {
       // item hasn't changed transition states
       // copy over the last transition props;
       // console.log('unchanged', key)
-      children[key] = React.cloneElement(child, {
+      children[key] = cloneElement(child, {
         onExited: onExited.bind(null, child),
         in: prevChild.props.in,
         exit: getProp(child, 'exit', nextProps),
@@ -31379,7 +31373,7 @@ var styles$1 = function styles(theme) {
     }
   }, elevations);
 };
-var Paper = /*#__PURE__*/React.forwardRef(function Paper(props, ref) {
+var Paper = /*#__PURE__*/forwardRef(function Paper(props, ref) {
   var classes = props.classes,
       className = props.className,
       _props$component = props.component,
@@ -31392,7 +31386,7 @@ var Paper = /*#__PURE__*/React.forwardRef(function Paper(props, ref) {
       variant = _props$variant === void 0 ? 'elevation' : _props$variant,
       other = _objectWithoutProperties(props, ["classes", "className", "component", "square", "elevation", "variant"]);
 
-  return /*#__PURE__*/React.createElement(Component, _extends({
+  return /*#__PURE__*/createElement(Component, _extends({
     className: clsx(classes.root, className, variant === 'outlined' ? classes.outlined : classes["elevation".concat(elevation)], !square && classes.rounded),
     ref: ref
   }, other));
@@ -31460,7 +31454,7 @@ var Paper$1 = withStyles$1(styles$1, {
   name: 'MuiPaper'
 })(Paper);
 
-var useEnhancedEffect$1 = typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
+var useEnhancedEffect$1 = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 /**
  * @ignore - internal component.
  */
@@ -31477,7 +31471,7 @@ function Ripple(props) {
       onExited = _props$onExited === void 0 ? function () {} : _props$onExited,
       timeout = props.timeout;
 
-  var _React$useState = React.useState(false),
+  var _React$useState = useState(false),
       leaving = _React$useState[0],
       setLeaving = _React$useState[1];
 
@@ -31504,10 +31498,10 @@ function Ripple(props) {
 
     return undefined;
   }, [handleExited, inProp, timeout]);
-  return /*#__PURE__*/React.createElement("span", {
+  return /*#__PURE__*/createElement("span", {
     className: rippleClassName,
     style: rippleStyles
-  }, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/createElement("span", {
     className: childClassName
   }));
 }
@@ -31650,46 +31644,46 @@ var styles$2 = function styles(theme) {
  * TODO v5: Make private
  */
 
-var TouchRipple = /*#__PURE__*/React.forwardRef(function TouchRipple(props, ref) {
+var TouchRipple = /*#__PURE__*/forwardRef(function TouchRipple(props, ref) {
   var _props$center = props.center,
       centerProp = _props$center === void 0 ? false : _props$center,
       classes = props.classes,
       className = props.className,
       other = _objectWithoutProperties(props, ["center", "classes", "className"]);
 
-  var _React$useState = React.useState([]),
+  var _React$useState = useState([]),
       ripples = _React$useState[0],
       setRipples = _React$useState[1];
 
-  var nextKey = React.useRef(0);
-  var rippleCallback = React.useRef(null);
-  React.useEffect(function () {
+  var nextKey = useRef(0);
+  var rippleCallback = useRef(null);
+  useEffect(function () {
     if (rippleCallback.current) {
       rippleCallback.current();
       rippleCallback.current = null;
     }
   }, [ripples]); // Used to filter out mouse emulated events on mobile.
 
-  var ignoringMouseDown = React.useRef(false); // We use a timer in order to only show the ripples for touch "click" like events.
+  var ignoringMouseDown = useRef(false); // We use a timer in order to only show the ripples for touch "click" like events.
   // We don't want to display the ripple for touch scroll events.
 
-  var startTimer = React.useRef(null); // This is the hook called once the previous timeout is ready.
+  var startTimer = useRef(null); // This is the hook called once the previous timeout is ready.
 
-  var startTimerCommit = React.useRef(null);
-  var container = React.useRef(null);
-  React.useEffect(function () {
+  var startTimerCommit = useRef(null);
+  var container = useRef(null);
+  useEffect(function () {
     return function () {
       clearTimeout(startTimer.current);
     };
   }, []);
-  var startCommit = React.useCallback(function (params) {
+  var startCommit = useCallback(function (params) {
     var pulsate = params.pulsate,
         rippleX = params.rippleX,
         rippleY = params.rippleY,
         rippleSize = params.rippleSize,
         cb = params.cb;
     setRipples(function (oldRipples) {
-      return [].concat(_toConsumableArray(oldRipples), [/*#__PURE__*/React.createElement(Ripple, {
+      return [].concat(_toConsumableArray(oldRipples), [/*#__PURE__*/createElement(Ripple, {
         key: nextKey.current,
         classes: classes,
         timeout: DURATION,
@@ -31702,7 +31696,7 @@ var TouchRipple = /*#__PURE__*/React.forwardRef(function TouchRipple(props, ref)
     nextKey.current += 1;
     rippleCallback.current = cb;
   }, [classes]);
-  var start = React.useCallback(function () {
+  var start = useCallback(function () {
     var event = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var cb = arguments.length > 2 ? arguments[2] : undefined;
@@ -31793,12 +31787,12 @@ var TouchRipple = /*#__PURE__*/React.forwardRef(function TouchRipple(props, ref)
       });
     }
   }, [centerProp, startCommit]);
-  var pulsate = React.useCallback(function () {
+  var pulsate = useCallback(function () {
     start({}, {
       pulsate: true
     });
   }, [start]);
-  var stop = React.useCallback(function (event, cb) {
+  var stop = useCallback(function (event, cb) {
     clearTimeout(startTimer.current); // The touch interaction occurs too quickly.
     // We still want to show ripple effect.
 
@@ -31822,17 +31816,17 @@ var TouchRipple = /*#__PURE__*/React.forwardRef(function TouchRipple(props, ref)
     });
     rippleCallback.current = cb;
   }, []);
-  React.useImperativeHandle(ref, function () {
+  useImperativeHandle(ref, function () {
     return {
       pulsate: pulsate,
       start: start,
       stop: stop
     };
   }, [pulsate, start, stop]);
-  return /*#__PURE__*/React.createElement("span", _extends({
+  return /*#__PURE__*/createElement("span", _extends({
     className: clsx(classes.root, className),
     ref: container
-  }, other), /*#__PURE__*/React.createElement(TransitionGroup, {
+  }, other), /*#__PURE__*/createElement(TransitionGroup, {
     component: null,
     exit: true
   }, ripples));
@@ -31858,7 +31852,7 @@ process.env.NODE_ENV !== "production" ? TouchRipple.propTypes = {
 var TouchRipple$1 = withStyles$1(styles$2, {
   flip: false,
   name: 'MuiTouchRipple'
-})( /*#__PURE__*/React.memo(TouchRipple));
+})( /*#__PURE__*/memo(TouchRipple));
 
 var styles$3 = {
   /* Styles applied to the root element. */
@@ -31914,7 +31908,7 @@ var styles$3 = {
  * It contains a load of style reset and some focus/ripple logic.
  */
 
-var ButtonBase = /*#__PURE__*/React.forwardRef(function ButtonBase(props, ref) {
+var ButtonBase = /*#__PURE__*/forwardRef(function ButtonBase(props, ref) {
   var action = props.action,
       buttonRefProp = props.buttonRef,
       _props$centerRipple = props.centerRipple,
@@ -31953,16 +31947,16 @@ var ButtonBase = /*#__PURE__*/React.forwardRef(function ButtonBase(props, ref) {
       type = _props$type === void 0 ? 'button' : _props$type,
       other = _objectWithoutProperties(props, ["action", "buttonRef", "centerRipple", "children", "classes", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "onBlur", "onClick", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "onDragLeave", "tabIndex", "TouchRippleProps", "type"]);
 
-  var buttonRef = React.useRef(null);
+  var buttonRef = useRef(null);
 
   function getButtonNode() {
     // #StrictMode ready
-    return ReactDOM.findDOMNode(buttonRef.current);
+    return findDOMNode(buttonRef.current);
   }
 
-  var rippleRef = React.useRef(null);
+  var rippleRef = useRef(null);
 
-  var _React$useState = React.useState(false),
+  var _React$useState = useState(false),
       focusVisible = _React$useState[0],
       setFocusVisible = _React$useState[1];
 
@@ -31975,7 +31969,7 @@ var ButtonBase = /*#__PURE__*/React.forwardRef(function ButtonBase(props, ref) {
       onBlurVisible = _useIsFocusVisible.onBlurVisible,
       focusVisibleRef = _useIsFocusVisible.ref;
 
-  React.useImperativeHandle(action, function () {
+  useImperativeHandle(action, function () {
     return {
       focusVisible: function focusVisible() {
         setFocusVisible(true);
@@ -31983,7 +31977,7 @@ var ButtonBase = /*#__PURE__*/React.forwardRef(function ButtonBase(props, ref) {
       }
     };
   }, []);
-  React.useEffect(function () {
+  useEffect(function () {
     if (focusVisible && focusRipple && !disableRipple) {
       rippleRef.current.pulsate();
     }
@@ -32059,7 +32053,7 @@ var ButtonBase = /*#__PURE__*/React.forwardRef(function ButtonBase(props, ref) {
    */
 
 
-  var keydownRef = React.useRef(false);
+  var keydownRef = useRef(false);
   var handleKeyDown = useEventCallback(function (event) {
     // Check if key is already down to avoid repeats being counted as multiple activations
     if (focusRipple && !keydownRef.current && focusVisible && rippleRef.current && event.key === ' ') {
@@ -32130,25 +32124,25 @@ var ButtonBase = /*#__PURE__*/React.forwardRef(function ButtonBase(props, ref) {
   var handleOwnRef = useForkRef(focusVisibleRef, buttonRef);
   var handleRef = useForkRef(handleUserRef, handleOwnRef);
 
-  var _React$useState2 = React.useState(false),
+  var _React$useState2 = useState(false),
       mountedState = _React$useState2[0],
       setMountedState = _React$useState2[1];
 
-  React.useEffect(function () {
+  useEffect(function () {
     setMountedState(true);
   }, []);
   var enableTouchRipple = mountedState && !disableRipple && !disabled;
 
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    React.useEffect(function () {
+    useEffect(function () {
       if (enableTouchRipple && !rippleRef.current) {
         console.error(['Material-UI: The `component` prop provided to ButtonBase is invalid.', 'Please make sure the children prop is rendered in this custom component.'].join('\n'));
       }
     }, [enableTouchRipple]);
   }
 
-  return /*#__PURE__*/React.createElement(ComponentProp, _extends({
+  return /*#__PURE__*/createElement(ComponentProp, _extends({
     className: clsx(classes.root, className, focusVisible && [classes.focusVisible, focusVisibleClassName], disabled && classes.disabled),
     onBlur: handleBlur,
     onClick: onClick,
@@ -32168,7 +32162,7 @@ var ButtonBase = /*#__PURE__*/React.forwardRef(function ButtonBase(props, ref) {
   /*#__PURE__*/
 
   /* TouchRipple is only needed client-side, x2 boost on the server. */
-  React.createElement(TouchRipple$1, _extends({
+  createElement(TouchRipple$1, _extends({
     ref: rippleRef,
     center: centerRipple
   }, TouchRippleProps)) : null);
@@ -32440,7 +32434,7 @@ var styles$4 = function styles(theme) {
  * regarding the available icon options.
  */
 
-var IconButton = /*#__PURE__*/React.forwardRef(function IconButton(props, ref) {
+var IconButton = /*#__PURE__*/forwardRef(function IconButton(props, ref) {
   var _props$edge = props.edge,
       edge = _props$edge === void 0 ? false : _props$edge,
       children = props.children,
@@ -32456,7 +32450,7 @@ var IconButton = /*#__PURE__*/React.forwardRef(function IconButton(props, ref) {
       size = _props$size === void 0 ? 'medium' : _props$size,
       other = _objectWithoutProperties(props, ["edge", "children", "classes", "className", "color", "disabled", "disableFocusRipple", "size"]);
 
-  return /*#__PURE__*/React.createElement(ButtonBase$1, _extends({
+  return /*#__PURE__*/createElement(ButtonBase$1, _extends({
     className: clsx(classes.root, className, color !== 'default' && classes["color".concat(capitalize(color))], disabled && classes.disabled, size === "small" && classes["size".concat(capitalize(size))], {
       'start': classes.edgeStart,
       'end': classes.edgeEnd
@@ -32465,7 +32459,7 @@ var IconButton = /*#__PURE__*/React.forwardRef(function IconButton(props, ref) {
     focusRipple: !disableFocusRipple,
     disabled: disabled,
     ref: ref
-  }, other), /*#__PURE__*/React.createElement("span", {
+  }, other), /*#__PURE__*/createElement("span", {
     className: classes.label
   }, children));
 });
@@ -32474,8 +32468,8 @@ process.env.NODE_ENV !== "production" ? IconButton.propTypes = {
    * The icon element.
    */
   children: chainPropTypes(propTypes.node, function (props) {
-    var found = React.Children.toArray(props.children).some(function (child) {
-      return /*#__PURE__*/React.isValidElement(child) && child.props.onClick;
+    var found = Children.toArray(props.children).some(function (child) {
+      return /*#__PURE__*/isValidElement(child) && child.props.onClick;
     });
 
     if (found) {
@@ -32678,7 +32672,7 @@ var defaultVariantMapping = {
   body1: 'p',
   body2: 'p'
 };
-var Typography = /*#__PURE__*/React.forwardRef(function Typography(props, ref) {
+var Typography = /*#__PURE__*/forwardRef(function Typography(props, ref) {
   var _props$align = props.align,
       align = _props$align === void 0 ? 'inherit' : _props$align,
       classes = props.classes,
@@ -32701,7 +32695,7 @@ var Typography = /*#__PURE__*/React.forwardRef(function Typography(props, ref) {
       other = _objectWithoutProperties(props, ["align", "classes", "className", "color", "component", "display", "gutterBottom", "noWrap", "paragraph", "variant", "variantMapping"]);
 
   var Component = component || (paragraph ? 'p' : variantMapping[variant] || defaultVariantMapping[variant]) || 'span';
-  return /*#__PURE__*/React.createElement(Component, _extends({
+  return /*#__PURE__*/createElement(Component, _extends({
     className: clsx(classes.root, className, variant !== 'inherit' && classes[variant], color !== 'initial' && classes["color".concat(capitalize(color))], noWrap && classes.noWrap, gutterBottom && classes.gutterBottom, paragraph && classes.paragraph, align !== 'inherit' && classes["align".concat(capitalize(align))], display !== 'initial' && classes["display".concat(capitalize(display))]),
     ref: ref
   }, other));
@@ -32786,18 +32780,18 @@ var Typography$1 = withStyles$1(styles$5, {
  * @ignore - internal component.
  */
 
-var FormControlContext = /*#__PURE__*/React.createContext();
+var FormControlContext = /*#__PURE__*/createContext();
 
 if (process.env.NODE_ENV !== 'production') {
   FormControlContext.displayName = 'FormControlContext';
 }
 
 function useFormControl() {
-  return React.useContext(FormControlContext);
+  return useContext(FormControlContext);
 }
 
 function useFormControl$1() {
-  return React.useContext(FormControlContext);
+  return useContext(FormControlContext);
 }
 
 var styles$6 = {
@@ -32823,7 +32817,7 @@ var styles$6 = {
  * @ignore - internal component.
  */
 
-var SwitchBase = /*#__PURE__*/React.forwardRef(function SwitchBase(props, ref) {
+var SwitchBase = /*#__PURE__*/forwardRef(function SwitchBase(props, ref) {
   var autoFocus = props.autoFocus,
       checkedProp = props.checked,
       checkedIcon = props.checkedIcon,
@@ -32897,7 +32891,7 @@ var SwitchBase = /*#__PURE__*/React.forwardRef(function SwitchBase(props, ref) {
   }
 
   var hasLabelFor = type === 'checkbox' || type === 'radio';
-  return /*#__PURE__*/React.createElement(IconButton$1, _extends({
+  return /*#__PURE__*/createElement(IconButton$1, _extends({
     component: "span",
     className: clsx(classes.root, className, checked && classes.checked, disabled && classes.disabled),
     disabled: disabled,
@@ -32906,7 +32900,7 @@ var SwitchBase = /*#__PURE__*/React.forwardRef(function SwitchBase(props, ref) {
     onFocus: handleFocus,
     onBlur: handleBlur,
     ref: ref
-  }, other), /*#__PURE__*/React.createElement("input", _extends({
+  }, other), /*#__PURE__*/createElement("input", _extends({
     autoFocus: autoFocus,
     checked: checkedProp,
     defaultChecked: defaultChecked,
@@ -33039,7 +33033,7 @@ var SwitchBase$1 = withStyles$1(styles$6, {
  * @ignore - internal component.
  */
 
-var CheckBoxOutlineBlankIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var CheckBoxOutlineBlankIcon = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
 }), 'CheckBoxOutlineBlank');
 
@@ -33047,7 +33041,7 @@ var CheckBoxOutlineBlankIcon = createSvgIcon( /*#__PURE__*/React.createElement("
  * @ignore - internal component.
  */
 
-var CheckBoxIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var CheckBoxIcon = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
 }), 'CheckBox');
 
@@ -33055,7 +33049,7 @@ var CheckBoxIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
  * @ignore - internal component.
  */
 
-var IndeterminateCheckBoxIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var IndeterminateCheckBoxIcon = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"
 }), 'IndeterminateCheckBox');
 
@@ -33110,10 +33104,10 @@ var styles$7 = function styles(theme) {
     }
   };
 };
-var defaultCheckedIcon = /*#__PURE__*/React.createElement(CheckBoxIcon, null);
-var defaultIcon = /*#__PURE__*/React.createElement(CheckBoxOutlineBlankIcon, null);
-var defaultIndeterminateIcon = /*#__PURE__*/React.createElement(IndeterminateCheckBoxIcon, null);
-var Checkbox = /*#__PURE__*/React.forwardRef(function Checkbox(props, ref) {
+var defaultCheckedIcon = /*#__PURE__*/createElement(CheckBoxIcon, null);
+var defaultIcon = /*#__PURE__*/createElement(CheckBoxOutlineBlankIcon, null);
+var defaultIndeterminateIcon = /*#__PURE__*/createElement(IndeterminateCheckBoxIcon, null);
+var Checkbox = /*#__PURE__*/forwardRef(function Checkbox(props, ref) {
   var _props$checkedIcon = props.checkedIcon,
       checkedIcon = _props$checkedIcon === void 0 ? defaultCheckedIcon : _props$checkedIcon,
       classes = props.classes,
@@ -33132,7 +33126,7 @@ var Checkbox = /*#__PURE__*/React.forwardRef(function Checkbox(props, ref) {
 
   var icon = indeterminate ? indeterminateIconProp : iconProp;
   var indeterminateIcon = indeterminate ? indeterminateIconProp : checkedIcon;
-  return /*#__PURE__*/React.createElement(SwitchBase$1, _extends({
+  return /*#__PURE__*/createElement(SwitchBase$1, _extends({
     type: "checkbox",
     classes: {
       root: clsx(classes.root, classes["color".concat(capitalize(color))], indeterminate && classes.indeterminate),
@@ -33143,10 +33137,10 @@ var Checkbox = /*#__PURE__*/React.forwardRef(function Checkbox(props, ref) {
     inputProps: _extends({
       'data-indeterminate': indeterminate
     }, inputProps),
-    icon: /*#__PURE__*/React.cloneElement(icon, {
+    icon: /*#__PURE__*/cloneElement(icon, {
       fontSize: icon.props.fontSize === undefined && size === "small" ? size : icon.props.fontSize
     }),
-    checkedIcon: /*#__PURE__*/React.cloneElement(indeterminateIcon, {
+    checkedIcon: /*#__PURE__*/cloneElement(indeterminateIcon, {
       fontSize: indeterminateIcon.props.fontSize === undefined && size === "small" ? size : indeterminateIcon.props.fontSize
     }),
     ref: ref
@@ -33255,7 +33249,7 @@ var Checkbox$1 = withStyles$1(styles$7, {
  * @ignore - internal component.
  */
 
-var CancelIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var CancelIcon = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
 }), 'Cancel');
 
@@ -33545,7 +33539,7 @@ function isDeleteKeyboardEvent(keyboardEvent) {
  */
 
 
-var Chip = /*#__PURE__*/React.forwardRef(function Chip(props, ref) {
+var Chip = /*#__PURE__*/forwardRef(function Chip(props, ref) {
   var avatarProp = props.avatar,
       classes = props.classes,
       className = props.className,
@@ -33568,7 +33562,7 @@ var Chip = /*#__PURE__*/React.forwardRef(function Chip(props, ref) {
       variant = _props$variant === void 0 ? 'default' : _props$variant,
       other = _objectWithoutProperties(props, ["avatar", "classes", "className", "clickable", "color", "component", "deleteIcon", "disabled", "icon", "label", "onClick", "onDelete", "onKeyDown", "onKeyUp", "size", "variant"]);
 
-  var chipRef = React.useRef(null);
+  var chipRef = useRef(null);
   var handleRef = useForkRef(chipRef, ref);
 
   var handleDeleteIconClick = function handleDeleteIconClick(event) {
@@ -33618,10 +33612,10 @@ var Chip = /*#__PURE__*/React.forwardRef(function Chip(props, ref) {
 
   if (onDelete) {
     var customClasses = clsx(color !== 'default' && (variant === "default" ? classes["deleteIconColor".concat(capitalize(color))] : classes["deleteIconOutlinedColor".concat(capitalize(color))]), small && classes.deleteIconSmall);
-    deleteIcon = deleteIconProp && /*#__PURE__*/React.isValidElement(deleteIconProp) ? /*#__PURE__*/React.cloneElement(deleteIconProp, {
+    deleteIcon = deleteIconProp && /*#__PURE__*/isValidElement(deleteIconProp) ? /*#__PURE__*/cloneElement(deleteIconProp, {
       className: clsx(deleteIconProp.props.className, classes.deleteIcon, customClasses),
       onClick: handleDeleteIconClick
-    }) : /*#__PURE__*/React.createElement(CancelIcon, {
+    }) : /*#__PURE__*/createElement(CancelIcon, {
       className: clsx(classes.deleteIcon, customClasses),
       onClick: handleDeleteIconClick
     });
@@ -33629,16 +33623,16 @@ var Chip = /*#__PURE__*/React.forwardRef(function Chip(props, ref) {
 
   var avatar = null;
 
-  if (avatarProp && /*#__PURE__*/React.isValidElement(avatarProp)) {
-    avatar = /*#__PURE__*/React.cloneElement(avatarProp, {
+  if (avatarProp && /*#__PURE__*/isValidElement(avatarProp)) {
+    avatar = /*#__PURE__*/cloneElement(avatarProp, {
       className: clsx(classes.avatar, avatarProp.props.className, small && classes.avatarSmall, color !== 'default' && classes["avatarColor".concat(capitalize(color))])
     });
   }
 
   var icon = null;
 
-  if (iconProp && /*#__PURE__*/React.isValidElement(iconProp)) {
-    icon = /*#__PURE__*/React.cloneElement(iconProp, {
+  if (iconProp && /*#__PURE__*/isValidElement(iconProp)) {
+    icon = /*#__PURE__*/cloneElement(iconProp, {
       className: clsx(classes.icon, iconProp.props.className, small && classes.iconSmall, color !== 'default' && classes["iconColor".concat(capitalize(color))])
     });
   }
@@ -33649,7 +33643,7 @@ var Chip = /*#__PURE__*/React.forwardRef(function Chip(props, ref) {
     }
   }
 
-  return /*#__PURE__*/React.createElement(Component, _extends({
+  return /*#__PURE__*/createElement(Component, _extends({
     role: clickable || onDelete ? 'button' : undefined,
     className: clsx(classes.root, className, color !== 'default' && [classes["color".concat(capitalize(color))], clickable && classes["clickableColor".concat(capitalize(color))], onDelete && classes["deletableColor".concat(capitalize(color))]], variant !== "default" && [classes.outlined, {
       'primary': classes.outlinedPrimary,
@@ -33661,7 +33655,7 @@ var Chip = /*#__PURE__*/React.forwardRef(function Chip(props, ref) {
     onKeyDown: handleKeyDown,
     onKeyUp: handleKeyUp,
     ref: handleRef
-  }, moreProps, other), avatar || icon, /*#__PURE__*/React.createElement("span", {
+  }, moreProps, other), avatar || icon, /*#__PURE__*/createElement("span", {
     className: clsx(classes.label, small && classes.labelSmall)
   }, label), deleteIcon);
 });
@@ -33792,20 +33786,20 @@ function ClickAwayListener(props) {
       onClickAway = props.onClickAway,
       _props$touchEvent = props.touchEvent,
       touchEvent = _props$touchEvent === void 0 ? 'onTouchEnd' : _props$touchEvent;
-  var movedRef = React.useRef(false);
-  var nodeRef = React.useRef(null);
-  var mountedRef = React.useRef(false);
-  var syntheticEventRef = React.useRef(false);
-  React.useEffect(function () {
+  var movedRef = useRef(false);
+  var nodeRef = useRef(null);
+  var mountedRef = useRef(false);
+  var syntheticEventRef = useRef(false);
+  useEffect(function () {
     mountedRef.current = true;
     return function () {
       mountedRef.current = false;
     };
   }, []); // can be removed once we drop support for non ref forwarding class components
 
-  var handleOwnRef = React.useCallback(function (instance) {
+  var handleOwnRef = useCallback(function (instance) {
     // #StrictMode ready
-    nodeRef.current = ReactDOM.findDOMNode(instance);
+    nodeRef.current = findDOMNode(instance);
   }, []);
   var handleRef = useForkRef(children.ref, handleOwnRef); // The handler doesn't take event.defaultPrevented into account:
   //
@@ -33866,7 +33860,7 @@ function ClickAwayListener(props) {
     childrenProps[touchEvent] = createHandleSynthetic(touchEvent);
   }
 
-  React.useEffect(function () {
+  useEffect(function () {
     if (touchEvent !== false) {
       var mappedTouchEvent = mapEventPropToEvent(touchEvent);
       var doc = ownerDocument(nodeRef.current);
@@ -33890,7 +33884,7 @@ function ClickAwayListener(props) {
     childrenProps[mouseEvent] = createHandleSynthetic(mouseEvent);
   }
 
-  React.useEffect(function () {
+  useEffect(function () {
     if (mouseEvent !== false) {
       var mappedMouseEvent = mapEventPropToEvent(mouseEvent);
       var doc = ownerDocument(nodeRef.current);
@@ -33902,7 +33896,7 @@ function ClickAwayListener(props) {
 
     return undefined;
   }, [handleClickAway, mouseEvent]);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.cloneElement(children, childrenProps));
+  return /*#__PURE__*/createElement(Fragment$1, null, /*#__PURE__*/cloneElement(children, childrenProps));
 }
 
 process.env.NODE_ENV !== "production" ? ClickAwayListener.propTypes = {
@@ -33946,27 +33940,27 @@ if (process.env.NODE_ENV !== 'production') {
 function getContainer(container) {
   container = typeof container === 'function' ? container() : container; // #StrictMode ready
 
-  return ReactDOM.findDOMNode(container);
+  return findDOMNode(container);
 }
 
-var useEnhancedEffect$2 = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+var useEnhancedEffect$2 = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 /**
  * Portals provide a first-class way to render children into a DOM node
  * that exists outside the DOM hierarchy of the parent component.
  */
 
-var Portal$1 = /*#__PURE__*/React.forwardRef(function Portal(props, ref) {
+var Portal$1 = /*#__PURE__*/forwardRef(function Portal(props, ref) {
   var children = props.children,
       container = props.container,
       _props$disablePortal = props.disablePortal,
       disablePortal = _props$disablePortal === void 0 ? false : _props$disablePortal,
       onRendered = props.onRendered;
 
-  var _React$useState = React.useState(null),
+  var _React$useState = useState(null),
       mountNode = _React$useState[0],
       setMountNode = _React$useState[1];
 
-  var handleRef = useForkRef( /*#__PURE__*/React.isValidElement(children) ? children.ref : null, ref);
+  var handleRef = useForkRef( /*#__PURE__*/isValidElement(children) ? children.ref : null, ref);
   useEnhancedEffect$2(function () {
     if (!disablePortal) {
       setMountNode(getContainer(container) || document.body);
@@ -33989,8 +33983,8 @@ var Portal$1 = /*#__PURE__*/React.forwardRef(function Portal(props, ref) {
   }, [onRendered, mountNode, disablePortal]);
 
   if (disablePortal) {
-    if ( /*#__PURE__*/React.isValidElement(children)) {
-      return /*#__PURE__*/React.cloneElement(children, {
+    if ( /*#__PURE__*/isValidElement(children)) {
+      return /*#__PURE__*/cloneElement(children, {
         ref: handleRef
       });
     }
@@ -33998,7 +33992,7 @@ var Portal$1 = /*#__PURE__*/React.forwardRef(function Portal(props, ref) {
     return children;
   }
 
-  return mountNode ? /*#__PURE__*/ReactDOM.createPortal(children, mountNode) : mountNode;
+  return mountNode ? /*#__PURE__*/createPortal(children, mountNode) : mountNode;
 });
 process.env.NODE_ENV !== "production" ? Portal$1.propTypes = {
   // ----------------------------- Warning --------------------------------
@@ -34020,7 +34014,7 @@ process.env.NODE_ENV !== "production" ? Portal$1.propTypes = {
    */
   container: propTypes
   /* @typescript-to-proptypes-ignore */
-  .oneOfType([HTMLElementType, propTypes.instanceOf(React.Component), propTypes.func]),
+  .oneOfType([HTMLElementType, propTypes.instanceOf(Component), propTypes.func]),
 
   /**
    * Disable the portal behavior.
@@ -34316,19 +34310,19 @@ function Unstable_TrapFocus(props) {
       getDoc = props.getDoc,
       isEnabled = props.isEnabled,
       open = props.open;
-  var ignoreNextEnforceFocus = React.useRef();
-  var sentinelStart = React.useRef(null);
-  var sentinelEnd = React.useRef(null);
-  var nodeToRestore = React.useRef();
-  var rootRef = React.useRef(null); // can be removed once we drop support for non ref forwarding class components
+  var ignoreNextEnforceFocus = useRef();
+  var sentinelStart = useRef(null);
+  var sentinelEnd = useRef(null);
+  var nodeToRestore = useRef();
+  var rootRef = useRef(null); // can be removed once we drop support for non ref forwarding class components
 
-  var handleOwnRef = React.useCallback(function (instance) {
+  var handleOwnRef = useCallback(function (instance) {
     // #StrictMode ready
-    rootRef.current = ReactDOM.findDOMNode(instance);
+    rootRef.current = findDOMNode(instance);
   }, []);
   var handleRef = useForkRef(children.ref, handleOwnRef);
-  var prevOpenRef = React.useRef();
-  React.useEffect(function () {
+  var prevOpenRef = useRef();
+  useEffect(function () {
     prevOpenRef.current = open;
   }, [open]);
 
@@ -34344,7 +34338,7 @@ function Unstable_TrapFocus(props) {
     nodeToRestore.current = getDoc().activeElement;
   }
 
-  React.useEffect(function () {
+  useEffect(function () {
     if (!open) {
       return;
     }
@@ -34422,13 +34416,13 @@ function Unstable_TrapFocus(props) {
       }
     };
   }, [disableAutoFocus, disableEnforceFocus, disableRestoreFocus, isEnabled, open]);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/createElement(Fragment$1, null, /*#__PURE__*/createElement("div", {
     tabIndex: 0,
     ref: sentinelStart,
     "data-test": "sentinelStart"
-  }), /*#__PURE__*/React.cloneElement(children, {
+  }), /*#__PURE__*/cloneElement(children, {
     ref: handleRef
-  }), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/createElement("div", {
     tabIndex: 0,
     ref: sentinelEnd,
     "data-test": "sentinelEnd"
@@ -34515,13 +34509,13 @@ var styles$9 = {
  * @ignore - internal component.
  */
 
-var SimpleBackdrop = /*#__PURE__*/React.forwardRef(function SimpleBackdrop(props, ref) {
+var SimpleBackdrop = /*#__PURE__*/forwardRef(function SimpleBackdrop(props, ref) {
   var _props$invisible = props.invisible,
       invisible = _props$invisible === void 0 ? false : _props$invisible,
       open = props.open,
       other = _objectWithoutProperties(props, ["invisible", "open"]);
 
-  return open ? /*#__PURE__*/React.createElement("div", _extends({
+  return open ? /*#__PURE__*/createElement("div", _extends({
     "aria-hidden": true,
     ref: ref
   }, other, {
@@ -34543,7 +34537,7 @@ process.env.NODE_ENV !== "production" ? SimpleBackdrop.propTypes = {
 
 function getContainer$1(container) {
   container = typeof container === 'function' ? container() : container;
-  return ReactDOM.findDOMNode(container);
+  return findDOMNode(container);
 }
 
 function getHasTransition(props) {
@@ -34585,7 +34579,7 @@ var styles$a = function styles(theme) {
  * This component shares many concepts with [react-overlays](https://react-bootstrap.github.io/react-overlays/#modals).
  */
 
-var Modal = /*#__PURE__*/React.forwardRef(function Modal(inProps, ref) {
+var Modal = /*#__PURE__*/forwardRef(function Modal(inProps, ref) {
   var theme = useTheme();
   var props = getThemeProps({
     name: 'MuiModal',
@@ -34627,13 +34621,13 @@ var Modal = /*#__PURE__*/React.forwardRef(function Modal(inProps, ref) {
       open = props.open,
       other = _objectWithoutProperties(props, ["BackdropComponent", "BackdropProps", "children", "closeAfterTransition", "container", "disableAutoFocus", "disableBackdropClick", "disableEnforceFocus", "disableEscapeKeyDown", "disablePortal", "disableRestoreFocus", "disableScrollLock", "hideBackdrop", "keepMounted", "manager", "onBackdropClick", "onClose", "onEscapeKeyDown", "onRendered", "open"]);
 
-  var _React$useState = React.useState(true),
+  var _React$useState = useState(true),
       exited = _React$useState[0],
       setExited = _React$useState[1];
 
-  var modal = React.useRef({});
-  var mountNodeRef = React.useRef(null);
-  var modalRef = React.useRef(null);
+  var modal = useRef({});
+  var mountNodeRef = useRef(null);
+  var modalRef = useRef(null);
   var handleRef = useForkRef(modalRef, ref);
   var hasTransition = getHasTransition(props);
 
@@ -34663,7 +34657,7 @@ var Modal = /*#__PURE__*/React.forwardRef(function Modal(inProps, ref) {
       handleMounted();
     }
   });
-  var isTopModal = React.useCallback(function () {
+  var isTopModal = useCallback(function () {
     return manager.isTopModal(getModal());
   }, [manager]);
   var handlePortalRef = useEventCallback(function (node) {
@@ -34683,15 +34677,15 @@ var Modal = /*#__PURE__*/React.forwardRef(function Modal(inProps, ref) {
       ariaHidden(modalRef.current, true);
     }
   });
-  var handleClose = React.useCallback(function () {
+  var handleClose = useCallback(function () {
     manager.remove(getModal());
   }, [manager]);
-  React.useEffect(function () {
+  useEffect(function () {
     return function () {
       handleClose();
     };
   }, [handleClose]);
-  React.useEffect(function () {
+  useEffect(function () {
     if (open) {
       handleOpen();
     } else if (!hasTransition || !closeAfterTransition) {
@@ -34769,27 +34763,27 @@ var Modal = /*#__PURE__*/React.forwardRef(function Modal(inProps, ref) {
     childProps.onExited = createChainedFunction(handleExited, children.props.onExited);
   }
 
-  return /*#__PURE__*/React.createElement(Portal$1, {
+  return /*#__PURE__*/createElement(Portal$1, {
     ref: handlePortalRef,
     container: container,
     disablePortal: disablePortal
-  }, /*#__PURE__*/React.createElement("div", _extends({
+  }, /*#__PURE__*/createElement("div", _extends({
     ref: handleRef,
     onKeyDown: handleKeyDown,
     role: "presentation"
   }, other, {
     style: _extends({}, inlineStyle.root, !open && exited ? inlineStyle.hidden : {}, other.style)
-  }), hideBackdrop ? null : /*#__PURE__*/React.createElement(BackdropComponent, _extends({
+  }), hideBackdrop ? null : /*#__PURE__*/createElement(BackdropComponent, _extends({
     open: open,
     onClick: handleBackdropClick
-  }, BackdropProps)), /*#__PURE__*/React.createElement(Unstable_TrapFocus, {
+  }, BackdropProps)), /*#__PURE__*/createElement(Unstable_TrapFocus, {
     disableEnforceFocus: disableEnforceFocus,
     disableAutoFocus: disableAutoFocus,
     disableRestoreFocus: disableRestoreFocus,
     getDoc: getDoc,
     isEnabled: isTopModal,
     open: open
-  }, /*#__PURE__*/React.cloneElement(children, childProps))));
+  }, /*#__PURE__*/cloneElement(children, childProps))));
 });
 process.env.NODE_ENV !== "production" ? Modal.propTypes = {
   /**
@@ -34821,7 +34815,7 @@ process.env.NODE_ENV !== "production" ? Modal.propTypes = {
    */
   container: propTypes
   /* @typescript-to-proptypes-ignore */
-  .oneOfType([HTMLElementType, propTypes.instanceOf(React.Component), propTypes.func]),
+  .oneOfType([HTMLElementType, propTypes.instanceOf(Component), propTypes.func]),
 
   /**
    * If `true`, the modal will not automatically shift focus to itself when it opens, and
@@ -34940,7 +34934,7 @@ function getStyleValue(computedStyle, property) {
   return parseInt(computedStyle[property], 10) || 0;
 }
 
-var useEnhancedEffect$3 = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+var useEnhancedEffect$3 = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 var styles$b = {
   /* Styles applied to the shadow textarea element. */
   shadow: {
@@ -34957,7 +34951,7 @@ var styles$b = {
     transform: 'translateZ(0)'
   }
 };
-var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(props, ref) {
+var TextareaAutosize = /*#__PURE__*/forwardRef(function TextareaAutosize(props, ref) {
   var onChange = props.onChange,
       rows = props.rows,
       rowsMax = props.rowsMax,
@@ -34969,19 +34963,19 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
 
   var rowsMin = rows || rowsMinProp;
 
-  var _React$useRef = React.useRef(value != null),
+  var _React$useRef = useRef(value != null),
       isControlled = _React$useRef.current;
 
-  var inputRef = React.useRef(null);
+  var inputRef = useRef(null);
   var handleRef = useForkRef(ref, inputRef);
-  var shadowRef = React.useRef(null);
-  var renders = React.useRef(0);
+  var shadowRef = useRef(null);
+  var renders = useRef(0);
 
-  var _React$useState = React.useState({}),
+  var _React$useState = useState({}),
       state = _React$useState[0],
       setState = _React$useState[1];
 
-  var syncHeight = React.useCallback(function () {
+  var syncHeight = useCallback(function () {
     var input = inputRef.current;
     var computedStyle = window.getComputedStyle(input);
     var inputShallow = shadowRef.current;
@@ -35038,7 +35032,7 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
       return prevState;
     });
   }, [rowsMax, rowsMin, props.placeholder]);
-  React.useEffect(function () {
+  useEffect(function () {
     var handleResize = debounce(function () {
       renders.current = 0;
       syncHeight();
@@ -35052,7 +35046,7 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
   useEnhancedEffect$3(function () {
     syncHeight();
   });
-  React.useEffect(function () {
+  useEffect(function () {
     renders.current = 0;
   }, [value]);
 
@@ -35068,7 +35062,7 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
     }
   };
 
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("textarea", _extends({
+  return /*#__PURE__*/createElement(Fragment$1, null, /*#__PURE__*/createElement("textarea", _extends({
     value: value,
     onChange: handleChange,
     ref: handleRef // Apply the rows prop to get a "correct" first SSR paint
@@ -35080,7 +35074,7 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
       // This prevents infinite rendering loop.
       overflow: state.overflow ? 'hidden' : null
     }, style)
-  }, other)), /*#__PURE__*/React.createElement("textarea", {
+  }, other)), /*#__PURE__*/createElement("textarea", {
     "aria-hidden": true,
     className: props.className,
     readOnly: true,
@@ -35338,14 +35332,14 @@ var styles$c = function styles(theme) {
     inputHiddenLabel: {}
   };
 };
-var useEnhancedEffect$4 = typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
+var useEnhancedEffect$4 = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 /**
  * `InputBase` contains as few styles as possible.
  * It aims to be a simple building block for creating an input.
  * It contains a load of style reset and some state logic.
  */
 
-var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
+var InputBase = /*#__PURE__*/forwardRef(function InputBase(props, ref) {
   var ariaDescribedby = props['aria-describedby'],
       autoComplete = props.autoComplete,
       autoFocus = props.autoFocus,
@@ -35388,11 +35382,11 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
 
   var value = inputPropsProp.value != null ? inputPropsProp.value : valueProp;
 
-  var _React$useRef = React.useRef(value != null),
+  var _React$useRef = useRef(value != null),
       isControlled = _React$useRef.current;
 
-  var inputRef = React.useRef();
-  var handleInputRefWarning = React.useCallback(function (instance) {
+  var inputRef = useRef();
+  var handleInputRefWarning = useCallback(function (instance) {
     if (process.env.NODE_ENV !== 'production') {
       if (instance && instance.nodeName !== 'INPUT' && !instance.focus) {
         console.error(['Material-UI: You have provided a `inputComponent` to the input component', 'that does not correctly handle the `inputRef` prop.', 'Make sure the `inputRef` prop is called with a HTMLInputElement.'].join('\n'));
@@ -35403,7 +35397,7 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
   var handleInputRefProp = useForkRef(inputRefProp, handleInputPropsRefProp);
   var handleInputRef = useForkRef(inputRef, handleInputRefProp);
 
-  var _React$useState = React.useState(false),
+  var _React$useState = useState(false),
       focused = _React$useState[0],
       setFocused = _React$useState[1];
 
@@ -35411,7 +35405,7 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
 
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    React.useEffect(function () {
+    useEffect(function () {
       if (muiFormControl) {
         return muiFormControl.registerEffect();
       }
@@ -35428,7 +35422,7 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
   fcs.focused = muiFormControl ? muiFormControl.focused : focused; // The blur won't fire when the disabled state is set on a focused input.
   // We need to book keep the focused state manually.
 
-  React.useEffect(function () {
+  useEffect(function () {
     if (!muiFormControl && disabled && focused) {
       setFocused(false);
 
@@ -35439,7 +35433,7 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
   }, [muiFormControl, disabled, focused, onBlur]);
   var onFilled = muiFormControl && muiFormControl.onFilled;
   var onEmpty = muiFormControl && muiFormControl.onEmpty;
-  var checkDirty = React.useCallback(function (obj) {
+  var checkDirty = useCallback(function (obj) {
     if (isFilled(obj)) {
       if (onFilled) {
         onFilled();
@@ -35524,7 +35518,7 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
   // or auto filled by the browser before the hydration (for SSR).
 
 
-  React.useEffect(function () {
+  useEffect(function () {
     checkDirty(inputRef.current);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -35576,18 +35570,18 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
     });
   };
 
-  React.useEffect(function () {
+  useEffect(function () {
     if (muiFormControl) {
       muiFormControl.setAdornedStart(Boolean(startAdornment));
     }
   }, [muiFormControl, startAdornment]);
-  return /*#__PURE__*/React.createElement("div", _extends({
+  return /*#__PURE__*/createElement("div", _extends({
     className: clsx(classes.root, classes["color".concat(capitalize(fcs.color || 'primary'))], className, fcs.disabled && classes.disabled, fcs.error && classes.error, fullWidth && classes.fullWidth, fcs.focused && classes.focused, muiFormControl && classes.formControl, multiline && classes.multiline, startAdornment && classes.adornedStart, endAdornment && classes.adornedEnd, fcs.margin === 'dense' && classes.marginDense),
     onClick: handleClick,
     ref: ref
-  }, other), startAdornment, /*#__PURE__*/React.createElement(FormControlContext.Provider, {
+  }, other), startAdornment, /*#__PURE__*/createElement(FormControlContext.Provider, {
     value: null
-  }, /*#__PURE__*/React.createElement(InputComponent, _extends({
+  }, /*#__PURE__*/createElement(InputComponent, _extends({
     "aria-invalid": fcs.error,
     "aria-describedby": ariaDescribedby,
     autoComplete: autoComplete,
@@ -35965,7 +35959,7 @@ var styles$d = function styles(theme) {
     }
   };
 };
-var FilledInput = /*#__PURE__*/React.forwardRef(function FilledInput(props, ref) {
+var FilledInput = /*#__PURE__*/forwardRef(function FilledInput(props, ref) {
   var disableUnderline = props.disableUnderline,
       classes = props.classes,
       _props$fullWidth = props.fullWidth,
@@ -35978,7 +35972,7 @@ var FilledInput = /*#__PURE__*/React.forwardRef(function FilledInput(props, ref)
       type = _props$type === void 0 ? 'text' : _props$type,
       other = _objectWithoutProperties(props, ["disableUnderline", "classes", "fullWidth", "inputComponent", "multiline", "type"]);
 
-  return /*#__PURE__*/React.createElement(InputBase$1, _extends({
+  return /*#__PURE__*/createElement(InputBase$1, _extends({
     classes: _extends({}, classes, {
       root: clsx(classes.root, !disableUnderline && classes.underline),
       underline: null
@@ -36197,7 +36191,7 @@ var styles$e = {
  * ⚠️Only one input can be used within a FormControl.
  */
 
-var FormControl = /*#__PURE__*/React.forwardRef(function FormControl(props, ref) {
+var FormControl = /*#__PURE__*/forwardRef(function FormControl(props, ref) {
   var children = props.children,
       classes = props.classes,
       className = props.className,
@@ -36223,13 +36217,13 @@ var FormControl = /*#__PURE__*/React.forwardRef(function FormControl(props, ref)
       variant = _props$variant === void 0 ? 'standard' : _props$variant,
       other = _objectWithoutProperties(props, ["children", "classes", "className", "color", "component", "disabled", "error", "fullWidth", "focused", "hiddenLabel", "margin", "required", "size", "variant"]);
 
-  var _React$useState = React.useState(function () {
+  var _React$useState = useState(function () {
     // We need to iterate through the children and find the Input in order
     // to fully support server-side rendering.
     var initialAdornedStart = false;
 
     if (children) {
-      React.Children.forEach(children, function (child) {
+      Children.forEach(children, function (child) {
         if (!isMuiElement(child, ['Input', 'Select'])) {
           return;
         }
@@ -36247,13 +36241,13 @@ var FormControl = /*#__PURE__*/React.forwardRef(function FormControl(props, ref)
       adornedStart = _React$useState[0],
       setAdornedStart = _React$useState[1];
 
-  var _React$useState2 = React.useState(function () {
+  var _React$useState2 = useState(function () {
     // We need to iterate through the children and find the Input in order
     // to fully support server-side rendering.
     var initialFilled = false;
 
     if (children) {
-      React.Children.forEach(children, function (child) {
+      Children.forEach(children, function (child) {
         if (!isMuiElement(child, ['Input', 'Select'])) {
           return;
         }
@@ -36269,7 +36263,7 @@ var FormControl = /*#__PURE__*/React.forwardRef(function FormControl(props, ref)
       filled = _React$useState2[0],
       setFilled = _React$useState2[1];
 
-  var _React$useState3 = React.useState(false),
+  var _React$useState3 = useState(false),
       _focused = _React$useState3[0],
       setFocused = _React$useState3[1];
 
@@ -36283,7 +36277,7 @@ var FormControl = /*#__PURE__*/React.forwardRef(function FormControl(props, ref)
 
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    var registeredInput = React.useRef(false);
+    var registeredInput = useRef(false);
 
     registerEffect = function registerEffect() {
       if (registeredInput.current) {
@@ -36297,10 +36291,10 @@ var FormControl = /*#__PURE__*/React.forwardRef(function FormControl(props, ref)
     };
   }
 
-  var onFilled = React.useCallback(function () {
+  var onFilled = useCallback(function () {
     setFilled(true);
   }, []);
-  var onEmpty = React.useCallback(function () {
+  var onEmpty = useCallback(function () {
     setFilled(false);
   }, []);
   var childContext = {
@@ -36326,9 +36320,9 @@ var FormControl = /*#__PURE__*/React.forwardRef(function FormControl(props, ref)
     required: required,
     variant: variant
   };
-  return /*#__PURE__*/React.createElement(FormControlContext.Provider, {
+  return /*#__PURE__*/createElement(FormControlContext.Provider, {
     value: childContext
-  }, /*#__PURE__*/React.createElement(Component, _extends({
+  }, /*#__PURE__*/createElement(Component, _extends({
     className: clsx(classes.root, className, margin !== 'none' && classes["margin".concat(capitalize(margin))], fullWidth && classes.fullWidth),
     ref: ref
   }, other), children));
@@ -36473,7 +36467,7 @@ var styles$f = function styles(theme) {
  * Use this component if you want to display an extra label.
  */
 
-var FormControlLabel = /*#__PURE__*/React.forwardRef(function FormControlLabel(props, ref) {
+var FormControlLabel = /*#__PURE__*/forwardRef(function FormControlLabel(props, ref) {
   var checked = props.checked,
       classes = props.classes,
       className = props.className,
@@ -36507,10 +36501,10 @@ var FormControlLabel = /*#__PURE__*/React.forwardRef(function FormControlLabel(p
       controlProps[key] = props[key];
     }
   });
-  return /*#__PURE__*/React.createElement("label", _extends({
+  return /*#__PURE__*/createElement("label", _extends({
     className: clsx(classes.root, className, labelPlacement !== 'end' && classes["labelPlacement".concat(capitalize(labelPlacement))], disabled && classes.disabled),
     ref: ref
-  }, other), /*#__PURE__*/React.cloneElement(control, controlProps), /*#__PURE__*/React.createElement(Typography$1, {
+  }, other), /*#__PURE__*/cloneElement(control, controlProps), /*#__PURE__*/createElement(Typography$1, {
     component: "span",
     className: clsx(classes.label, disabled && classes.disabled)
   }, label));
@@ -36628,7 +36622,7 @@ var styles$g = function styles(theme) {
     required: {}
   };
 };
-var FormHelperText = /*#__PURE__*/React.forwardRef(function FormHelperText(props, ref) {
+var FormHelperText = /*#__PURE__*/forwardRef(function FormHelperText(props, ref) {
   var children = props.children,
       classes = props.classes,
       className = props.className,
@@ -36649,13 +36643,13 @@ var FormHelperText = /*#__PURE__*/React.forwardRef(function FormHelperText(props
     muiFormControl: muiFormControl,
     states: ['variant', 'margin', 'disabled', 'error', 'filled', 'focused', 'required']
   });
-  return /*#__PURE__*/React.createElement(Component, _extends({
+  return /*#__PURE__*/createElement(Component, _extends({
     className: clsx(classes.root, (fcs.variant === 'filled' || fcs.variant === 'outlined') && classes.contained, className, fcs.disabled && classes.disabled, fcs.error && classes.error, fcs.filled && classes.filled, fcs.focused && classes.focused, fcs.required && classes.required, fcs.margin === 'dense' && classes.marginDense),
     ref: ref
   }, other), children === ' ' ?
   /*#__PURE__*/
   // eslint-disable-next-line react/no-danger
-  React.createElement("span", {
+  createElement("span", {
     dangerouslySetInnerHTML: {
       __html: '&#8203;'
     }
@@ -36782,7 +36776,7 @@ var styles$h = function styles(theme) {
     }
   };
 };
-var FormLabel = /*#__PURE__*/React.forwardRef(function FormLabel(props, ref) {
+var FormLabel = /*#__PURE__*/forwardRef(function FormLabel(props, ref) {
   var children = props.children,
       classes = props.classes,
       className = props.className,
@@ -36802,10 +36796,10 @@ var FormLabel = /*#__PURE__*/React.forwardRef(function FormLabel(props, ref) {
     muiFormControl: muiFormControl,
     states: ['color', 'required', 'focused', 'disabled', 'error', 'filled']
   });
-  return /*#__PURE__*/React.createElement(Component, _extends({
+  return /*#__PURE__*/createElement(Component, _extends({
     className: clsx(classes.root, classes["color".concat(capitalize(fcs.color || 'primary'))], className, fcs.disabled && classes.disabled, fcs.error && classes.error, fcs.filled && classes.filled, fcs.focused && classes.focused, fcs.required && classes.required),
     ref: ref
-  }, other), children, fcs.required && /*#__PURE__*/React.createElement("span", {
+  }, other), children, fcs.required && /*#__PURE__*/createElement("span", {
     "aria-hidden": true,
     className: clsx(classes.asterisk, fcs.error && classes.error)
   }, "\u2009", '*'));
@@ -36894,7 +36888,7 @@ var styles$i = {
  * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
  */
 
-var Grow = /*#__PURE__*/React.forwardRef(function Grow(props, ref) {
+var Grow = /*#__PURE__*/forwardRef(function Grow(props, ref) {
   var children = props.children,
       _props$disableStrictM = props.disableStrictModeCompat,
       disableStrictModeCompat = _props$disableStrictM === void 0 ? false : _props$disableStrictM,
@@ -36912,11 +36906,11 @@ var Grow = /*#__PURE__*/React.forwardRef(function Grow(props, ref) {
       TransitionComponent = _props$TransitionComp === void 0 ? Transition : _props$TransitionComp,
       other = _objectWithoutProperties(props, ["children", "disableStrictModeCompat", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"]);
 
-  var timer = React.useRef();
-  var autoTimeout = React.useRef();
+  var timer = useRef();
+  var autoTimeout = useRef();
   var theme = useTheme$1();
   var enableStrictModeCompat = theme.unstable_strictMode && !disableStrictModeCompat;
-  var nodeRef = React.useRef(null);
+  var nodeRef = useRef(null);
   var foreignRef = useForkRef(children.ref, ref);
   var handleRef = useForkRef(enableStrictModeCompat ? nodeRef : undefined, foreignRef);
 
@@ -37017,12 +37011,12 @@ var Grow = /*#__PURE__*/React.forwardRef(function Grow(props, ref) {
     }
   };
 
-  React.useEffect(function () {
+  useEffect(function () {
     return function () {
       clearTimeout(timer.current);
     };
   }, []);
-  return /*#__PURE__*/React.createElement(TransitionComponent, _extends({
+  return /*#__PURE__*/createElement(TransitionComponent, _extends({
     appear: true,
     in: inProp,
     nodeRef: enableStrictModeCompat ? nodeRef : undefined,
@@ -37035,7 +37029,7 @@ var Grow = /*#__PURE__*/React.forwardRef(function Grow(props, ref) {
     addEndListener: addEndListener,
     timeout: timeout === 'auto' ? null : timeout
   }, other), function (state, childProps) {
-    return /*#__PURE__*/React.cloneElement(children, _extends({
+    return /*#__PURE__*/cloneElement(children, _extends({
       style: _extends({
         opacity: 0,
         transform: getScale(0.75),
@@ -37223,7 +37217,7 @@ var styles$j = function styles(theme) {
     inputTypeSearch: {}
   };
 };
-var Input = /*#__PURE__*/React.forwardRef(function Input(props, ref) {
+var Input = /*#__PURE__*/forwardRef(function Input(props, ref) {
   var disableUnderline = props.disableUnderline,
       classes = props.classes,
       _props$fullWidth = props.fullWidth,
@@ -37236,7 +37230,7 @@ var Input = /*#__PURE__*/React.forwardRef(function Input(props, ref) {
       type = _props$type === void 0 ? 'text' : _props$type,
       other = _objectWithoutProperties(props, ["disableUnderline", "classes", "fullWidth", "inputComponent", "multiline", "type"]);
 
-  return /*#__PURE__*/React.createElement(InputBase$1, _extends({
+  return /*#__PURE__*/createElement(InputBase$1, _extends({
     classes: _extends({}, classes, {
       root: clsx(classes.root, !disableUnderline && classes.underline),
       underline: null
@@ -37486,7 +37480,7 @@ var styles$k = function styles(theme) {
     }
   };
 };
-var InputLabel = /*#__PURE__*/React.forwardRef(function InputLabel(props, ref) {
+var InputLabel = /*#__PURE__*/forwardRef(function InputLabel(props, ref) {
   var classes = props.classes,
       className = props.className,
       _props$disableAnimati = props.disableAnimation,
@@ -37508,7 +37502,7 @@ var InputLabel = /*#__PURE__*/React.forwardRef(function InputLabel(props, ref) {
     muiFormControl: muiFormControl,
     states: ['margin', 'variant']
   });
-  return /*#__PURE__*/React.createElement(FormLabel$1, _extends({
+  return /*#__PURE__*/createElement(FormLabel$1, _extends({
     "data-shrink": shrink,
     className: clsx(classes.root, className, muiFormControl && classes.formControl, !disableAnimation && classes.animated, shrink && classes.shrink, fcs.margin === 'dense' && classes.marginDense, {
       'filled': classes.filled,
@@ -37600,7 +37594,7 @@ var InputLabel$1 = withStyles$1(styles$k, {
  * @ignore - internal component.
  */
 
-var ListContext = /*#__PURE__*/React.createContext({});
+var ListContext = /*#__PURE__*/createContext({});
 
 if (process.env.NODE_ENV !== 'production') {
   ListContext.displayName = 'ListContext';
@@ -37629,7 +37623,7 @@ var styles$l = {
     paddingTop: 0
   }
 };
-var List = /*#__PURE__*/React.forwardRef(function List(props, ref) {
+var List = /*#__PURE__*/forwardRef(function List(props, ref) {
   var children = props.children,
       classes = props.classes,
       className = props.className,
@@ -37642,14 +37636,14 @@ var List = /*#__PURE__*/React.forwardRef(function List(props, ref) {
       subheader = props.subheader,
       other = _objectWithoutProperties(props, ["children", "classes", "className", "component", "dense", "disablePadding", "subheader"]);
 
-  var context = React.useMemo(function () {
+  var context = useMemo(function () {
     return {
       dense: dense
     };
   }, [dense]);
-  return /*#__PURE__*/React.createElement(ListContext.Provider, {
+  return /*#__PURE__*/createElement(ListContext.Provider, {
     value: context
-  }, /*#__PURE__*/React.createElement(Component, _extends({
+  }, /*#__PURE__*/createElement(Component, _extends({
     className: clsx(classes.root, className, dense && classes.dense, !disablePadding && classes.padding, subheader && classes.subheader),
     ref: ref
   }, other), subheader, children));
@@ -37743,7 +37737,7 @@ var styles$m = function styles(theme) {
     }
   };
 };
-var ListSubheader = /*#__PURE__*/React.forwardRef(function ListSubheader(props, ref) {
+var ListSubheader = /*#__PURE__*/forwardRef(function ListSubheader(props, ref) {
   var classes = props.classes,
       className = props.className,
       _props$color = props.color,
@@ -37758,7 +37752,7 @@ var ListSubheader = /*#__PURE__*/React.forwardRef(function ListSubheader(props, 
       inset = _props$inset === void 0 ? false : _props$inset,
       other = _objectWithoutProperties(props, ["classes", "className", "color", "component", "disableGutters", "disableSticky", "inset"]);
 
-  return /*#__PURE__*/React.createElement(Component, _extends({
+  return /*#__PURE__*/createElement(Component, _extends({
     className: clsx(classes.root, className, color !== 'default' && classes["color".concat(capitalize(color))], inset && classes.inset, !disableSticky && classes.sticky, !disableGutters && classes.gutters),
     ref: ref
   }, other));
@@ -37881,7 +37875,7 @@ var styles$n = {
     outline: 0
   }
 };
-var Popover = /*#__PURE__*/React.forwardRef(function Popover(props, ref) {
+var Popover = /*#__PURE__*/forwardRef(function Popover(props, ref) {
   var action = props.action,
       anchorEl = props.anchorEl,
       _props$anchorOrigin = props.anchorOrigin,
@@ -37923,10 +37917,10 @@ var Popover = /*#__PURE__*/React.forwardRef(function Popover(props, ref) {
       TransitionProps = _props$TransitionProp === void 0 ? {} : _props$TransitionProp,
       other = _objectWithoutProperties(props, ["action", "anchorEl", "anchorOrigin", "anchorPosition", "anchorReference", "children", "classes", "className", "container", "elevation", "getContentAnchorEl", "marginThreshold", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "open", "PaperProps", "transformOrigin", "TransitionComponent", "transitionDuration", "TransitionProps"]);
 
-  var paperRef = React.useRef(); // Returns the top/left offset of the position
+  var paperRef = useRef(); // Returns the top/left offset of the position
   // to attach to on the anchor element (or body if none is provided)
 
-  var getAnchorOffset = React.useCallback(function (contentAnchorOffset) {
+  var getAnchorOffset = useCallback(function (contentAnchorOffset) {
     if (anchorReference === 'anchorPosition') {
       if (process.env.NODE_ENV !== 'production') {
         if (!anchorPosition) {
@@ -37957,7 +37951,7 @@ var Popover = /*#__PURE__*/React.forwardRef(function Popover(props, ref) {
     };
   }, [anchorEl, anchorOrigin.horizontal, anchorOrigin.vertical, anchorPosition, anchorReference]); // Returns the vertical offset of inner content to anchor the transform on if provided
 
-  var getContentAnchorOffset = React.useCallback(function (element) {
+  var getContentAnchorOffset = useCallback(function (element) {
     var contentAnchorOffset = 0;
 
     if (getContentAnchorEl && anchorReference === 'anchorEl') {
@@ -37980,14 +37974,14 @@ var Popover = /*#__PURE__*/React.forwardRef(function Popover(props, ref) {
   }, [anchorOrigin.vertical, anchorReference, getContentAnchorEl]); // Return the base transform origin using the element
   // and taking the content anchor offset into account if in use
 
-  var getTransformOrigin = React.useCallback(function (elemRect) {
+  var getTransformOrigin = useCallback(function (elemRect) {
     var contentAnchorOffset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
     return {
       vertical: getOffsetTop(elemRect, transformOrigin.vertical) + contentAnchorOffset,
       horizontal: getOffsetLeft(elemRect, transformOrigin.horizontal)
     };
   }, [transformOrigin.horizontal, transformOrigin.vertical]);
-  var getPositioningStyle = React.useCallback(function (element) {
+  var getPositioningStyle = useCallback(function (element) {
     // Check if the parent has requested anchoring on an inner content node
     var contentAnchorOffset = getContentAnchorOffset(element);
     var elemRect = {
@@ -38054,7 +38048,7 @@ var Popover = /*#__PURE__*/React.forwardRef(function Popover(props, ref) {
       transformOrigin: getTransformOriginValue(elemTransformOrigin)
     };
   }, [anchorEl, anchorReference, getAnchorOffset, getContentAnchorOffset, getTransformOrigin, marginThreshold]);
-  var setPositioningStyles = React.useCallback(function () {
+  var setPositioningStyles = useCallback(function () {
     var element = paperRef.current;
 
     if (!element) {
@@ -38082,23 +38076,23 @@ var Popover = /*#__PURE__*/React.forwardRef(function Popover(props, ref) {
     setPositioningStyles();
   };
 
-  var handlePaperRef = React.useCallback(function (instance) {
+  var handlePaperRef = useCallback(function (instance) {
     // #StrictMode ready
-    paperRef.current = ReactDOM.findDOMNode(instance);
+    paperRef.current = findDOMNode(instance);
   }, []);
-  React.useEffect(function () {
+  useEffect(function () {
     if (open) {
       setPositioningStyles();
     }
   });
-  React.useImperativeHandle(action, function () {
+  useImperativeHandle(action, function () {
     return open ? {
       updatePosition: function updatePosition() {
         setPositioningStyles();
       }
     } : null;
   }, [open, setPositioningStyles]);
-  React.useEffect(function () {
+  useEffect(function () {
     if (!open) {
       return undefined;
     }
@@ -38122,7 +38116,7 @@ var Popover = /*#__PURE__*/React.forwardRef(function Popover(props, ref) {
 
 
   var container = containerProp || (anchorEl ? ownerDocument(getAnchorEl(anchorEl)).body : undefined);
-  return /*#__PURE__*/React.createElement(Modal, _extends({
+  return /*#__PURE__*/createElement(Modal, _extends({
     container: container,
     open: open,
     ref: ref,
@@ -38130,7 +38124,7 @@ var Popover = /*#__PURE__*/React.forwardRef(function Popover(props, ref) {
       invisible: true
     },
     className: clsx(classes.root, className)
-  }, other), /*#__PURE__*/React.createElement(TransitionComponent, _extends({
+  }, other), /*#__PURE__*/createElement(TransitionComponent, _extends({
     appear: true,
     in: open,
     onEnter: onEnter,
@@ -38141,7 +38135,7 @@ var Popover = /*#__PURE__*/React.forwardRef(function Popover(props, ref) {
     timeout: transitionDuration
   }, TransitionProps, {
     onEntering: createChainedFunction(handleEntering, TransitionProps.onEntering)
-  }), /*#__PURE__*/React.createElement(Paper$1, _extends({
+  }), /*#__PURE__*/createElement(Paper$1, _extends({
     elevation: elevation,
     ref: handlePaperRef
   }, PaperProps, {
@@ -38238,7 +38232,7 @@ process.env.NODE_ENV !== "production" ? Popover.propTypes = {
    */
   container: propTypes
   /* @typescript-to-proptypes-ignore */
-  .oneOfType([HTMLElementType, propTypes.instanceOf(React.Component), propTypes.func]),
+  .oneOfType([HTMLElementType, propTypes.instanceOf(Component), propTypes.func]),
 
   /**
    * The elevation of the popover.
@@ -38422,7 +38416,7 @@ function moveFocus(list, currentFocus, disableListWrap, disabledItemsFocusable, 
   }
 }
 
-var useEnhancedEffect$5 = typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
+var useEnhancedEffect$5 = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 /**
  * A permanently displayed menu following https://www.w3.org/TR/wai-aria-practices/#menubutton.
  * It's exposed to help customization of the [`Menu`](/api/menu/) component. If you
@@ -38430,7 +38424,7 @@ var useEnhancedEffect$5 = typeof window === 'undefined' ? React.useEffect : Reac
  * the focus is placed inside the component it is fully keyboard accessible.
  */
 
-var MenuList = /*#__PURE__*/React.forwardRef(function MenuList(props, ref) {
+var MenuList = /*#__PURE__*/forwardRef(function MenuList(props, ref) {
   var actions = props.actions,
       _props$autoFocus = props.autoFocus,
       autoFocus = _props$autoFocus === void 0 ? false : _props$autoFocus,
@@ -38447,8 +38441,8 @@ var MenuList = /*#__PURE__*/React.forwardRef(function MenuList(props, ref) {
       variant = _props$variant === void 0 ? 'selectedMenu' : _props$variant,
       other = _objectWithoutProperties(props, ["actions", "autoFocus", "autoFocusItem", "children", "className", "disabledItemsFocusable", "disableListWrap", "onKeyDown", "variant"]);
 
-  var listRef = React.useRef(null);
-  var textCriteriaRef = React.useRef({
+  var listRef = useRef(null);
+  var textCriteriaRef = useRef({
     keys: [],
     repeating: true,
     previousKeyMatched: true,
@@ -38459,7 +38453,7 @@ var MenuList = /*#__PURE__*/React.forwardRef(function MenuList(props, ref) {
       listRef.current.focus();
     }
   }, [autoFocus]);
-  React.useImperativeHandle(actions, function () {
+  useImperativeHandle(actions, function () {
     return {
       adjustStyleForScrollbar: function adjustStyleForScrollbar(containerElement, theme) {
         // Let's ignore that piece of logic if users are already overriding the width
@@ -38534,9 +38528,9 @@ var MenuList = /*#__PURE__*/React.forwardRef(function MenuList(props, ref) {
     }
   };
 
-  var handleOwnRef = React.useCallback(function (instance) {
+  var handleOwnRef = useCallback(function (instance) {
     // #StrictMode ready
-    listRef.current = ReactDOM.findDOMNode(instance);
+    listRef.current = findDOMNode(instance);
   }, []);
   var handleRef = useForkRef(handleOwnRef, ref);
   /**
@@ -38549,8 +38543,8 @@ var MenuList = /*#__PURE__*/React.forwardRef(function MenuList(props, ref) {
   // to check if there is a `selected` item. We're looking for the last `selected`
   // item and use the first valid item as a fallback
 
-  React.Children.forEach(children, function (child, index) {
-    if (! /*#__PURE__*/React.isValidElement(child)) {
+  Children.forEach(children, function (child, index) {
+    if (! /*#__PURE__*/isValidElement(child)) {
       return;
     }
 
@@ -38568,7 +38562,7 @@ var MenuList = /*#__PURE__*/React.forwardRef(function MenuList(props, ref) {
       }
     }
   });
-  var items = React.Children.map(children, function (child, index) {
+  var items = Children.map(children, function (child, index) {
     if (index === activeItemIndex) {
       var newChildProps = {};
 
@@ -38580,12 +38574,12 @@ var MenuList = /*#__PURE__*/React.forwardRef(function MenuList(props, ref) {
         newChildProps.tabIndex = 0;
       }
 
-      return /*#__PURE__*/React.cloneElement(child, newChildProps);
+      return /*#__PURE__*/cloneElement(child, newChildProps);
     }
 
     return child;
   });
-  return /*#__PURE__*/React.createElement(List$1, _extends({
+  return /*#__PURE__*/createElement(List$1, _extends({
     role: "menu",
     ref: handleRef,
     className: className,
@@ -38667,7 +38661,7 @@ var styles$o = {
     outline: 0
   }
 };
-var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
+var Menu = /*#__PURE__*/forwardRef(function Menu(props, ref) {
   var _props$autoFocus = props.autoFocus,
       autoFocus = _props$autoFocus === void 0 ? true : _props$autoFocus,
       children = props.children,
@@ -38690,8 +38684,8 @@ var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
 
   var theme = useTheme$1();
   var autoFocusItem = autoFocus && !disableAutoFocusItem && open;
-  var menuListActionsRef = React.useRef(null);
-  var contentAnchorRef = React.useRef(null);
+  var menuListActionsRef = useRef(null);
+  var contentAnchorRef = useRef(null);
 
   var getContentAnchorEl = function getContentAnchorEl() {
     return contentAnchorRef.current;
@@ -38727,8 +38721,8 @@ var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
   // to check if there is a `selected` item. We're looking for the last `selected`
   // item and use the first valid item as a fallback
 
-  React.Children.map(children, function (child, index) {
-    if (! /*#__PURE__*/React.isValidElement(child)) {
+  Children.map(children, function (child, index) {
+    if (! /*#__PURE__*/isValidElement(child)) {
       return;
     }
 
@@ -38746,12 +38740,12 @@ var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
       }
     }
   });
-  var items = React.Children.map(children, function (child, index) {
+  var items = Children.map(children, function (child, index) {
     if (index === activeItemIndex) {
-      return /*#__PURE__*/React.cloneElement(child, {
+      return /*#__PURE__*/cloneElement(child, {
         ref: function ref(instance) {
           // #StrictMode ready
-          contentAnchorRef.current = ReactDOM.findDOMNode(instance);
+          contentAnchorRef.current = findDOMNode(instance);
           setRef(child.ref, instance);
         }
       });
@@ -38759,7 +38753,7 @@ var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
 
     return child;
   });
-  return /*#__PURE__*/React.createElement(Popover$1, _extends({
+  return /*#__PURE__*/createElement(Popover$1, _extends({
     getContentAnchorEl: getContentAnchorEl,
     classes: PopoverClasses,
     onClose: onClose,
@@ -38774,7 +38768,7 @@ var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
     open: open,
     ref: ref,
     transitionDuration: transitionDuration
-  }, other), /*#__PURE__*/React.createElement(MenuList, _extends({
+  }, other), /*#__PURE__*/createElement(MenuList, _extends({
     onKeyDown: handleListKeyDown,
     actions: menuListActionsRef,
     autoFocus: autoFocus && (activeItemIndex === -1 || disableAutoFocusItem),
@@ -38906,7 +38900,7 @@ var Menu$1 = withStyles$1(styles$o, {
  * @ignore - internal component.
  */
 
-var NativeSelectInput = /*#__PURE__*/React.forwardRef(function NativeSelectInput(props, ref) {
+var NativeSelectInput = /*#__PURE__*/forwardRef(function NativeSelectInput(props, ref) {
   var classes = props.classes,
       className = props.className,
       disabled = props.disabled,
@@ -38916,12 +38910,12 @@ var NativeSelectInput = /*#__PURE__*/React.forwardRef(function NativeSelectInput
       variant = _props$variant === void 0 ? 'standard' : _props$variant,
       other = _objectWithoutProperties(props, ["classes", "className", "disabled", "IconComponent", "inputRef", "variant"]);
 
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("select", _extends({
+  return /*#__PURE__*/createElement(Fragment$1, null, /*#__PURE__*/createElement("select", _extends({
     className: clsx(classes.root, // TODO v5: merge root and select
     classes.select, classes[variant], className, disabled && classes.disabled),
     disabled: disabled,
     ref: inputRef || ref
-  }, other)), props.multiple ? null : /*#__PURE__*/React.createElement(IconComponent, {
+  }, other)), props.multiple ? null : /*#__PURE__*/createElement(IconComponent, {
     className: clsx(classes.icon, classes["icon".concat(capitalize(variant))], disabled && classes.disabled)
   }));
 });
@@ -38992,7 +38986,7 @@ process.env.NODE_ENV !== "production" ? NativeSelectInput.propTypes = {
  * @ignore - internal component.
  */
 
-var ArrowDropDownIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var ArrowDropDownIcon = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M7 10l5 5 5-5z"
 }), 'ArrowDropDown');
 
@@ -39110,12 +39104,12 @@ var styles$p = function styles(theme) {
     }
   };
 };
-var defaultInput = /*#__PURE__*/React.createElement(Input$1, null);
+var defaultInput = /*#__PURE__*/createElement(Input$1, null);
 /**
  * An alternative to `<Select native />` with a much smaller bundle size footprint.
  */
 
-var NativeSelect = /*#__PURE__*/React.forwardRef(function NativeSelect(props, ref) {
+var NativeSelect = /*#__PURE__*/forwardRef(function NativeSelect(props, ref) {
   var children = props.children,
       classes = props.classes,
       _props$IconComponent = props.IconComponent,
@@ -39132,7 +39126,7 @@ var NativeSelect = /*#__PURE__*/React.forwardRef(function NativeSelect(props, re
     muiFormControl: muiFormControl,
     states: ['variant']
   });
-  return /*#__PURE__*/React.cloneElement(input, _extends({
+  return /*#__PURE__*/cloneElement(input, _extends({
     // Most of the logic is implemented in `NativeSelectInput`.
     // The `Select` component is a simple API wrapper to expose something better to play with.
     inputComponent: NativeSelectInput,
@@ -39269,7 +39263,7 @@ var styles$q = function styles(theme) {
  * @ignore - internal component.
  */
 
-var NotchedOutline = /*#__PURE__*/React.forwardRef(function NotchedOutline(props, ref) {
+var NotchedOutline = /*#__PURE__*/forwardRef(function NotchedOutline(props, ref) {
   var children = props.children,
       classes = props.classes,
       className = props.className,
@@ -39283,14 +39277,14 @@ var NotchedOutline = /*#__PURE__*/React.forwardRef(function NotchedOutline(props
   var align = theme.direction === 'rtl' ? 'right' : 'left';
 
   if (label !== undefined) {
-    return /*#__PURE__*/React.createElement("fieldset", _extends({
+    return /*#__PURE__*/createElement("fieldset", _extends({
       "aria-hidden": true,
       className: clsx(classes.root, className),
       ref: ref,
       style: style
-    }, other), /*#__PURE__*/React.createElement("legend", {
+    }, other), /*#__PURE__*/createElement("legend", {
       className: clsx(classes.legendLabelled, notched && classes.legendNotched)
-    }, label ? /*#__PURE__*/React.createElement("span", null, label) : /*#__PURE__*/React.createElement("span", {
+    }, label ? /*#__PURE__*/createElement("span", null, label) : /*#__PURE__*/createElement("span", {
       dangerouslySetInnerHTML: {
         __html: '&#8203;'
       }
@@ -39298,12 +39292,12 @@ var NotchedOutline = /*#__PURE__*/React.forwardRef(function NotchedOutline(props
   }
 
   var labelWidth = labelWidthProp > 0 ? labelWidthProp * 0.75 + 8 : 0.01;
-  return /*#__PURE__*/React.createElement("fieldset", _extends({
+  return /*#__PURE__*/createElement("fieldset", _extends({
     "aria-hidden": true,
     style: _extends(_defineProperty$1({}, "padding".concat(capitalize(align)), 8), style),
     className: clsx(classes.root, className),
     ref: ref
-  }, other), /*#__PURE__*/React.createElement("legend", {
+  }, other), /*#__PURE__*/createElement("legend", {
     className: classes.legend,
     style: {
       // IE 11: fieldset with legend does not render
@@ -39311,7 +39305,7 @@ var NotchedOutline = /*#__PURE__*/React.forwardRef(function NotchedOutline(props
       // by always having a legend rendered
       width: notched ? labelWidth : 0.01
     }
-  }, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/createElement("span", {
     dangerouslySetInnerHTML: {
       __html: '&#8203;'
     }
@@ -39462,7 +39456,7 @@ var styles$r = function styles(theme) {
     }
   };
 };
-var OutlinedInput = /*#__PURE__*/React.forwardRef(function OutlinedInput(props, ref) {
+var OutlinedInput = /*#__PURE__*/forwardRef(function OutlinedInput(props, ref) {
   var classes = props.classes,
       _props$fullWidth = props.fullWidth,
       fullWidth = _props$fullWidth === void 0 ? false : _props$fullWidth,
@@ -39478,9 +39472,9 @@ var OutlinedInput = /*#__PURE__*/React.forwardRef(function OutlinedInput(props, 
       type = _props$type === void 0 ? 'text' : _props$type,
       other = _objectWithoutProperties(props, ["classes", "fullWidth", "inputComponent", "label", "labelWidth", "multiline", "notched", "type"]);
 
-  return /*#__PURE__*/React.createElement(InputBase$1, _extends({
+  return /*#__PURE__*/createElement(InputBase$1, _extends({
     renderSuffix: function renderSuffix(state) {
-      return /*#__PURE__*/React.createElement(NotchedOutline$1, {
+      return /*#__PURE__*/createElement(NotchedOutline$1, {
         className: classes.notchedOutline,
         label: label,
         labelWidth: labelWidth,
@@ -42304,13 +42298,13 @@ function getAnchorEl$1(anchorEl) {
   return typeof anchorEl === 'function' ? anchorEl() : anchorEl;
 }
 
-var useEnhancedEffect$6 = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+var useEnhancedEffect$6 = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 var defaultPopperOptions = {};
 /**
  * Poppers rely on the 3rd party library [Popper.js](https://popper.js.org/docs/v1/) for positioning.
  */
 
-var Popper$1 = /*#__PURE__*/React.forwardRef(function Popper$1(props, ref) {
+var Popper$1 = /*#__PURE__*/forwardRef(function Popper$1(props, ref) {
   var anchorEl = props.anchorEl,
       children = props.children,
       container = props.container,
@@ -42330,19 +42324,19 @@ var Popper$1 = /*#__PURE__*/React.forwardRef(function Popper$1(props, ref) {
       transition = _props$transition === void 0 ? false : _props$transition,
       other = _objectWithoutProperties(props, ["anchorEl", "children", "container", "disablePortal", "keepMounted", "modifiers", "open", "placement", "popperOptions", "popperRef", "style", "transition"]);
 
-  var tooltipRef = React.useRef(null);
+  var tooltipRef = useRef(null);
   var ownRef = useForkRef(tooltipRef, ref);
-  var popperRef = React.useRef(null);
+  var popperRef = useRef(null);
   var handlePopperRef = useForkRef(popperRef, popperRefProp);
-  var handlePopperRefRef = React.useRef(handlePopperRef);
+  var handlePopperRefRef = useRef(handlePopperRef);
   useEnhancedEffect$6(function () {
     handlePopperRefRef.current = handlePopperRef;
   }, [handlePopperRef]);
-  React.useImperativeHandle(popperRefProp, function () {
+  useImperativeHandle(popperRefProp, function () {
     return popperRef.current;
   }, []);
 
-  var _React$useState = React.useState(true),
+  var _React$useState = useState(true),
       exited = _React$useState[0],
       setExited = _React$useState[1];
 
@@ -42353,16 +42347,16 @@ var Popper$1 = /*#__PURE__*/React.forwardRef(function Popper$1(props, ref) {
    * modifiers.flip is essentially a flip for controlled/uncontrolled behavior
    */
 
-  var _React$useState2 = React.useState(rtlPlacement),
+  var _React$useState2 = useState(rtlPlacement),
       placement = _React$useState2[0],
       setPlacement = _React$useState2[1];
 
-  React.useEffect(function () {
+  useEffect(function () {
     if (popperRef.current) {
       popperRef.current.update();
     }
   });
-  var handleOpen = React.useCallback(function () {
+  var handleOpen = useCallback(function () {
     if (!tooltipRef.current || !anchorEl || !open) {
       return;
     }
@@ -42404,7 +42398,7 @@ var Popper$1 = /*#__PURE__*/React.forwardRef(function Popper$1(props, ref) {
     }));
     handlePopperRefRef.current(popper);
   }, [anchorEl, disablePortal, modifiers, open, rtlPlacement, popperOptions]);
-  var handleRef = React.useCallback(function (node) {
+  var handleRef = useCallback(function (node) {
     setRef(ownRef, node);
     handleOpen();
   }, [ownRef, handleOpen]);
@@ -42427,12 +42421,12 @@ var Popper$1 = /*#__PURE__*/React.forwardRef(function Popper$1(props, ref) {
     handleClose();
   };
 
-  React.useEffect(function () {
+  useEffect(function () {
     return function () {
       handleClose();
     };
   }, []);
-  React.useEffect(function () {
+  useEffect(function () {
     if (!open && !transition) {
       // Otherwise handleExited will call this.
       handleClose();
@@ -42455,10 +42449,10 @@ var Popper$1 = /*#__PURE__*/React.forwardRef(function Popper$1(props, ref) {
     };
   }
 
-  return /*#__PURE__*/React.createElement(Portal$1, {
+  return /*#__PURE__*/createElement(Portal$1, {
     disablePortal: disablePortal,
     container: container
-  }, /*#__PURE__*/React.createElement("div", _extends({
+  }, /*#__PURE__*/createElement("div", _extends({
     ref: handleRef,
     role: "tooltip"
   }, other, {
@@ -42518,7 +42512,7 @@ process.env.NODE_ENV !== "production" ? Popper$1.propTypes = {
    */
   container: propTypes
   /* @typescript-to-proptypes-ignore */
-  .oneOfType([HTMLElementType, propTypes.instanceOf(React.Component), propTypes.func]),
+  .oneOfType([HTMLElementType, propTypes.instanceOf(Component), propTypes.func]),
 
   /**
    * Disable the portal behavior.
@@ -42591,7 +42585,7 @@ function isEmpty(display) {
  */
 
 
-var SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, ref) {
+var SelectInput = /*#__PURE__*/forwardRef(function SelectInput(props, ref) {
   var ariaLabel = props['aria-label'],
       autoFocus = props.autoFocus,
       autoWidth = props.autoWidth,
@@ -42634,25 +42628,25 @@ var SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, ref)
       value = _useControlled2[0],
       setValue = _useControlled2[1];
 
-  var inputRef = React.useRef(null);
+  var inputRef = useRef(null);
 
-  var _React$useState = React.useState(null),
+  var _React$useState = useState(null),
       displayNode = _React$useState[0],
       setDisplayNode = _React$useState[1];
 
-  var _React$useRef = React.useRef(openProp != null),
+  var _React$useRef = useRef(openProp != null),
       isOpenControlled = _React$useRef.current;
 
-  var _React$useState2 = React.useState(),
+  var _React$useState2 = useState(),
       menuMinWidthState = _React$useState2[0],
       setMenuMinWidthState = _React$useState2[1];
 
-  var _React$useState3 = React.useState(false),
+  var _React$useState3 = useState(false),
       openState = _React$useState3[0],
       setOpenState = _React$useState3[1];
 
   var handleRef = useForkRef(ref, inputRefProp);
-  React.useImperativeHandle(handleRef, function () {
+  useImperativeHandle(handleRef, function () {
     return {
       focus: function focus() {
         displayNode.focus();
@@ -42661,12 +42655,12 @@ var SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, ref)
       value: value
     };
   }, [displayNode, value]);
-  React.useEffect(function () {
+  useEffect(function () {
     if (autoFocus && displayNode) {
       displayNode.focus();
     }
   }, [autoFocus, displayNode]);
-  React.useEffect(function () {
+  useEffect(function () {
     if (displayNode) {
       var label = ownerDocument(displayNode).getElementById(labelId);
 
@@ -42718,7 +42712,7 @@ var SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, ref)
     update(false, event);
   };
 
-  var childrenArray = React.Children.toArray(children); // Support autofill.
+  var childrenArray = Children.toArray(children); // Support autofill.
 
   var handleChange = function handleChange(event) {
     var index = childrenArray.map(function (child) {
@@ -42832,7 +42826,7 @@ var SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, ref)
   }
 
   var items = childrenArray.map(function (child) {
-    if (! /*#__PURE__*/React.isValidElement(child)) {
+    if (! /*#__PURE__*/isValidElement(child)) {
       return null;
     }
 
@@ -42868,7 +42862,7 @@ var SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, ref)
       foundMatch = true;
     }
 
-    return /*#__PURE__*/React.cloneElement(child, {
+    return /*#__PURE__*/cloneElement(child, {
       'aria-selected': selected ? 'true' : undefined,
       onClick: handleItemClick(child),
       onKeyUp: function onKeyUp(event) {
@@ -42894,7 +42888,7 @@ var SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, ref)
 
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    React.useEffect(function () {
+    useEffect(function () {
       if (!foundMatch && !multiple && value !== '') {
         var values = childrenArray.map(function (child) {
           return child.props.value;
@@ -42928,7 +42922,7 @@ var SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, ref)
   }
 
   var buttonId = SelectDisplayProps.id || (name ? "mui-component-select-".concat(name) : undefined);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", _extends({
+  return /*#__PURE__*/createElement(Fragment$1, null, /*#__PURE__*/createElement("div", _extends({
     className: clsx(classes.root, // TODO v5: merge root and select
     classes.select, classes.selectMenu, classes[variant], className, disabled && classes.disabled),
     ref: setDisplayNode,
@@ -42949,11 +42943,11 @@ var SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, ref)
   }), isEmpty(display) ?
   /*#__PURE__*/
   // eslint-disable-next-line react/no-danger
-  React.createElement("span", {
+  createElement("span", {
     dangerouslySetInnerHTML: {
       __html: '&#8203;'
     }
-  }) : display), /*#__PURE__*/React.createElement("input", _extends({
+  }) : display), /*#__PURE__*/createElement("input", _extends({
     value: Array.isArray(value) ? value.join(',') : value,
     name: name,
     ref: inputRef,
@@ -42962,9 +42956,9 @@ var SelectInput = /*#__PURE__*/React.forwardRef(function SelectInput(props, ref)
     tabIndex: -1,
     className: classes.nativeInput,
     autoFocus: autoFocus
-  }, other)), /*#__PURE__*/React.createElement(IconComponent, {
+  }, other)), /*#__PURE__*/createElement(IconComponent, {
     className: clsx(classes.icon, classes["icon".concat(capitalize(variant))], open && classes.iconOpen, disabled && classes.disabled)
-  }), /*#__PURE__*/React.createElement(Menu$1, _extends({
+  }), /*#__PURE__*/createElement(Menu$1, _extends({
     id: "menu-".concat(name || ''),
     anchorEl: displayNode,
     open: open,
@@ -43144,11 +43138,11 @@ process.env.NODE_ENV !== "production" ? SelectInput.propTypes = {
 
 var styles$s = styles$p;
 
-var _ref = /*#__PURE__*/React.createElement(Input$1, null);
+var _ref = /*#__PURE__*/createElement(Input$1, null);
 
-var _ref2 = /*#__PURE__*/React.createElement(FilledInput$1, null);
+var _ref2 = /*#__PURE__*/createElement(FilledInput$1, null);
 
-var Select = /*#__PURE__*/React.forwardRef(function Select(props, ref) {
+var Select = /*#__PURE__*/forwardRef(function Select(props, ref) {
   var _props$autoWidth = props.autoWidth,
       autoWidth = _props$autoWidth === void 0 ? false : _props$autoWidth,
       children = props.children,
@@ -43188,13 +43182,13 @@ var Select = /*#__PURE__*/React.forwardRef(function Select(props, ref) {
   var variant = fcs.variant || variantProps;
   var InputComponent = input || {
     standard: _ref,
-    outlined: /*#__PURE__*/React.createElement(OutlinedInput$1, {
+    outlined: /*#__PURE__*/createElement(OutlinedInput$1, {
       label: label,
       labelWidth: labelWidth
     }),
     filled: _ref2
   }[variant];
-  return /*#__PURE__*/React.cloneElement(InputComponent, _extends({
+  return /*#__PURE__*/cloneElement(InputComponent, _extends({
     // Most of the logic is implemented in `SelectInput`.
     // The `Select` component is a simple API wrapper to expose something better to play with.
     inputComponent: inputComponent,
@@ -43419,7 +43413,7 @@ var styles$t = function styles(theme) {
     }
   };
 };
-var SnackbarContent = /*#__PURE__*/React.forwardRef(function SnackbarContent(props, ref) {
+var SnackbarContent = /*#__PURE__*/forwardRef(function SnackbarContent(props, ref) {
   var action = props.action,
       classes = props.classes,
       className = props.className,
@@ -43428,15 +43422,15 @@ var SnackbarContent = /*#__PURE__*/React.forwardRef(function SnackbarContent(pro
       role = _props$role === void 0 ? 'alert' : _props$role,
       other = _objectWithoutProperties(props, ["action", "classes", "className", "message", "role"]);
 
-  return /*#__PURE__*/React.createElement(Paper$1, _extends({
+  return /*#__PURE__*/createElement(Paper$1, _extends({
     role: role,
     square: true,
     elevation: 6,
     className: clsx(classes.root, className),
     ref: ref
-  }, other), /*#__PURE__*/React.createElement("div", {
+  }, other), /*#__PURE__*/createElement("div", {
     className: classes.message
-  }, message), action ? /*#__PURE__*/React.createElement("div", {
+  }, message), action ? /*#__PURE__*/createElement("div", {
     className: classes.action
   }, action) : null);
 });
@@ -43545,7 +43539,7 @@ var styles$u = function styles(theme) {
     }, bottom3, left3)))
   };
 };
-var Snackbar = /*#__PURE__*/React.forwardRef(function Snackbar(props, ref) {
+var Snackbar = /*#__PURE__*/forwardRef(function Snackbar(props, ref) {
   var action = props.action,
       _props$anchorOrigin = props.anchorOrigin;
   _props$anchorOrigin = _props$anchorOrigin === void 0 ? {
@@ -43586,9 +43580,9 @@ var Snackbar = /*#__PURE__*/React.forwardRef(function Snackbar(props, ref) {
       TransitionProps = props.TransitionProps,
       other = _objectWithoutProperties(props, ["action", "anchorOrigin", "autoHideDuration", "children", "classes", "className", "ClickAwayListenerProps", "ContentProps", "disableWindowBlurListener", "message", "onClose", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "onMouseEnter", "onMouseLeave", "open", "resumeHideDuration", "TransitionComponent", "transitionDuration", "TransitionProps"]);
 
-  var timerAutoHide = React.useRef();
+  var timerAutoHide = useRef();
 
-  var _React$useState = React.useState(true),
+  var _React$useState = useState(true),
       exited = _React$useState[0],
       setExited = _React$useState[1];
 
@@ -43607,7 +43601,7 @@ var Snackbar = /*#__PURE__*/React.forwardRef(function Snackbar(props, ref) {
       handleClose(null, 'timeout');
     }, autoHideDurationParam);
   });
-  React.useEffect(function () {
+  useEffect(function () {
     if (open) {
       setAutoHideTimer(autoHideDuration);
     }
@@ -43624,7 +43618,7 @@ var Snackbar = /*#__PURE__*/React.forwardRef(function Snackbar(props, ref) {
   // or when the window is shown back.
 
 
-  var handleResume = React.useCallback(function () {
+  var handleResume = useCallback(function () {
     if (autoHideDuration != null) {
       setAutoHideTimer(resumeHideDuration != null ? resumeHideDuration : autoHideDuration * 0.5);
     }
@@ -43660,7 +43654,7 @@ var Snackbar = /*#__PURE__*/React.forwardRef(function Snackbar(props, ref) {
     setExited(false);
   };
 
-  React.useEffect(function () {
+  useEffect(function () {
     if (!disableWindowBlurListener && open) {
       window.addEventListener('focus', handleResume);
       window.addEventListener('blur', handlePause);
@@ -43677,14 +43671,14 @@ var Snackbar = /*#__PURE__*/React.forwardRef(function Snackbar(props, ref) {
     return null;
   }
 
-  return /*#__PURE__*/React.createElement(ClickAwayListener, _extends({
+  return /*#__PURE__*/createElement(ClickAwayListener, _extends({
     onClickAway: handleClickAway
-  }, ClickAwayListenerProps), /*#__PURE__*/React.createElement("div", _extends({
+  }, ClickAwayListenerProps), /*#__PURE__*/createElement("div", _extends({
     className: clsx(classes.root, classes["anchorOrigin".concat(capitalize(vertical)).concat(capitalize(horizontal))], className),
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,
     ref: ref
-  }, other), /*#__PURE__*/React.createElement(TransitionComponent, _extends({
+  }, other), /*#__PURE__*/createElement(TransitionComponent, _extends({
     appear: true,
     in: open,
     onEnter: createChainedFunction(handleEnter, onEnter),
@@ -43695,7 +43689,7 @@ var Snackbar = /*#__PURE__*/React.forwardRef(function Snackbar(props, ref) {
     onExiting: onExiting,
     timeout: transitionDuration,
     direction: vertical === 'top' ? 'down' : 'up'
-  }, TransitionProps), children || /*#__PURE__*/React.createElement(SnackbarContent$1, _extends({
+  }, TransitionProps), children || /*#__PURE__*/createElement(SnackbarContent$1, _extends({
     message: message,
     action: action
   }, ContentProps)))));
@@ -43904,7 +43898,7 @@ var styles$v = {
  * - using the underlying components directly as shown in the demos
  */
 
-var TextField = /*#__PURE__*/React.forwardRef(function TextField(props, ref) {
+var TextField = /*#__PURE__*/forwardRef(function TextField(props, ref) {
   var autoComplete = props.autoComplete,
       _props$autoFocus = props.autoFocus,
       autoFocus = _props$autoFocus === void 0 ? false : _props$autoFocus,
@@ -43966,7 +43960,7 @@ var TextField = /*#__PURE__*/React.forwardRef(function TextField(props, ref) {
       var _InputLabelProps$requ;
 
       var displayRequired = (_InputLabelProps$requ = InputLabelProps === null || InputLabelProps === void 0 ? void 0 : InputLabelProps.required) !== null && _InputLabelProps$requ !== void 0 ? _InputLabelProps$requ : required;
-      InputMore.label = /*#__PURE__*/React.createElement(React.Fragment, null, label, displayRequired && "\xA0*");
+      InputMore.label = /*#__PURE__*/createElement(Fragment$1, null, label, displayRequired && "\xA0*");
     }
   }
 
@@ -43982,7 +43976,7 @@ var TextField = /*#__PURE__*/React.forwardRef(function TextField(props, ref) {
   var helperTextId = helperText && id ? "".concat(id, "-helper-text") : undefined;
   var inputLabelId = label && id ? "".concat(id, "-label") : undefined;
   var InputComponent = variantComponent[variant];
-  var InputElement = /*#__PURE__*/React.createElement(InputComponent, _extends({
+  var InputElement = /*#__PURE__*/createElement(InputComponent, _extends({
     "aria-describedby": helperTextId,
     autoComplete: autoComplete,
     autoFocus: autoFocus,
@@ -44002,7 +43996,7 @@ var TextField = /*#__PURE__*/React.forwardRef(function TextField(props, ref) {
     placeholder: placeholder,
     inputProps: inputProps
   }, InputMore, InputProps));
-  return /*#__PURE__*/React.createElement(FormControl$1, _extends({
+  return /*#__PURE__*/createElement(FormControl$1, _extends({
     className: clsx(classes.root, className),
     disabled: disabled,
     error: error,
@@ -44012,16 +44006,16 @@ var TextField = /*#__PURE__*/React.forwardRef(function TextField(props, ref) {
     required: required,
     color: color,
     variant: variant
-  }, other), label && /*#__PURE__*/React.createElement(InputLabel$1, _extends({
+  }, other), label && /*#__PURE__*/createElement(InputLabel$1, _extends({
     htmlFor: id,
     id: inputLabelId
-  }, InputLabelProps), label), select ? /*#__PURE__*/React.createElement(Select$1, _extends({
+  }, InputLabelProps), label), select ? /*#__PURE__*/createElement(Select$1, _extends({
     "aria-describedby": helperTextId,
     id: id,
     labelId: inputLabelId,
     value: value,
     input: InputElement
-  }, SelectProps), children) : InputElement, helperText && /*#__PURE__*/React.createElement(FormHelperText$1, _extends({
+  }, SelectProps), children) : InputElement, helperText && /*#__PURE__*/createElement(FormHelperText$1, _extends({
     id: helperTextId
   }, FormHelperTextProps), helperText));
 });
@@ -44225,7 +44219,7 @@ var TextField$1 = withStyles$1(styles$v, {
  * @ignore - internal component.
  */
 
-var SuccessOutlinedIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var SuccessOutlinedIcon = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4C12.76,4 13.5,4.11 14.2, 4.31L15.77,2.74C14.61,2.26 13.34,2 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0, 0 22,12M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z"
 }), 'SuccessOutlined');
 
@@ -44233,7 +44227,7 @@ var SuccessOutlinedIcon = createSvgIcon( /*#__PURE__*/React.createElement("path"
  * @ignore - internal component.
  */
 
-var ReportProblemOutlinedIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var ReportProblemOutlinedIcon = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z"
 }), 'ReportProblemOutlined');
 
@@ -44241,7 +44235,7 @@ var ReportProblemOutlinedIcon = createSvgIcon( /*#__PURE__*/React.createElement(
  * @ignore - internal component.
  */
 
-var ErrorOutlineIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var ErrorOutlineIcon = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
 }), 'ErrorOutline');
 
@@ -44249,7 +44243,7 @@ var ErrorOutlineIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
  * @ignore - internal component.
  */
 
-var InfoOutlinedIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var InfoOutlinedIcon = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
 }), 'InfoOutlined');
 
@@ -44257,7 +44251,7 @@ var InfoOutlinedIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
  * @ignore - internal component.
  */
 
-var CloseIcon = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var CloseIcon = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
 }), 'Close');
 
@@ -44398,25 +44392,25 @@ var styles$w = function styles(theme) {
   };
 };
 var defaultIconMapping = {
-  success: /*#__PURE__*/React.createElement(SuccessOutlinedIcon, {
+  success: /*#__PURE__*/createElement(SuccessOutlinedIcon, {
     fontSize: "inherit"
   }),
-  warning: /*#__PURE__*/React.createElement(ReportProblemOutlinedIcon, {
+  warning: /*#__PURE__*/createElement(ReportProblemOutlinedIcon, {
     fontSize: "inherit"
   }),
-  error: /*#__PURE__*/React.createElement(ErrorOutlineIcon, {
+  error: /*#__PURE__*/createElement(ErrorOutlineIcon, {
     fontSize: "inherit"
   }),
-  info: /*#__PURE__*/React.createElement(InfoOutlinedIcon, {
+  info: /*#__PURE__*/createElement(InfoOutlinedIcon, {
     fontSize: "inherit"
   })
 };
 
-var _ref$1 = /*#__PURE__*/React.createElement(CloseIcon, {
+var _ref$1 = /*#__PURE__*/createElement(CloseIcon, {
   fontSize: "small"
 });
 
-var Alert = /*#__PURE__*/React.forwardRef(function Alert(props, ref) {
+var Alert = /*#__PURE__*/forwardRef(function Alert(props, ref) {
   var action = props.action,
       children = props.children,
       classes = props.classes,
@@ -44436,21 +44430,21 @@ var Alert = /*#__PURE__*/React.forwardRef(function Alert(props, ref) {
       variant = _props$variant === void 0 ? 'standard' : _props$variant,
       other = _objectWithoutProperties(props, ["action", "children", "classes", "className", "closeText", "color", "icon", "iconMapping", "onClose", "role", "severity", "variant"]);
 
-  return /*#__PURE__*/React.createElement(Paper$1, _extends({
+  return /*#__PURE__*/createElement(Paper$1, _extends({
     role: role,
     square: true,
     elevation: 0,
     className: clsx(classes.root, classes["".concat(variant).concat(capitalize(color || severity))], className),
     ref: ref
-  }, other), icon !== false ? /*#__PURE__*/React.createElement("div", {
+  }, other), icon !== false ? /*#__PURE__*/createElement("div", {
     className: classes.icon
-  }, icon || iconMapping[severity] || defaultIconMapping[severity]) : null, /*#__PURE__*/React.createElement("div", {
+  }, icon || iconMapping[severity] || defaultIconMapping[severity]) : null, /*#__PURE__*/createElement("div", {
     className: classes.message
-  }, children), action != null ? /*#__PURE__*/React.createElement("div", {
+  }, children), action != null ? /*#__PURE__*/createElement("div", {
     className: classes.action
-  }, action) : null, action == null && onClose ? /*#__PURE__*/React.createElement("div", {
+  }, action) : null, action == null && onClose ? /*#__PURE__*/createElement("div", {
     className: classes.action
-  }, /*#__PURE__*/React.createElement(IconButton$1, {
+  }, /*#__PURE__*/createElement(IconButton$1, {
     size: "small",
     "aria-label": closeText,
     title: closeText,
@@ -44547,7 +44541,7 @@ var Alert$1 = withStyles$1(styles$w, {
  * @ignore - internal component.
  */
 
-var ArrowDropDownIcon$1 = createSvgIcon( /*#__PURE__*/React.createElement("path", {
+var ArrowDropDownIcon$1 = createSvgIcon( /*#__PURE__*/createElement("path", {
   d: "M7 10l5 5 5-5z"
 }), 'ArrowDropDown');
 
@@ -44691,21 +44685,21 @@ function useAutocomplete(props) {
     };
   }
 
-  var ignoreFocus = React.useRef(false);
-  var firstFocus = React.useRef(true);
-  var inputRef = React.useRef(null);
-  var listboxRef = React.useRef(null);
+  var ignoreFocus = useRef(false);
+  var firstFocus = useRef(true);
+  var inputRef = useRef(null);
+  var listboxRef = useRef(null);
 
-  var _React$useState = React.useState(null),
+  var _React$useState = useState(null),
       anchorEl = _React$useState[0],
       setAnchorEl = _React$useState[1];
 
-  var _React$useState2 = React.useState(-1),
+  var _React$useState2 = useState(-1),
       focusedTag = _React$useState2[0],
       setFocusedTag = _React$useState2[1];
 
   var defaultHighlighted = autoHighlight ? 0 : -1;
-  var highlightedIndexRef = React.useRef(defaultHighlighted);
+  var highlightedIndexRef = useRef(defaultHighlighted);
 
   var _useControlled = useControlled({
     controlled: valueProp,
@@ -44726,7 +44720,7 @@ function useAutocomplete(props) {
       inputValue = _useControlled4[0],
       setInputValue = _useControlled4[1];
 
-  var _React$useState3 = React.useState(false),
+  var _React$useState3 = useState(false),
       focused = _React$useState3[0],
       setFocused = _React$useState3[1];
 
@@ -44752,7 +44746,7 @@ function useAutocomplete(props) {
       onInputChange(event, newInputValue, 'reset');
     }
   });
-  React.useEffect(function () {
+  useEffect(function () {
     resetInputValue(null, value);
   }, [value, resetInputValue]);
 
@@ -44805,7 +44799,7 @@ function useAutocomplete(props) {
     }
   }); // Ensure the focusedTag is never inconsistent
 
-  React.useEffect(function () {
+  useEffect(function () {
     if (multiple && focusedTag > value.length - 1) {
       setFocusedTag(-1);
       focusTag(-1);
@@ -44979,7 +44973,7 @@ function useAutocomplete(props) {
       }
     }
   });
-  var syncHighlightedIndex = React.useCallback(function () {
+  var syncHighlightedIndex = useCallback(function () {
     if (!popupOpen) {
       return;
     }
@@ -45051,7 +45045,7 @@ function useAutocomplete(props) {
 
     syncHighlightedIndex();
   });
-  React.useEffect(function () {
+  useEffect(function () {
     syncHighlightedIndex();
   }, [syncHighlightedIndex]);
 
@@ -45091,7 +45085,7 @@ function useAutocomplete(props) {
     setValue(newValue);
   };
 
-  var isTouch = React.useRef(false);
+  var isTouch = useRef(false);
 
   var selectNewValue = function selectNewValue(event, option) {
     var reasonProp = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'select-option';
@@ -45866,16 +45860,16 @@ function DisablePortal(props) {
       open = props.open,
       other = _objectWithoutProperties(props, ["anchorEl", "open"]);
 
-  return /*#__PURE__*/React.createElement("div", other);
+  return /*#__PURE__*/createElement("div", other);
 }
 
-var _ref$2 = /*#__PURE__*/React.createElement(CloseIcon, {
+var _ref$2 = /*#__PURE__*/createElement(CloseIcon, {
   fontSize: "small"
 });
 
-var _ref2$1 = /*#__PURE__*/React.createElement(ArrowDropDownIcon$1, null);
+var _ref2$1 = /*#__PURE__*/createElement(ArrowDropDownIcon$1, null);
 
-var Autocomplete = /*#__PURE__*/React.forwardRef(function Autocomplete(props, ref) {
+var Autocomplete = /*#__PURE__*/forwardRef(function Autocomplete(props, ref) {
   /* eslint-disable no-unused-vars */
   var _props$autoComplete = props.autoComplete,
       _props$autoHighlight = props.autoHighlight,
@@ -46009,7 +46003,7 @@ var Autocomplete = /*#__PURE__*/React.forwardRef(function Autocomplete(props, re
       startAdornment = renderTags(value, getCustomizedTagProps);
     } else {
       startAdornment = value.map(function (option, index) {
-        return /*#__PURE__*/React.createElement(Chip$1, _extends({
+        return /*#__PURE__*/createElement(Chip$1, _extends({
           label: getOptionLabel(option),
           size: size
         }, getCustomizedTagProps({
@@ -46024,7 +46018,7 @@ var Autocomplete = /*#__PURE__*/React.forwardRef(function Autocomplete(props, re
 
     if (!focused && more > 0) {
       startAdornment = startAdornment.splice(0, limitTags);
-      startAdornment.push( /*#__PURE__*/React.createElement("span", {
+      startAdornment.push( /*#__PURE__*/createElement("span", {
         className: classes.tag,
         key: startAdornment.length
       }, getLimitTagsText(more)));
@@ -46032,12 +46026,12 @@ var Autocomplete = /*#__PURE__*/React.forwardRef(function Autocomplete(props, re
   }
 
   var defaultRenderGroup = function defaultRenderGroup(params) {
-    return /*#__PURE__*/React.createElement("li", {
+    return /*#__PURE__*/createElement("li", {
       key: params.key
-    }, /*#__PURE__*/React.createElement(ListSubheader$1, {
+    }, /*#__PURE__*/createElement(ListSubheader$1, {
       className: classes.groupLabel,
       component: "div"
-    }, params.group), /*#__PURE__*/React.createElement("ul", {
+    }, params.group), /*#__PURE__*/createElement("ul", {
       className: classes.groupUl
     }, params.children));
   };
@@ -46050,7 +46044,7 @@ var Autocomplete = /*#__PURE__*/React.forwardRef(function Autocomplete(props, re
       option: option,
       index: index
     });
-    return /*#__PURE__*/React.createElement("li", _extends({}, optionProps, {
+    return /*#__PURE__*/createElement("li", _extends({}, optionProps, {
       className: classes.option
     }), renderOption(option, {
       selected: optionProps['aria-selected'],
@@ -46060,7 +46054,7 @@ var Autocomplete = /*#__PURE__*/React.forwardRef(function Autocomplete(props, re
 
   var hasClearIcon = !disableClearable && !disabled;
   var hasPopupIcon = (!freeSolo || forcePopupIcon === true) && forcePopupIcon !== false;
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", _extends({
+  return /*#__PURE__*/createElement(Fragment$1, null, /*#__PURE__*/createElement("div", _extends({
     ref: ref,
     className: clsx(classes.root, className, focused && classes.focused, fullWidth && classes.fullWidth, hasClearIcon && classes.hasClearIcon, hasPopupIcon && classes.hasPopupIcon)
   }, getRootProps(other)), renderInput({
@@ -46073,13 +46067,13 @@ var Autocomplete = /*#__PURE__*/React.forwardRef(function Autocomplete(props, re
       ref: setAnchorEl,
       className: classes.inputRoot,
       startAdornment: startAdornment,
-      endAdornment: /*#__PURE__*/React.createElement("div", {
+      endAdornment: /*#__PURE__*/createElement("div", {
         className: classes.endAdornment
-      }, hasClearIcon ? /*#__PURE__*/React.createElement(IconButton$1, _extends({}, getClearProps(), {
+      }, hasClearIcon ? /*#__PURE__*/createElement(IconButton$1, _extends({}, getClearProps(), {
         "aria-label": clearText,
         title: clearText,
         className: clsx(classes.clearIndicator, dirty && classes.clearIndicatorDirty)
-      }), closeIcon) : null, hasPopupIcon ? /*#__PURE__*/React.createElement(IconButton$1, _extends({}, getPopupIndicatorProps(), {
+      }), closeIcon) : null, hasPopupIcon ? /*#__PURE__*/createElement(IconButton$1, _extends({}, getPopupIndicatorProps(), {
         disabled: disabled,
         "aria-label": popupOpen ? closeText : openText,
         title: popupOpen ? closeText : openText,
@@ -46090,7 +46084,7 @@ var Autocomplete = /*#__PURE__*/React.forwardRef(function Autocomplete(props, re
       className: clsx(classes.input, focusedTag === -1 && classes.inputFocused),
       disabled: disabled
     }, getInputProps())
-  })), popupOpen && anchorEl ? /*#__PURE__*/React.createElement(PopperComponent, {
+  })), popupOpen && anchorEl ? /*#__PURE__*/createElement(PopperComponent, {
     className: clsx(classes.popper, disablePortal && classes.popperDisablePortal),
     style: {
       width: anchorEl ? anchorEl.clientWidth : null
@@ -46098,13 +46092,13 @@ var Autocomplete = /*#__PURE__*/React.forwardRef(function Autocomplete(props, re
     role: "presentation",
     anchorEl: anchorEl,
     open: true
-  }, /*#__PURE__*/React.createElement(PaperComponent, {
+  }, /*#__PURE__*/createElement(PaperComponent, {
     className: classes.paper
-  }, loading && groupedOptions.length === 0 ? /*#__PURE__*/React.createElement("div", {
+  }, loading && groupedOptions.length === 0 ? /*#__PURE__*/createElement("div", {
     className: classes.loading
-  }, loadingText) : null, groupedOptions.length === 0 && !freeSolo && !loading ? /*#__PURE__*/React.createElement("div", {
+  }, loadingText) : null, groupedOptions.length === 0 && !freeSolo && !loading ? /*#__PURE__*/createElement("div", {
     className: classes.noOptions
-  }, noOptionsText) : null, groupedOptions.length > 0 ? /*#__PURE__*/React.createElement(ListboxComponent, _extends({
+  }, noOptionsText) : null, groupedOptions.length > 0 ? /*#__PURE__*/createElement(ListboxComponent, _extends({
     className: classes.listbox
   }, getListboxProps(), ListboxProps), groupedOptions.map(function (option, index) {
     if (groupBy) {
@@ -46590,10 +46584,10 @@ styleInject(css_248z);
 
 var Search = function (_a) {
     var combinedResults = _a.combinedResults, getSearchResults = _a.getSearchResults, clearSearchResults = _a.clearSearchResults, isLoading = _a.isLoading, error = _a.error, clearError = _a.clearError;
-    var _b = React.useState(null), value = _b[0], setValue = _b[1];
-    var _c = React.useState(''), inputValue = _c[0], setInputValue = _c[1];
-    var _d = React.useState(['users', 'repos']), filters = _d[0], setFilters = _d[1];
-    var delayedQuery = React.useCallback(lodash.debounce(function (inputValue, filters) { return getSearchResults(inputValue, filters); }, 500), []);
+    var _b = useState(null), value = _b[0], setValue = _b[1];
+    var _c = useState(''), inputValue = _c[0], setInputValue = _c[1];
+    var _d = useState(['users', 'repos']), filters = _d[0], setFilters = _d[1];
+    var delayedQuery = useCallback(lodash.debounce(function (inputValue, filters) { return getSearchResults(inputValue, filters); }, 500), []);
     var handleClearError = function () {
         clearError();
     };
@@ -46619,7 +46613,7 @@ var Search = function (_a) {
         clearSearchResults();
         setFilters(updatedFilters);
     }; };
-    React.useEffect(function () {
+    useEffect(function () {
         if (value) {
             window.open(value.url, "_blank");
         }
@@ -46663,5 +46657,5 @@ var FeatureWrapper = function () {
         React__default.createElement(SearchForm$1, null));
 };
 
-module.exports = FeatureWrapper;
-//# sourceMappingURL=index.js.map
+export default FeatureWrapper;
+//# sourceMappingURL=index.d.ts.map
