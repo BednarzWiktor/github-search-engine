@@ -7,10 +7,10 @@
   },
   "name": "github-search-engine",
   "version": "1.0.0",
-  "main": "build/index.js",
-  "module": "build/index.es.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "files": [
-    "build"
+    "dist"
   ],
   "private": true,
   "dependencies": {
