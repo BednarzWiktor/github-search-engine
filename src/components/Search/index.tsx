@@ -4,8 +4,8 @@ import { debounce } from 'lodash';
 
 import { generateUpdatedFilters } from '../../utils';
 
-import { TextField, FormControlLabel, Checkbox, Typography } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
+import { TextField, FormControlLabel, Checkbox, Typography, Snackbar } from '@material-ui/core';
+import { Autocomplete, Alert } from '@material-ui/lab';
 import OptionIconGenerator from '../OptionIconGenerator';
 
 import { SearchProps as Props, SearchResultItem } from '../../types/propTypes';
@@ -13,11 +13,15 @@ import { SearchProps as Props, SearchResultItem } from '../../types/propTypes';
 import 'fontsource-roboto';
 import styles from './index.module.css';
 
-const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoading }: Props) => {
+const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoading, error, clearError }: Props) => {
     const [ value, setValue ] = useState<SearchResultItem | null>(null);
     const [ inputValue, setInputValue ] = useState<string>('');
     const [ filters, setFilters] = useState<Array<string>>(['users', 'repos']);
     const delayedQuery = useCallback(debounce((inputValue: string, filters: Array<string>) => getSearchResults(inputValue, filters), 500), []);
+
+    const handleClearError = () => {
+        clearError();
+    };
 
     const handleOnChangeValue = (event: SyntheticEvent<EventTarget>, newValue: any, reason: string) => {
         setValue(newValue);
@@ -27,6 +31,9 @@ const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoadi
     };
 
     const handleOnChangeInputValue = (event: SyntheticEvent<EventTarget>, newInputValue: string) => {
+        if (error) {
+            clearError();
+        }
         setInputValue(newInputValue);
 
         const canMakeCall = newInputValue && newInputValue.length >= 3 && filters && filters.length > 0;
@@ -95,6 +102,7 @@ const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoadi
                         props =>
                             <TextField
                                 {...props}
+                                error={error ? true : false}
                                 label="Search GitHub"
                                 variant="outlined"
                             />
@@ -108,6 +116,16 @@ const Search = ({ combinedResults, getSearchResults, clearSearchResults, isLoadi
                     }
                 />
             </main>
+            <Snackbar open={error ? true : false} onClose={handleClearError}>
+                <Alert
+                    elevation={6}
+                    variant="filled"
+                    onClose={handleClearError}
+                    severity="error"
+                >
+                    {error}
+                </Alert>
+            </Snackbar>
         </div>
     );
 };

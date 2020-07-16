@@ -47,3 +47,14 @@ export const clearSearchResults = () => (dispatch: Dispatch) => {
         result: []
     }));
 };
+
+export const clearError = () => (dispatch: Dispatch) => {
+    dispatch(setErrorByTarget({
+        target: 'users',
+        error: null
+    }));
+    dispatch(setErrorByTarget({
+        target: 'repos',
+        error: null
+    }));
+}

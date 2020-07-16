@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { selectTranslatedAndSortedSearchResult } from '../../../redux/selectors/search';
-import { getSearchResults, clearSearchResults } from '../../../redux/methods/search';
+import { selectTranslatedAndSortedSearchResult, selectError } from '../../../redux/selectors/search';
+import { getSearchResults, clearSearchResults, clearError } from '../../../redux/methods/search';
 
 import Search from '../../../components/Search';
 
@@ -12,12 +12,14 @@ const SearchForm = (props: Props) => <Search {...props}/>;
 
 const mapStateToProps = (state: any) => ({
     combinedResults: selectTranslatedAndSortedSearchResult(state),
-    isLoading: state.search.isLoading
+    isLoading: state.search.isLoading,
+    error: selectError(state)
 });
 
 const mapDispatch = {
     getSearchResults,
-    clearSearchResults
+    clearSearchResults,
+    clearError
 };
 
 export default connect(mapStateToProps, mapDispatch)(SearchForm);
