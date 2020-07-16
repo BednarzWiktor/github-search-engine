@@ -1,6 +1,6 @@
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
-import { mount, configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 
 import toJson from 'enzyme-to-json';
 
@@ -38,10 +38,10 @@ describe('Search', () => {
     const emptyProps = { ...basicProps, combinedResults: [] };
     const emptyIsLoadingProps = { ...emptyProps, isLoading: true };
 
-    const basicWrapper = mount(<Search { ...basicProps }/>);
-    const isLoadingWrapper = mount(<Search { ...isLoadingProps }/>);
-    const emptyWrapper = mount(<Search { ...emptyProps }/>);
-    const emptyIsLoadingWrapper = mount(<Search { ...emptyIsLoadingProps }/>);
+    const basicWrapper = shallow(<Search { ...basicProps }/>);
+    const isLoadingWrapper = shallow(<Search { ...isLoadingProps }/>);
+    const emptyWrapper = shallow(<Search { ...emptyProps }/>);
+    const emptyIsLoadingWrapper = shallow(<Search { ...emptyIsLoadingProps }/>);
 
     it('renders without crashing', () => {
         expect(toJson(basicWrapper)).toMatchSnapshot();
