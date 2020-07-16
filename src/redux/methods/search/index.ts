@@ -6,40 +6,35 @@ import { setResultByTarget, setIsLoading, setErrorByTarget } from '../../../feat
 
 const gAPI = githubAPI();
 
+const getActionToDispatchForSingleRequest = async (searchPhrase: string, type: 'users' | 'repos') => {
+    const methodToUse = type === 'users' ? gAPI.getUsersByQuery : gAPI.getReposByQuery;
+    const { payload, error } = await methodToUse(searchPhrase);
+        
+    if (payload) {
+        return setResultByTarget({
+            target: type,
+            result: payload.items
+        });
+    } else {
+        return setErrorByTarget({
+            target: type,
+            error: error
+        });
+    }
+}
+
 export const getSearchResults = (searchPhrase: string, activeFilters: Array<string>) => async (dispatch: Dispatch) => {
     dispatch(setIsLoading({ isLoading: true }));
 
-    const establishGAPIMethodToUse = (type: string) => {
-        switch (type) {
-            case 'users': return gAPI.getUsersByQuery;
-            case 'repos': return gAPI.getReposByQuery;
-        }
-    };
+    if (activeFilters.includes('users')) {
+        dispatch(await getActionToDispatchForSingleRequest(searchPhrase, 'users'));
+    }
 
-    const data = new Promise(resolve => {
-        activeFilters.forEach(async (filter, index) => {
-            const fetchData = establishGAPIMethodToUse(filter);
-    
-            if (fetchData) {
-                const { payload, error } = await fetchData(searchPhrase);
-    
-                dispatch(setResultByTarget({
-                    target: filter,
-                    result: payload && payload.items
-                }));
-                dispatch(setErrorByTarget({
-                    target: filter,
-                    error: error
-                }));
-            }
+    if (activeFilters.includes('repos')) {
+        dispatch(await getActionToDispatchForSingleRequest(searchPhrase, 'repos'));
+    }
 
-            if (index === activeFilters.length -1) resolve();
-        });
-    });
-
-    data.then(() => {
-        dispatch(setIsLoading({ isLoading: false }));
-    })
+    dispatch(setIsLoading({ isLoading: false }));
 };
 
 export const clearSearchResults = () => (dispatch: Dispatch) => {

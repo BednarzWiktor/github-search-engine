@@ -20,10 +20,12 @@
     "enzyme-to-json": "^3.5.0",
     "jest-fetch-mock": "^3.0.3",
     "lodash": "^4.17.19",
+    "nock": "^13.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
+    "redux-mock-store": "^1.5.4",
     "typescript": "~3.7.2"
   },
   "scripts": {

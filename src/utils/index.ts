@@ -5,6 +5,15 @@ export const processResponseStatus = (status: number): string | null =>
     status !== 200 ? `request to GithubAPI returned with ${status} http error` : null
 ;
 
+export const processError = (error: any) => {
+    if (error.status === 403) {
+        return 'Too many requests, please wait before continuing search';
+    } else {
+        console.error(error);
+    }
+    return null;
+};
+
 export const translateUsersResult = (result: SearchUsersResponseData['items']): Array<SearchResultItem> =>
     result && Array.isArray(result) ? result.map(resultItem => ({
         origin: 'user',

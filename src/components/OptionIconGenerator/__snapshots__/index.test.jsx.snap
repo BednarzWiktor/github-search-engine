@@ -1,0 +1,223 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionIconGenerator renders without crashing 1`] = `
+<OptionIconGenerator
+  origin="user"
+>
+  <ForwardRef>
+    <WithStyles(ForwardRef(SvgIcon))>
+      <ForwardRef(SvgIcon)
+        classes={
+          Object {
+            "colorAction": "MuiSvgIcon-colorAction",
+            "colorDisabled": "MuiSvgIcon-colorDisabled",
+            "colorError": "MuiSvgIcon-colorError",
+            "colorPrimary": "MuiSvgIcon-colorPrimary",
+            "colorSecondary": "MuiSvgIcon-colorSecondary",
+            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+            "root": "MuiSvgIcon-root",
+          }
+        }
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+      </ForwardRef(SvgIcon)>
+    </WithStyles(ForwardRef(SvgIcon))>
+  </ForwardRef>
+</OptionIconGenerator>
+`;
+
+exports[`OptionIconGenerator renders without crashing 2`] = `
+<OptionIconGenerator
+  origin="repo"
+>
+  <ForwardRef>
+    <WithStyles(ForwardRef(SvgIcon))>
+      <ForwardRef(SvgIcon)
+        classes={
+          Object {
+            "colorAction": "MuiSvgIcon-colorAction",
+            "colorDisabled": "MuiSvgIcon-colorDisabled",
+            "colorError": "MuiSvgIcon-colorError",
+            "colorPrimary": "MuiSvgIcon-colorPrimary",
+            "colorSecondary": "MuiSvgIcon-colorSecondary",
+            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+            "root": "MuiSvgIcon-root",
+          }
+        }
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"
+          />
+        </svg>
+      </ForwardRef(SvgIcon)>
+    </WithStyles(ForwardRef(SvgIcon))>
+  </ForwardRef>
+</OptionIconGenerator>
+`;
+
+exports[`Search renders without crashing 1`] = `
+<OptionIconGenerator
+  origin="user"
+>
+  <ForwardRef>
+    <WithStyles(ForwardRef(SvgIcon))>
+      <ForwardRef(SvgIcon)
+        classes={
+          Object {
+            "colorAction": "MuiSvgIcon-colorAction",
+            "colorDisabled": "MuiSvgIcon-colorDisabled",
+            "colorError": "MuiSvgIcon-colorError",
+            "colorPrimary": "MuiSvgIcon-colorPrimary",
+            "colorSecondary": "MuiSvgIcon-colorSecondary",
+            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+            "root": "MuiSvgIcon-root",
+          }
+        }
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+      </ForwardRef(SvgIcon)>
+    </WithStyles(ForwardRef(SvgIcon))>
+  </ForwardRef>
+</OptionIconGenerator>
+`;
+
+exports[`Search renders without crashing 2`] = `
+<OptionIconGenerator
+  origin="repo"
+>
+  <ForwardRef>
+    <WithStyles(ForwardRef(SvgIcon))>
+      <ForwardRef(SvgIcon)
+        classes={
+          Object {
+            "colorAction": "MuiSvgIcon-colorAction",
+            "colorDisabled": "MuiSvgIcon-colorDisabled",
+            "colorError": "MuiSvgIcon-colorError",
+            "colorPrimary": "MuiSvgIcon-colorPrimary",
+            "colorSecondary": "MuiSvgIcon-colorSecondary",
+            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+            "root": "MuiSvgIcon-root",
+          }
+        }
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"
+          />
+        </svg>
+      </ForwardRef(SvgIcon)>
+    </WithStyles(ForwardRef(SvgIcon))>
+  </ForwardRef>
+</OptionIconGenerator>
+`;
+
+exports[`user renders without crashing 1`] = `
+<OptionIconGenerator
+  origin="user"
+>
+  <ForwardRef>
+    <WithStyles(ForwardRef(SvgIcon))>
+      <ForwardRef(SvgIcon)
+        classes={
+          Object {
+            "colorAction": "MuiSvgIcon-colorAction",
+            "colorDisabled": "MuiSvgIcon-colorDisabled",
+            "colorError": "MuiSvgIcon-colorError",
+            "colorPrimary": "MuiSvgIcon-colorPrimary",
+            "colorSecondary": "MuiSvgIcon-colorSecondary",
+            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+            "root": "MuiSvgIcon-root",
+          }
+        }
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+      </ForwardRef(SvgIcon)>
+    </WithStyles(ForwardRef(SvgIcon))>
+  </ForwardRef>
+</OptionIconGenerator>
+`;
+
+exports[`user renders without crashing 2`] = `
+<OptionIconGenerator
+  origin="repo"
+>
+  <ForwardRef>
+    <WithStyles(ForwardRef(SvgIcon))>
+      <ForwardRef(SvgIcon)
+        classes={
+          Object {
+            "colorAction": "MuiSvgIcon-colorAction",
+            "colorDisabled": "MuiSvgIcon-colorDisabled",
+            "colorError": "MuiSvgIcon-colorError",
+            "colorPrimary": "MuiSvgIcon-colorPrimary",
+            "colorSecondary": "MuiSvgIcon-colorSecondary",
+            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+            "root": "MuiSvgIcon-root",
+          }
+        }
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"
+          />
+        </svg>
+      </ForwardRef(SvgIcon)>
+    </WithStyles(ForwardRef(SvgIcon))>
+  </ForwardRef>
+</OptionIconGenerator>
+`;

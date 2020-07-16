@@ -154,9 +154,74 @@ describe('translateUsersResult', () => {
 
 describe('generateUpdatedFilters', () => {
     describe('edge cases', () => {
-
+        it('always returns an empty array when wrong args are provided', () => {
+            expect(gUP()).toEqual([]);
+            expect(gUP(1, 'wt')).toEqual([]);
+            expect(gUP({})).toEqual([]);
+            expect(gUP(1.23, [])).toEqual([]);
+            expect(gUP('test', 'repos')).toEqual([]);
+        });
     });
     describe('regular', () => {
+        const validArgs1 = [
+            [],
+            'repos'
+        ];
+        const validArgs2 = [
+            [ 'repos', 'users' ],
+            'repos'
+        ];
+        const validArgs3 = [
+            [ 'repos' ],
+            'users'
+        ];
+        const validArgs4 = [
+            [ 'users' ],
+            'users'
+        ];
+        const validArgs5 = [
+            [ 'test', 'test', 'users', 'repos', 'test1' ],
+            'users'
+        ];
+        const validArgs6 = [
+            [ 'users', 'repos', 'longTest' ],
+            'longerTest'
+        ];
+        const testResult1 = gUP(validArgs1[0], validArgs1[1]);
+        const testResult2 = gUP(validArgs2[0], validArgs2[1]);
+        const testResult3 = gUP(validArgs3[0], validArgs3[1]);
+        const testResult4 = gUP(validArgs4[0], validArgs4[1]);
+        const testResult5 = gUP(validArgs5[0], validArgs5[1]);
+        const testResult6 = gUP(validArgs6[0], validArgs6[1]);
 
+        it('always returns an array', () => {
+            expect(Array.isArray(testResult1)).toBeTruthy();
+            expect(Array.isArray(testResult2)).toBeTruthy();
+            expect(Array.isArray(testResult3)).toBeTruthy();
+            expect(Array.isArray(testResult4)).toBeTruthy();
+            expect(Array.isArray(testResult5)).toBeTruthy();
+            expect(Array.isArray(testResult6)).toBeTruthy();
+        });
+        it('returns an array based on filters, appended by type argument if it\'s not already present in filters', () => {
+            expect(validArgs1[0].includes(validArgs1[1])).toBeFalsy();
+            expect(testResult1.includes(validArgs1[1])).toBeTruthy();
+            expect(validArgs3[0].includes(validArgs3[1])).toBeFalsy();
+            expect(testResult3.includes(validArgs3[1])).toBeTruthy();
+            expect(validArgs6[0].includes(validArgs6[1])).toBeFalsy();
+            expect(testResult6.includes(validArgs6[1])).toBeTruthy();
+        });
+        it('returs an array longer than filters by exactly 1 when appending with type', () => {
+            expect(validArgs1[0].length + 1).toEqual(testResult1.length);
+            expect(validArgs3[0].length + 1).toEqual(testResult3.length);
+            expect(validArgs6[0].length + 1).toEqual(testResult6.length);
+        });
+        it('returns an array based on filters, with removed occurences of type argument if it\'s already presennt in filters', () => {
+            expect(validArgs2[0].includes(validArgs2[1])).toBeTruthy();
+            expect(testResult2.includes(validArgs2[1])).toBeFalsy();
+            expect(validArgs4[0].includes(validArgs4[1])).toBeTruthy();
+            expect(testResult4.includes(validArgs4[1])).toBeFalsy();
+            expect(validArgs5[0].includes(validArgs5[1])).toBeTruthy();
+            expect(testResult5.includes(validArgs5[1])).toBeFalsy();
+        });
     });
 })

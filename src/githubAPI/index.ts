@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/rest';
 
-import { processResponseStatus } from '../utils';
+import { processError } from '../utils';
 
 export const githubAPI = () => {
     const octokit = new Octokit({
@@ -13,12 +13,11 @@ export const githubAPI = () => {
                 q: `${query}+in:login`,
                 per_page: limit
             });
-            const { data, status } = response;
-            const statusError = processResponseStatus(status);
+            const { data } = response;
     
-            return { payload: data, error: statusError };
+            return { payload: data, error: null };
         } catch (error) {
-            return { payload: null, error: error.message };
+            return { payload: null, error: processError(error) };
         }
     };
 
@@ -28,12 +27,11 @@ export const githubAPI = () => {
                 q: `${query}+in:name`,
                 per_page: limit
             });
-            const { data, status } = response
-            const statusError = processResponseStatus(status);
+            const { data } = response;
     
-            return { payload: data, error: statusError };
+            return { payload: data, error: null };
         } catch (error) {
-            return { payload: null, error: error.message };
+            return { payload: null, error: processError(error) };
         }
     };
 
